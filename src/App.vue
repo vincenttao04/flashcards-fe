@@ -1,10 +1,10 @@
 <script setup>
-import FlashCard from "./components/FlashCard.vue";
+import FlashCardApp from "./views/FlashCardApp.vue";
 </script>
 
 <template>
   <div id="app">
-    <FlashCard />
+    <FlashCardApp />
   </div>
 </template>
 
