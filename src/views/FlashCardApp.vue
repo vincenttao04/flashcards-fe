@@ -1,3 +1,5 @@
+// This is a Vue 3 component for a Flash Card application. It includes a flash
+card component, navigation buttons, and indicators for the cards.
 <template>
   <div class="flash-card-app">
     <h1>Flash Cards</h1>

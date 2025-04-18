@@ -1,3 +1,5 @@
+// This component is used to display a series of indicators (dots) for a card
+slider.
 <template>
   <div class="card-indicators">
     <span

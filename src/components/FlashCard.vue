@@ -1,3 +1,4 @@
+// This component represents a flashcard that can be flipped to show the answer.
 <template>
   <div class="card-container">
     <div class="card" :class="{ flipped: isFlipped }" @click="flipCard">
