@@ -1,13 +1,18 @@
 <template>
   <div class="home-page">
     <div class="header">
-      <h1>Flash Card Sets</h1>
+      <h1>Flash Card Library</h1>
+      <h3>Your personal collection of flash cards for effective learning</h3>
+    </div>
+
+    <div class="actions-container">
       <router-link to="/create" class="create-button">
         + Create New Set
       </router-link>
+      <div class="search-wrapper">
+        <SearchBar v-model="searchQuery" />
+      </div>
     </div>
-
-    <SearchBar v-model="searchQuery" />
 
     <div class="flash-card-sets">
       <FlashCardSetCard
@@ -21,8 +26,8 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import SearchBar from "../components/SearchBar.vue";
-import FlashCardSetCard from "../components/flashcard/FlashCardSetCard.vue";
+import SearchBar from "../components/home/SearchBar.vue";
+import FlashCardSetCard from "../components/home/FlashCardSetCard.vue";
 import { flashCardSets } from "../data/flashCardSets.js";
 
 const searchQuery = ref("");
@@ -54,15 +59,29 @@ const filteredFlashCardSets = computed(() => {
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
 h1 {
   color: #2c3e50;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+.actions-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 42px;
+  align-items: stretch;
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
 
 .create-button {
@@ -73,12 +92,31 @@ h1 {
   text-decoration: none;
   font-weight: 500;
   transition: background-color 0.2s;
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 100%;
+  width: 210px;
+  min-width: 160px;
+  flex-shrink: 0;
 }
 
 .create-button:hover {
   background-color: #1c7ed6;
+}
+
+.search-wrapper {
+  margin-left: auto;
+  max-width: 500px;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex: 1;
 }
 
 .flash-card-sets {
@@ -98,9 +136,20 @@ h1 {
     text-align: center;
   }
 
+  .actions-container {
+    height: auto;
+  }
+
   .create-button {
     width: 100%;
-    justify-content: center;
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .search-wrapper {
+    margin-left: 0;
+    max-width: 100%;
+    width: 100%;
   }
 }
 </style>
