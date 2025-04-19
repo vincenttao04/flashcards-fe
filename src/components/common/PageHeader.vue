@@ -1,7 +1,8 @@
 <template>
   <header :class="['page-header', alignment]">
     <router-link v-if="showBackLink" to="/" class="back-link">
-      ← Back to Sets
+      <i class="bi bi-arrow-left"></i>
+      <span>Back to Sets</span>
     </router-link>
     <h1>{{ title }}</h1>
     <h3 v-if="subtitle">{{ subtitle }}</h3>
@@ -50,7 +51,8 @@ defineProps({
 }
 
 .back-link {
-  display: inline-block;
+  display: inline-flex;
+  gap: 0.5rem; /* gap between the icon and text */
   margin-bottom: 1rem;
   color: #666;
   text-decoration: none;

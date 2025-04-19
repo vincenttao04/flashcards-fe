@@ -8,7 +8,8 @@
 
     <div class="actions-container">
       <router-link to="/create" class="create-button">
-        + Create New Set
+        <i class="bi bi-plus-lg"></i>
+        <span class="button-text">Create New Set</span>
       </router-link>
       <div class="search-wrapper">
         <SearchBar v-model="searchQuery" />
@@ -63,7 +64,7 @@ const filteredFlashCardSets = computed(() => {
 .actions-container {
   display: flex;
   flex-wrap: wrap;
-  height: 42px;
+  height: 48px;
   align-items: stretch;
   gap: 2rem;
   margin-top: 4rem;
@@ -85,13 +86,18 @@ const filteredFlashCardSets = computed(() => {
   overflow: hidden;
   text-overflow: ellipsis;
   height: 100%;
-  width: 210px;
+  width: 200px;
   min-width: 160px;
   flex-shrink: 0;
+  gap: 0.5rem; /* gap between the icon and text */
 }
 
 .create-button:hover {
   background-color: #1c7ed6;
+}
+
+.button-text {
+  margin-right: 0.25rem;
 }
 
 .search-wrapper {

@@ -8,7 +8,8 @@ index out of the total number of cards.
       @click="$emit('prev')"
       :disabled="currentIndex === 0"
     >
-      <span class="icon">←</span> Previous
+      <i class="bi bi-chevron-left"></i>
+      Previous
     </button>
 
     <div class="progress">{{ currentIndex + 1 }} / {{ total }}</div>
@@ -18,7 +19,8 @@ index out of the total number of cards.
       @click="$emit('next')"
       :disabled="currentIndex === total - 1"
     >
-      Next <span class="icon">→</span>
+      Next
+      <i class="bi bi-chevron-right"></i>
     </button>
   </div>
 </template>
@@ -57,6 +59,7 @@ defineEmits(["prev", "next"]);
   font-weight: 500;
   display: flex;
   align-items: center;
+  gap: 0.5rem; /* gap between the icon and text */
   transition: all 0.2s;
 }
 
@@ -67,10 +70,6 @@ defineEmits(["prev", "next"]);
 .control-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-.icon {
-  margin: 0 0.25rem;
 }
 
 .progress {

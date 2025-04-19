@@ -18,7 +18,8 @@
     </div>
 
     <button type="button" class="add-card-btn" @click="$emit('add')">
-      + Add Another Card
+      <i class="bi bi-plus-lg"></i>
+      Add Another Card
     </button>
   </div>
 </template>
@@ -105,6 +106,9 @@ h2 {
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s;
+  gap: 0.5rem; /* gap between the icon and text */
+  display: flex;
+  place-content: center;
 }
 
 .add-card-btn:hover {
