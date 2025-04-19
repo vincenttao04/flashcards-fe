@@ -39,6 +39,7 @@ card component, navigation buttons, and indicators for the cards.
 import { ref, computed, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getFlashCardSet } from "../data/flashCardSets.js";
+import SearchBar from "../components/home/SearchBar.vue";
 import FlashCard from "../components/flashcard/FlashCard.vue";
 import CardNavigator from "../components/flashcard/CardNavigator.vue";
 import CardIndicators from "../components/flashcard/CardIndicators.vue";

@@ -4,7 +4,7 @@
       type="text"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
-      placeholder="Search flash cards..."
+      placeholder="Search..."
       class="search-input"
     />
   </div>
@@ -23,15 +23,18 @@ defineEmits(["update:modelValue"]);
 
 <style scoped>
 .search-container {
-  margin-bottom: 2rem;
+  width: 100%;
+  height: 100%;
+  display: flex;
 }
 
 .search-input {
   width: 100%;
-  padding: 1rem;
+  height: 100%;
+  padding: 0 1rem;
   font-size: 1rem;
   border: 2px solid #e9ecef;
-  border-radius: 8px;
+  border-radius: 6px;
   background-color: white;
   transition: border-color 0.2s, box-shadow 0.2s;
 }

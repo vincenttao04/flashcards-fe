@@ -36,7 +36,7 @@ function formatDate(date) {
 <style scoped>
 .card-set {
   background-color: white;
-  border-radius: 12px;
+  border-radius: 6px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   padding: 1.5rem;
   display: flex;
