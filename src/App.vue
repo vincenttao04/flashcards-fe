@@ -1,10 +1,10 @@
 <script setup>
-import FlashCardApp from "./views/FlashCardApp.vue";
+import { RouterView } from "vue-router";
 </script>
 
 <template>
   <div id="app">
-    <FlashCardApp />
+    <RouterView />
   </div>
 </template>
 
@@ -14,4 +14,15 @@ import FlashCardApp from "./views/FlashCardApp.vue";
   padding: 20px;
   background-color: #f5f5f5;
 }
+
+/* * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+} */
 </style>

@@ -2,86 +2,88 @@
 card component, navigation buttons, and indicators for the cards.
 <template>
   <div class="flash-card-app">
-    <h1>Flash Cards</h1>
+    <header class="app-header">
+      <router-link to="/" class="back-link">← Back to Sets</router-link>
+      <h1>{{ cardSet.title }}</h1>
+    </header>
 
-    <FlashCard ref="flashCardRef" :card="currentCard" />
+    <FlashCard :card="currentCard" :is-flipped="isFlipped" @flip="handleFlip" />
 
     <CardNavigator
       :current-index="currentIndex"
-      :total="cards.length"
+      :total="cardSet.cards.length"
       @prev="prevCard"
       @next="nextCard"
     />
 
     <CardIndicators
       :current-index="currentIndex"
-      :total="cards.length"
+      :total="cardSet.cards.length"
       @select="goToCard"
     />
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { getFlashCardSet } from "../data/FlashCardSets";
 import FlashCard from "../components/FlashCard.vue";
 import CardNavigator from "../components/CardNavigator.vue";
 import CardIndicators from "../components/CardIndicators.vue";
 
-// Sample flash cards data
-const cards = ref([
-  {
-    question: "What is Vue.js?",
-    answer:
-      "Vue.js is a progressive JavaScript framework for building user interfaces.",
-  },
-  {
-    question: "What is a component in Vue?",
-    answer:
-      "A component is a reusable Vue instance with a name that encapsulates HTML, CSS, and JavaScript.",
-  },
-  {
-    question: "What is the Vue instance?",
-    answer:
-      "The Vue instance is the root of a Vue application that controls the entire app.",
-  },
-  {
-    question: "What is v-bind used for?",
-    answer:
-      "v-bind is used to bind an attribute to a dynamic value from your data.",
-  },
-  {
-    question: "What is v-model?",
-    answer:
-      "v-model is used for two-way data binding on form inputs and components.",
-  },
-]);
-
+const route = useRoute();
+const cardSet = ref(null);
 const currentIndex = ref(0);
-const flashCardRef = ref(null);
+const isFlipped = ref(false);
 
-const currentCard = computed(() => cards.value[currentIndex.value]);
+onMounted(() => {
+  cardSet.value = getFlashCardSet(route.params.setId);
+});
+
+const currentCard = computed(() => cardSet.value?.cards[currentIndex.value]);
+
+function handleFlip() {
+  isFlipped.value = !isFlipped.value;
+}
 
 function nextCard() {
   if (currentIndex.value < cards.value.length - 1) {
     currentIndex.value++;
-    flashCardRef.value.isFlipped = false;
+    isFlipped.value = false;
   }
 }
 
 function prevCard() {
   if (currentIndex.value > 0) {
     currentIndex.value--;
-    flashCardRef.value.isFlipped = false;
+    isFlipped.value = false;
   }
 }
 
 function goToCard(index) {
   currentIndex.value = index;
-  flashCardRef.value.isFlipped = false;
+  isFlipped.value = false;
 }
 </script>
 
 <style scoped>
+.app-header {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #666;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: #333;
+}
+
 .flash-card-app {
   max-width: 600px;
   margin: 0 auto;
