@@ -1,8 +1,6 @@
 <template>
   <div class="form-actions">
-    <button type="button" class="cancel-btn" @click="$emit('reset')">
-      Cancel
-    </button>
+    <router-link to="/" class="cancel-btn"> Cancel </router-link>
     <button
       type="button"
       class="save-btn"
@@ -22,7 +20,7 @@ defineProps({
   },
 });
 
-defineEmits(["save", "reset"]);
+defineEmits(["save"]);
 </script>
 
 <style scoped>
@@ -44,6 +42,9 @@ defineEmits(["save", "reset"]);
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
 }
 
 .cancel-btn:hover {
