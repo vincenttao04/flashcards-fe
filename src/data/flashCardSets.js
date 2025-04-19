@@ -3,6 +3,7 @@ export const flashCardSets = [
     id: "vue-basics",
     title: "Vue.js Basics",
     description: "Learn the fundamentals of Vue.js framework",
+    createdAt: new Date("2024-01-20"),
     cards: [
       {
         question: "What is Vue.js?",
@@ -35,13 +36,13 @@ export const flashCardSets = [
     id: "js-fundamentals",
     title: "JavaScript Fundamentals",
     description: "Core concepts of JavaScript programming",
+    createdAt: new Date("2024-04-15"),
     cards: [
       {
         question: "What is closure?",
         answer:
           "A closure is the combination of a function and the lexical environment within which that function was declared.",
       },
-      // ... more cards
     ],
   },
 ];

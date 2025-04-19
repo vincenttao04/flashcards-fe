@@ -1,14 +1,17 @@
 <template>
   <router-link
     :to="{ name: 'flashcards', params: { setId: set.id } }"
-    class="flash-card-set"
+    class="card-set"
   >
-    <div class="set-content">
-      <h3>{{ set.title }}</h3>
-      <p>{{ set.description }}</p>
-      <div class="set-meta">
-        <span>{{ set.cards.length }} cards</span>
-      </div>
+    <div class="set-header">
+      <h2 class="set-title">{{ set.title }}</h2>
+      <span class="card-count">{{ set.cards.length }} cards</span>
+    </div>
+
+    <p class="set-description">{{ set.description }}</p>
+
+    <div class="set-footer">
+      <span class="created-date">Created: {{ formatDate(set.createdAt) }}</span>
     </div>
   </router-link>
 </template>
@@ -20,37 +23,80 @@ defineProps({
     required: true,
   },
 });
+
+function formatDate(date) {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(date);
+}
 </script>
 
 <style scoped>
-.flash-card-set {
-  display: block;
+.card-set {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   padding: 1.5rem;
-  border-radius: 8px;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.flash-card-set:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.card-set:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
 }
 
-h3 {
-  margin: 0 0 0.5rem;
+.set-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.set-title {
+  font-size: 1.25rem;
+  font-weight: 600;
   color: #2c3e50;
+  margin: 0;
 }
 
-p {
-  margin: 0 0 1rem;
-  color: #666;
+.card-count {
+  background-color: #e9ecef;
+  color: #495057;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
-.set-meta {
-  font-size: 0.9rem;
-  color: #666;
+.set-description {
+  color: #6c757d;
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.set-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.created-date {
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 480px) {
+  .set-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 }
 </style>
