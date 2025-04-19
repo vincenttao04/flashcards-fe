@@ -33,7 +33,7 @@ import { ref, computed } from "vue";
 import PageHeader from "../components/common/PageHeader.vue";
 import SetTitleInput from "../components/create/SetTitleInput.vue";
 import CardsList from "../components/create/CardsList.vue";
-import PreviewSection from "../components/create/PreviewSection.vue";
+import PreviewSection from "../components/create/CardPreview.vue";
 import FormActions from "../components/create/FormActions.vue";
 
 const setTitle = ref("");
