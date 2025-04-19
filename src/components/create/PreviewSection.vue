@@ -33,7 +33,7 @@
 
 <script setup>
 import { ref } from "vue";
-import FlashCard from "../FlashCard.vue";
+import FlashCard from "../flashcard/FlashCard.vue";
 
 const props = defineProps({
   cards: {
