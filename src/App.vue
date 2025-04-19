@@ -26,8 +26,8 @@ button {
 }
 
 #app {
-  min-height: 100vh;
-  padding: 20px;
+  height: 100vh;
   background-color: #f5f5f5;
+  overflow-y: auto;
 }
 </style>

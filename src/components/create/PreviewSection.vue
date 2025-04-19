@@ -75,6 +75,7 @@ function prevCard() {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
+  margin-top: 2rem;
 }
 
 .preview-controls {
