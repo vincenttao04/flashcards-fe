@@ -1,7 +1,7 @@
 // This component represents a flashcard that can be flipped to show the answer.
 <template>
   <div class="card-container">
-    <div class="card" :class="{ flipped: isFlipped }" @click="flipCard">
+    <div class="card" :class="{ flipped: isFlipped }" @click="$emit('flip')">
       <div class="card-face card-front">
         <p>{{ card.question }}</p>
       </div>
@@ -13,22 +13,18 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-
-const props = defineProps({
+defineProps({
   card: {
     type: Object,
     required: true,
   },
+  isFlipped: {
+    type: Boolean,
+    required: true,
+  },
 });
 
-const isFlipped = ref(false);
-
-function flipCard() {
-  isFlipped.value = !isFlipped.value;
-}
-
-defineExpose({ isFlipped });
+defineEmits(["flip"]);
 </script>
 
 <style scoped>

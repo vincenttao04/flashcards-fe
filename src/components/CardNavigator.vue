@@ -1,4 +1,4 @@
-// This component is used to navigate through a list of cards. // It provides
+// This component is used to navigate through a list of cards. It provides
 buttons to go to the previous and next cards, and displays the current card
 index out of the total number of cards.
 <template>
