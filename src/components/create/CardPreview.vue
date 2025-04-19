@@ -8,25 +8,13 @@
         @flip="isFlipped = !isFlipped"
       />
 
-      <div class="preview-controls">
-        <button
-          class="control-btn"
-          @click="prevCard"
-          :disabled="previewIndex === 0"
-        >
-          <span class="icon">←</span> Previous
-        </button>
-
-        <div class="progress">{{ previewIndex + 1 }} / {{ cards.length }}</div>
-
-        <button
-          class="control-btn"
-          @click="nextCard"
-          :disabled="previewIndex === cards.length - 1"
-        >
-          Next <span class="icon">→</span>
-        </button>
-      </div>
+      <CardNavigator
+        :current-index="previewIndex"
+        :total="cards.length"
+        @prev="prevCard"
+        @next="nextCard"
+        class="preview-navigator"
+      />
     </div>
   </div>
 </template>
@@ -34,6 +22,7 @@
 <script setup>
 import { ref } from "vue";
 import FlashCard from "../flashcard/FlashCard.vue";
+import CardNavigator from "../flashcard/CardNavigator.vue";
 
 const props = defineProps({
   cards: {
@@ -78,42 +67,7 @@ function prevCard() {
   margin-top: 2rem;
 }
 
-.preview-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+.preview-navigator {
   margin-top: 1rem;
-}
-
-.control-btn {
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecef;
-  color: #495057;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  transition: all 0.2s;
-}
-
-.control-btn:hover:not(:disabled) {
-  background-color: #e9ecef;
-}
-
-.control-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.progress {
-  font-size: 0.9rem;
-  color: #6c757d;
-}
-
-.icon {
-  margin: 0 0.25rem;
 }
 </style>

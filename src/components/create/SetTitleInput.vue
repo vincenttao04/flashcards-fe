@@ -1,14 +1,27 @@
 <template>
   <div class="form-group">
-    <label for="set-title">Set Title</label>
-    <input
-      type="text"
-      id="set-title"
-      :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
-      placeholder="Enter a title for your flash card set"
-      class="form-input"
-    />
+    <div class="title">
+      <label for="set-title">Set Title</label>
+      <input
+        type="text"
+        id="set-title"
+        :value="modelValue"
+        @input="$emit('update:modelValue', $event.target.value)"
+        placeholder="Enter a short, catchy title"
+        class="form-input"
+      />
+    </div>
+    <div class="description">
+      <label for="set-description">Set Description</label>
+      <input
+        type="text"
+        id="set-title"
+        :value="modelValue"
+        @input="$emit('update:modelValue', $event.target.value)"
+        placeholder="Briefly describe what this set is about"
+        class="form-input"
+      />
+    </div>
   </div>
 </template>
 
@@ -19,6 +32,10 @@ defineEmits(["update:modelValue"]);
 
 <style scoped>
 .form-group {
+  margin-bottom: 2rem;
+}
+
+.title {
   margin-bottom: 1.5rem;
 }
 
