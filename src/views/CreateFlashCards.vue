@@ -1,6 +1,10 @@
 <template>
   <div class="create-flash-cards">
-    <h1>Create Flash Cards</h1>
+    <header class="page-header">
+      <router-link to="/" class="back-link"> ← Back to Sets </router-link>
+      <h1>Create Flash Cards</h1>
+    </header>
+
     <div class="form-container">
       <SetTitleInput v-model="setTitle" />
 
@@ -18,11 +22,7 @@
         @update:index="previewIndex = $event"
       />
 
-      <FormActions
-        :is-valid="isFormValid"
-        @save="saveFlashCards"
-        @reset="resetForm"
-      />
+      <FormActions :is-valid="isFormValid" @save="saveFlashCards" />
     </div>
   </div>
 </template>
@@ -91,6 +91,28 @@ function resetForm() {
   margin: 0 auto;
   padding: 2rem;
   color: #333;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #666;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #333;
+}
+
+h1 {
+  color: #2c3e50;
+  margin: 0;
+  font-weight: 600;
 }
 
 .form-container {
