@@ -1,9 +1,10 @@
 <template>
   <div class="home-page">
-    <div class="header">
-      <h1>Flash Card Library</h1>
-      <h3>Your personal collection of flash cards for effective learning</h3>
-    </div>
+    <PageHeader
+      title="Flash Card Library"
+      subtitle="Explore and create your personal collection of flash cards"
+      alignment="center"
+    />
 
     <div class="actions-container">
       <router-link to="/create" class="create-button">
@@ -26,6 +27,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import PageHeader from "../components/common/PageHeader.vue";
 import SearchBar from "../components/home/SearchBar.vue";
 import FlashCardSetCard from "../components/home/FlashCardSetCard.vue";
 import { flashCardSets } from "../data/flashCardSets.js";
@@ -58,30 +60,14 @@ const filteredFlashCardSets = computed(() => {
   padding: 2rem;
 }
 
-.header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-h1 {
-  color: #2c3e50;
-  margin-bottom: 0.5rem;
-}
-
-h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #495057;
-}
-
 .actions-container {
   display: flex;
   flex-wrap: wrap;
   height: 42px;
   align-items: stretch;
   gap: 2rem;
-  margin-bottom: 3rem;
+  margin-top: 4rem;
+  margin-bottom: 2.5rem;
 }
 
 .create-button {
@@ -128,12 +114,6 @@ h3 {
 @media (max-width: 640px) {
   .home-page {
     padding: 1rem;
-  }
-
-  .header {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
   }
 
   .actions-container {

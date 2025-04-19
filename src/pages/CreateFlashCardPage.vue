@@ -1,9 +1,10 @@
 <template>
   <div class="create-flash-cards">
-    <header class="page-header">
-      <router-link to="/" class="back-link"> ← Back to Sets </router-link>
-      <h1>Create Flash Cards</h1>
-    </header>
+    <PageHeader
+      title="Create Flash Cards"
+      :showBackLink="true"
+      alignment="left"
+    />
 
     <div class="form-container">
       <SetTitleInput v-model="setTitle" />
@@ -29,6 +30,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import PageHeader from "../components/common/PageHeader.vue";
 import SetTitleInput from "../components/create/SetTitleInput.vue";
 import CardsList from "../components/create/CardsList.vue";
 import PreviewSection from "../components/create/PreviewSection.vue";
@@ -91,28 +93,6 @@ function resetForm() {
   margin: 0 auto;
   padding: 2rem;
   color: #333;
-}
-
-.page-header {
-  margin-bottom: 2rem;
-}
-
-.back-link {
-  display: inline-block;
-  margin-bottom: 1rem;
-  color: #666;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.back-link:hover {
-  color: #333;
-}
-
-h1 {
-  color: #2c3e50;
-  margin: 0;
-  font-weight: 600;
 }
 
 .form-container {

@@ -2,12 +2,10 @@
 card component, navigation buttons, and indicators for the cards.
 <template>
   <div class="flash-card-app" v-if="cardSet">
-    <header class="app-header">
-      <router-link to="/" class="back-link">← Back to Sets</router-link>
-      <h1>{{ cardSet.title }}</h1>
-    </header>
+    <PageHeader :title="cardSet.title" :showBackLink="true" alighmnet="left" />
 
     <FlashCard
+      class="flash-card"
       v-if="currentCard"
       :card="currentCard"
       :is-flipped="isFlipped"
@@ -39,7 +37,7 @@ card component, navigation buttons, and indicators for the cards.
 import { ref, computed, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getFlashCardSet } from "../data/flashCardSets.js";
-import SearchBar from "../components/home/SearchBar.vue";
+import PageHeader from "../components/common/PageHeader.vue";
 import FlashCard from "../components/flashcard/FlashCard.vue";
 import CardNavigator from "../components/flashcard/CardNavigator.vue";
 import CardIndicators from "../components/flashcard/CardIndicators.vue";
@@ -115,26 +113,9 @@ function goToCard(index) {
   color: #333;
 }
 
-.app-header {
-  width: 100%;
-  margin-bottom: 2rem;
-}
-
-.back-link {
-  display: inline-block;
-  margin-bottom: 1rem;
-  color: #666;
-  text-decoration: none;
-}
-
-.back-link:hover {
-  color: #333;
-}
-
-h1 {
-  color: #2c3e50;
-  margin-bottom: 2rem;
-  font-weight: 600;
+.flash-card {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
 }
 
 .error-state {
