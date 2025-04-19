@@ -7,15 +7,43 @@
       </router-link>
     </div>
 
+    <SearchBar v-model="searchQuery" />
+
     <div class="flash-card-sets">
-      <FlashCardSetCard v-for="set in flashCardSets" :key="set.id" :set="set" />
+      <FlashCardSetCard
+        v-for="set in filteredFlashCardSets"
+        :key="set.id"
+        :set="set"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-import FlashCardSetCard from "../components/FlashCardSetCard.vue";
+import { ref, computed } from "vue";
+import SearchBar from "../components/SearchBar.vue";
+import FlashCardSetCard from "../components/flashcard/FlashCardSetCard.vue";
 import { flashCardSets } from "../data/flashCardSets.js";
+
+const searchQuery = ref("");
+
+const filteredFlashCardSets = computed(() => {
+  const query = searchQuery.value.toLowerCase().trim();
+
+  if (!query) return flashCardSets;
+
+  return flashCardSets.filter((set) => {
+    const titleMatch = set.title.toLowerCase().includes(query);
+    const descriptionMatch = set.description.toLowerCase().includes(query);
+    const cardsMatch = set.cards.some(
+      (card) =>
+        card.question.toLowerCase().includes(query) ||
+        card.answer.toLowerCase().includes(query)
+    );
+
+    return titleMatch || descriptionMatch || cardsMatch;
+  });
+});
 </script>
 
 <style scoped>

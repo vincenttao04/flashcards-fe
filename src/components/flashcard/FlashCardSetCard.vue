@@ -72,6 +72,9 @@ function formatDate(date) {
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: 500;
+  width: fit-content;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .set-description {
