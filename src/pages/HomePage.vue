@@ -67,7 +67,7 @@ const filteredFlashCardSets = computed(() => {
   height: 48px;
   align-items: stretch;
   gap: 2rem;
-  margin-top: 4rem;
+  margin-top: 3rem;
   margin-bottom: 2.5rem;
 }
 
