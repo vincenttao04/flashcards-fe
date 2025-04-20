@@ -70,7 +70,6 @@ h1 {
 }
 
 h3 {
-  margin: 0;
   font-size: 1.1rem;
   font-weight: 500;
   color: #495057;

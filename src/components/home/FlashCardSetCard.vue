@@ -12,6 +12,10 @@
 
     <div class="set-footer">
       <span class="created-date">Created: {{ formatDate(set.createdAt) }}</span>
+      <!-- TODO: Implement delete functionality -->
+      <button class="delete-button">
+        <i class="bi bi-trash"></i>
+      </button>
     </div>
   </router-link>
 </template>
@@ -56,6 +60,7 @@ function formatDate(date) {
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 0.75rem;
+  gap: 0.75rem;
 }
 
 .set-title {
@@ -63,6 +68,13 @@ function formatDate(date) {
   font-weight: 600;
   color: #2c3e50;
   margin: 0;
+  overflow: hidden;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  min-height: 1.25rem;
 }
 
 .card-count {
@@ -82,22 +94,46 @@ function formatDate(date) {
   margin-bottom: 1.25rem;
   font-size: 0.95rem;
   line-height: 1.5;
+  overflow: hidden;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  min-height: 3rem;
 }
 
 .set-footer {
   margin-top: auto;
   padding-top: 1rem;
   border-top: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .created-date {
   color: #6c757d;
   font-size: 0.85rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.delete-button {
+  background-color: #ffffff;
+  color: #dc3545;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color 0.2s;
+}
+
+.delete-button:hover {
+  color: #bb2d3b;
 }
 
 @media (max-width: 480px) {
   .set-footer {
-    flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
