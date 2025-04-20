@@ -21,6 +21,7 @@
         v-for="set in filteredFlashCardSets"
         :key="set.id"
         :set="set"
+        @delete="handleDelete"
       />
     </div>
   </div>
@@ -52,6 +53,10 @@ const filteredFlashCardSets = computed(() => {
     return titleMatch || descriptionMatch || cardsMatch;
   });
 });
+
+function handleDelete(setId, setTitle) {
+  alert(`[MOCK] ${setTitle} has been successfully deleted`);
+}
 </script>
 
 <style scoped>
