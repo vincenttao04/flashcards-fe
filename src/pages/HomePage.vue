@@ -55,7 +55,9 @@ const filteredFlashCardSets = computed(() => {
 });
 
 function handleDelete(setId, setTitle) {
-  alert(`[MOCK] ${setTitle} has been successfully deleted`);
+  alert(
+    `[MOCK] ${setTitle} has been successfully deleted\n\nTo delete a flash card set, please amend the code in src/data/flashCardSets.js`
+  );
 }
 </script>
 

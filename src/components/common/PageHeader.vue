@@ -33,7 +33,7 @@ defineProps({
 
 <style scoped>
 .page-header {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   margin-bottom: 2rem;
   width: 100%;
 }
@@ -53,7 +53,7 @@ defineProps({
 .back-link {
   display: inline-flex;
   gap: 0.5rem; /* gap between the icon and text */
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   color: #666;
   text-decoration: none;
   transition: color 0.2s;
@@ -67,6 +67,7 @@ h1 {
   color: #2c3e50;
   margin-bottom: 0.5rem;
   font-weight: 600;
+  line-height: 0.8;
 }
 
 h3 {
