@@ -123,7 +123,6 @@ function handleEdit() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #333;
 }
 
 .header-container {
@@ -142,7 +141,7 @@ function handleEdit() {
 }
 
 .edit-icon:hover {
-  color: #333;
+  color: #000000;
 }
 
 .flash-card {

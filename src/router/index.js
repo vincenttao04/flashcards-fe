@@ -1,7 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomePage from "../pages/HomePage.vue";
-import FlashCardPage from "../pages/FlashCardPage.vue";
-import CreateFlashCardPage from "../pages/CreateFlashCardPage.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -9,18 +6,18 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: HomePage,
+      component: () => import("../pages/HomePage.vue"),
     },
     {
       path: "/flashcards/:setId",
       name: "flashcards",
-      component: FlashCardPage,
+      component: () => import("../pages/FlashCardPage.vue"),
       props: true,
     },
     {
       path: "/create",
       name: "create",
-      component: CreateFlashCardPage,
+      component: () => import("../pages/CreateFlashCardPage.vue"),
     },
   ],
 });
