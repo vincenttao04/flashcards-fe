@@ -5,6 +5,7 @@ card component, navigation buttons, and indicators for the cards.
     <PageHeader :title="cardSet.title" :showBackLink="true" alighmnet="left" />
 
     <FlashCard
+      :key="currentIndex"
       class="flash-card"
       v-if="currentCard"
       :card="currentCard"
