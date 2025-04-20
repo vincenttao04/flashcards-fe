@@ -76,14 +76,6 @@ export const flashCardSets = [
         answer: "Leonardo da Vinci",
       },
       {
-        question: "What is the smallest prime number?",
-        answer: "2",
-      },
-      {
-        question: "What currency is used in Japan?",
-        answer: "Yen",
-      },
-      {
         question: "What is the main language spoken in Brazil?",
         answer: "Portuguese",
       },
@@ -174,31 +166,8 @@ export const flashCardSets = [
         answer:
           "A bond is a loan made to a company or government by an investor.",
       },
-      {
-        question: "What does 'diversification' mean in investing?",
-        answer: "Spreading investments across different assets to reduce risk.",
-      },
-      {
-        question: "What is inflation?",
-        answer:
-          "The general increase in prices and decrease in purchasing power over time.",
-      },
-      {
-        question: "What is a 401(k)?",
-        answer: "A retirement savings plan offered by employers in the U.S.",
-      },
-      {
-        question: "What does 'net worth' mean?",
-        answer: "The value of your assets minus your liabilities.",
-      },
-      {
-        question: "What is a mortgage?",
-        answer:
-          "A loan used to purchase real estate, typically paid over years.",
-      },
     ],
   },
-  // === Space & Astronomy Set ===
   {
     id: "space-astronomy",
     title: "Space & Astronomy",
@@ -219,19 +188,6 @@ export const flashCardSets = [
         answer: "About 8 minutes and 20 seconds",
       },
       {
-        question: "What is a black hole?",
-        answer:
-          "A region of space where gravity is so strong that nothing can escape from it.",
-      },
-      {
-        question: "Which planet has the most moons?",
-        answer: "Saturn",
-      },
-      {
-        question: "What galaxy is Earth located in?",
-        answer: "The Milky Way Galaxy",
-      },
-      {
         question: "What causes a solar eclipse?",
         answer:
           "The Moon passes between the Earth and the Sun, blocking sunlight.",
@@ -240,19 +196,8 @@ export const flashCardSets = [
         question: "What was the first human-made object to reach space?",
         answer: "The V-2 rocket in 1944",
       },
-      {
-        question: "Who was the first person on the Moon?",
-        answer: "Neil Armstrong",
-      },
-      {
-        question: "What is the International Space Station (ISS)?",
-        answer:
-          "A space station where astronauts live and work in orbit around Earth.",
-      },
     ],
   },
-
-  // === Technology & Innovation Set ===
   {
     id: "tech-innovation",
     title: "Tech & Innovation",
@@ -263,10 +208,6 @@ export const flashCardSets = [
       {
         question: "Who is known as the father of the computer?",
         answer: "Charles Babbage",
-      },
-      {
-        question: "What does AI stand for?",
-        answer: "Artificial Intelligence",
       },
       {
         question: "What is blockchain used for?",
@@ -284,10 +225,6 @@ export const flashCardSets = [
       {
         question: "What language is commonly used to build websites?",
         answer: "HTML, CSS, and JavaScript",
-      },
-      {
-        question: "Who founded Microsoft?",
-        answer: "Bill Gates and Paul Allen",
       },
       {
         question: "What does VR stand for?",

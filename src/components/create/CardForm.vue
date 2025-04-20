@@ -6,7 +6,7 @@
         :id="`question-${index}`"
         :value="card.question"
         @input="updateField('question', $event.target.value)"
-        placeholder="Enter the question"
+        placeholder="e.g. What is the capital of Australia?"
         class="form-input"
         rows="2"
       ></textarea>
@@ -18,7 +18,7 @@
         :id="`answer-${index}`"
         :value="card.answer"
         @input="updateField('answer', $event.target.value)"
-        placeholder="Enter the answer"
+        placeholder="e.g. Canberra"
         class="form-input"
         rows="3"
       ></textarea>
@@ -68,6 +68,10 @@ label {
   font-size: 1rem;
   transition: border-color 0.2s;
   resize: vertical;
+}
+
+.form-input::placeholder {
+  font-style: italic;
 }
 
 .form-input:focus {

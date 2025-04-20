@@ -21,12 +21,12 @@ card component, navigation buttons, and indicators for the cards.
       @next="nextCard"
     />
 
-    <CardIndicators
+    <!-- <CardIndicators
       v-if="cardSet.cards.length"
       :current-index="currentIndex"
       :total="cardSet.cards.length"
       @select="goToCard"
-    />
+    /> -->
   </div>
   <div v-else class="error-state">
     <h2>Flash Card Set Not Found</h2>
@@ -41,7 +41,7 @@ import { getFlashCardSet } from "../data/flashCardSets.js";
 import PageHeader from "../components/common/PageHeader.vue";
 import FlashCard from "../components/flashcard/FlashCard.vue";
 import CardNavigator from "../components/flashcard/CardNavigator.vue";
-import CardIndicators from "../components/flashcard/CardIndicators.vue";
+// import CardIndicators from "../components/flashcard/CardIndicators.vue";
 
 const route = useRoute();
 const router = useRouter();
