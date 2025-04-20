@@ -83,7 +83,9 @@ function updateCards(newCards) {
 
 function saveFlashCards() {
   if (isFormValid.value) {
-    alert(`[MOCK] ${setTitle.value} saved successfully!`);
+    alert(
+      `[MOCK] ${setTitle.value} saved successfully\n\nTo add a new flash card set, please amend the code in src/data/flashCardSets.js`
+    );
     console.log("Saving:", { title: setTitle.value, cards: cards.value });
     resetForm();
     router.push("/");

@@ -2,7 +2,14 @@
 card component, navigation buttons, and indicators for the cards.
 <template>
   <div class="flash-card-app" v-if="cardSet">
-    <PageHeader :title="cardSet.title" :showBackLink="true" alighmnet="left" />
+    <div class="header-container">
+      <PageHeader
+        :title="cardSet.title"
+        :showBackLink="true"
+        alighmnet="left"
+      />
+      <i class="bi bi-pen edit-icon" @click="handleEdit"></i>
+    </div>
 
     <FlashCard
       :key="currentIndex"
@@ -70,7 +77,6 @@ function loadCardSet(setId) {
   }
 }
 
-// Initialize on component mount
 onMounted(() => {
   loadCardSet(route.params.setId);
 });
@@ -101,6 +107,12 @@ function goToCard(index) {
     isFlipped.value = false;
   }
 }
+
+function handleEdit() {
+  alert(
+    `[MOCK] Edit flash card set: ${cardSet.value.title}\n\nTo edit a flash card set, please amend the code in src/data/flashCardSets.js`
+  );
+}
 </script>
 
 <style scoped>
@@ -111,6 +123,25 @@ function goToCard(index) {
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: #333;
+}
+
+.header-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.edit-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s;
+  margin-bottom: 2.5rem; /* Align with the bottom of the header */
+}
+
+.edit-icon:hover {
   color: #333;
 }
 
