@@ -5,7 +5,10 @@
   >
     <div class="set-header">
       <h2 class="set-title">{{ set.title }}</h2>
-      <span class="card-count">{{ set.cards.length }} cards</span>
+      <span class="card-count"
+        >{{ set.cards.length }}
+        {{ set.cards.length === 1 ? "card" : "cards" }}</span
+      >
     </div>
 
     <p class="set-description">{{ set.description }}</p>
@@ -13,7 +16,10 @@
     <div class="set-footer">
       <span class="created-date">Created: {{ formatDate(set.createdAt) }}</span>
       <!-- TODO: Implement delete functionality -->
-      <button class="delete-button">
+      <button
+        class="delete-button"
+        @click.prevent="$emit('delete', set.id, set.title)"
+      >
         <i class="bi bi-trash"></i>
       </button>
     </div>
@@ -27,6 +33,8 @@ defineProps({
     required: true,
   },
 });
+
+defineEmits(["delete"]);
 
 function formatDate(date) {
   return new Intl.DateTimeFormat("en-US", {

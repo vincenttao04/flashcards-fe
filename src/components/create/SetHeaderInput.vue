@@ -26,8 +26,17 @@
 </template>
 
 <script setup>
-defineProps(["modelValue"]);
-defineEmits(["update:modelValue"]);
+defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+});
+defineEmits(["update:title", "update:description"]);
 </script>
 
 <style scoped>

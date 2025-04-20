@@ -7,7 +7,12 @@
     />
 
     <div class="form-container">
-      <SetTitleInput v-model="setTitle" />
+      <SetTitleInput
+        :title="setTitle"
+        :description="setDescription"
+        @update:title="setTitle = $event"
+        @update:description="setDescription = $event"
+      />
 
       <CardsList
         :cards="cards"
@@ -30,19 +35,23 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import PageHeader from "../components/common/PageHeader.vue";
-import SetTitleInput from "../components/create/SetTitleInput.vue";
+import SetTitleInput from "../components/create/SetHeaderInput.vue";
 import CardsList from "../components/create/CardsList.vue";
 import PreviewSection from "../components/create/CardPreview.vue";
 import FormActions from "../components/create/FormActions.vue";
 
+const router = useRouter();
 const setTitle = ref("");
+const setDescription = ref("");
 const cards = ref([{ question: "", answer: "" }]);
 const previewIndex = ref(0);
 
 const isFormValid = computed(() => {
   return (
     setTitle.value.trim() !== "" &&
+    setDescription.value.trim() !== "" &&
     cards.value.every(
       (card) => card.question.trim() !== "" && card.answer.trim() !== ""
     )
@@ -74,9 +83,10 @@ function updateCards(newCards) {
 
 function saveFlashCards() {
   if (isFormValid.value) {
-    // TODO: Implement save functionality
+    alert(`[MOCK] ${setTitle.value} saved successfully!`);
     console.log("Saving:", { title: setTitle.value, cards: cards.value });
     resetForm();
+    router.push("/");
   }
 }
 
