@@ -34,7 +34,7 @@ export const flashCardSets = [
   },
   {
     id: "js-fundamentals",
-    title: "JavaScript Fundamentals",
+    title: "JavaScript for Beginners",
     description: "Core concepts of JavaScript programming",
     createdAt: new Date("2024-04-15"),
     cards: [

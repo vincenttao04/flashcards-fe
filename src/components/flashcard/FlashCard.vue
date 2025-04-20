@@ -3,9 +3,11 @@
   <div class="card-container">
     <div class="card" :class="{ flipped: isFlipped }" @click="$emit('flip')">
       <div class="card-face card-front">
+        <h3 class="label">Question</h3>
         <p>{{ card.question }}</p>
       </div>
       <div class="card-face card-back">
+        <h3 class="label">Answer</h3>
         <p>{{ card.answer }}</p>
       </div>
     </div>
@@ -72,6 +74,18 @@ defineEmits(["flip"]);
   transform: rotateY(180deg);
   font-size: 1.25rem;
   line-height: 1.6;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+.label {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
 }
 
 @media (max-width: 640px) {
