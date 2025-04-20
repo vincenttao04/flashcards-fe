@@ -21,7 +21,9 @@ import { RouterView } from "vue-router";
   padding: 0;
 }
 
-button {
+button,
+input,
+textarea {
   font-family: inherit;
 }
 

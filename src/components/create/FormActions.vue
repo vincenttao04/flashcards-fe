@@ -41,6 +41,7 @@ defineEmits(["save"]);
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
+  font-size: 1rem;
   transition: all 0.2s;
   text-decoration: none;
   display: inline-flex;
@@ -59,6 +60,7 @@ defineEmits(["save"]);
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
+  font-size: 1rem;
   transition: all 0.2s;
 }
 

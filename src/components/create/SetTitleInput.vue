@@ -5,9 +5,9 @@
       <input
         type="text"
         id="set-title"
-        :value="modelValue"
-        @input="$emit('update:modelValue', $event.target.value)"
-        placeholder="Enter a short, catchy title"
+        :value="title"
+        @input="$emit('update:title', $event.target.value)"
+        placeholder="e.g. World Capitals Quiz"
         class="form-input"
       />
     </div>
@@ -15,10 +15,10 @@
       <label for="set-description">Set Description</label>
       <input
         type="text"
-        id="set-title"
-        :value="modelValue"
-        @input="$emit('update:modelValue', $event.target.value)"
-        placeholder="Briefly describe what this set is about"
+        id="set-description"
+        :value="description"
+        @input="$emit('update:description', $event.target.value)"
+        placeholder="e.g. Test your knowledge of countries and their capitals from around the world"
         class="form-input"
       />
     </div>
@@ -33,6 +33,10 @@ defineEmits(["update:modelValue"]);
 <style scoped>
 .form-group {
   margin-bottom: 2rem;
+}
+
+input::placeholder {
+  font-style: italic;
 }
 
 .title {
