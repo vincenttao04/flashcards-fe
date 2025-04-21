@@ -1,5 +1,13 @@
+<!-- /**
+ * FormActions Component
+ * Provides Save and Cancel actions for the flashcard form
+ * 
+ * @component
+ * @props {Boolean} isValid - Determines if the save action is enabled
+ * @emits {save} - Emits when save button is clicked
+ */ -->
 <template>
-  <div class="form-actions">
+  <div class="form-actions" aria-label="Form Actions">
     <router-link to="/" class="cancel-btn"> Cancel </router-link>
     <button
       type="button"
@@ -44,8 +52,6 @@ defineEmits(["save"]);
   font-size: 1rem;
   transition: all 0.2s;
   text-decoration: none;
-  display: inline-flex;
-  align-items: center;
 }
 
 .cancel-btn:hover {

@@ -1,3 +1,13 @@
+<!-- /**
+ * PageHeader Component
+ * A reusable header component that displays a title, optional subtitle, and back navigation
+ * 
+ * @component
+ * @props {String} title - The main header text
+ * @props {String} subtitle - Optional secondary text below the title
+ * @props {Boolean} showBackLink - Whether to show the "Back to Sets" navigation link
+ * @props {String} alignment - Text alignment ('left', 'center', or 'right')
+ */ -->
 <template>
   <header :class="['page-header', alignment]">
     <router-link v-if="showBackLink" to="/" class="back-link">
@@ -33,9 +43,7 @@ defineProps({
 
 <style scoped>
 .page-header {
-  margin-top: 2.5rem;
-  margin-bottom: 2rem;
-  width: 100%;
+  margin: 2.5rem 0 2rem 0;
 }
 
 .page-header.center {
@@ -52,7 +60,7 @@ defineProps({
 
 .back-link {
   display: inline-flex;
-  gap: 0.5rem; /* gap between the icon and text */
+  gap: 0.5rem; /* Gap between the icon and text */
   margin-bottom: 1.5rem;
   color: #666;
   text-decoration: none;
@@ -78,7 +86,6 @@ h3 {
 
 @media (max-width: 640px) {
   .page-header {
-    flex-direction: column;
     gap: 1rem;
   }
 }
