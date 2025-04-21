@@ -1,5 +1,13 @@
-// This is a Vue 3 component for a Flash Card application. It includes a flash
-card component, navigation buttons, and indicators for the cards.
+<!-- /**
+ * FlashCardPage Component
+ * Main page for displaying and interacting with flashcard sets
+ * 
+ * @component
+ * @uses PageHeader
+ * @uses FlashCard
+ * @uses CardNavigator
+ * @uses CardIndicators (currently commented out)
+ */ -->
 <template>
   <div class="flash-card-app" v-if="cardSet">
     <div class="header-container">
@@ -28,6 +36,7 @@ card component, navigation buttons, and indicators for the cards.
       @next="nextCard"
     />
 
+    <!-- Not current used, but can be uncommented for card indicators -->
     <!-- <CardIndicators
       v-if="cardSet.cards.length"
       :current-index="currentIndex"
