@@ -69,16 +69,19 @@ const isFormValid = computed(() => {
   );
 });
 
+// Function to check if there is any content in the cards
 const hasContent = computed(() => {
   return cards.value.some(
     (card) => card.question.trim() !== "" || card.answer.trim() !== ""
   );
 });
 
+// Function to add a new card to the list
 function addCard() {
   cards.value.push({ question: "", answer: "" });
 }
 
+// Function to remove a card from the list
 function removeCard(index) {
   if (cards.value.length > 1) {
     cards.value.splice(index, 1);
@@ -88,10 +91,12 @@ function removeCard(index) {
   }
 }
 
+// Function to update the cards list when a card is modified
 function updateCards(newCards) {
   cards.value = newCards;
 }
 
+// Function to save the flash card set, checks if the form fields are valid and displays a mock alert
 function saveFlashCards() {
   if (isFormValid.value) {
     alert(
@@ -103,6 +108,7 @@ function saveFlashCards() {
   }
 }
 
+// Function to reset the form fields after saving
 function resetForm() {
   setTitle.value = "";
   cards.value = [{ question: "", answer: "" }];

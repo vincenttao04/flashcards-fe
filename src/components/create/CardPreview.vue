@@ -48,6 +48,7 @@ const props = defineProps({
 const emit = defineEmits(["update:index"]);
 const isFlipped = ref(false);
 
+// Function to display the next card
 function nextCard() {
   if (props.previewIndex < props.cards.length - 1) {
     emit("update:index", props.previewIndex + 1);
@@ -55,6 +56,7 @@ function nextCard() {
   }
 }
 
+// Function to display the previous card
 function prevCard() {
   if (props.previewIndex > 0) {
     emit("update:index", props.previewIndex - 1);
