@@ -68,7 +68,7 @@ defineEmits(["prev", "next"]);
   font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* gap between the icon and text */
+  gap: 0.5rem; /* Gap between the icon and text */
   transition: all 0.2s;
 }
 

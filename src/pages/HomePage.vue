@@ -45,6 +45,7 @@ import { flashCardSets } from "../data/flashCardSets.js";
 
 const searchQuery = ref("");
 
+// Computed property to filter flash card sets based on the search query
 const filteredFlashCardSets = computed(() => {
   const query = searchQuery.value.toLowerCase().trim();
 
@@ -63,6 +64,7 @@ const filteredFlashCardSets = computed(() => {
   });
 });
 
+// Function to handle the deletion of a flash card set, currently a mock function that shows an alert.
 function handleDelete(setId, setTitle) {
   alert(
     `[MOCK] ${setTitle} has been successfully deleted\n\nTo delete a flash card set, please amend the code in src/data/flashCardSets.js`
@@ -105,7 +107,7 @@ function handleDelete(setId, setTitle) {
   width: 200px;
   min-width: 160px;
   flex-shrink: 0;
-  gap: 0.5rem; /* gap between the icon and text */
+  gap: 0.5rem; /* Gap between the icon and text */
 }
 
 .create-button:hover {
