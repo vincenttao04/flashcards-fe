@@ -1,5 +1,69 @@
-# Vue 3 + Vite
+# FlashCard App (Vue)
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This is a simple frontend flash card application built with Vue 3 and Vite. It demonstrates core Vue concepts like component structure, routing, and state management using basic functionalities.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+---
+
+## 🚀 Getting Started
+
+Follow these steps to clone and run the project locally.
+
+### Prerequisites (Important)
+
+Before starting, make sure you have the following installed on your computer:
+
+**Node.js (v14.0.0 or higher)**
+
+- Download from: https://nodejs.org/
+- To check if installed, run: "node --version" in your terminal
+
+**npm (v6.0.0 or higher)**
+
+- Comes with Node.js
+- To check if installed, run: "npm --version" in your terminal
+
+**Git**
+
+- Download from: https://git-scm.com/downloads
+- To check if installed, run: git --version in your terminal
+
+**VS Code (recommended editor)**
+
+- Download from: https://code.visualstudio.com/
+
+## Running the App
+
+### 1. Clone the Repository
+
+```bash
+git clone (HTTPS CLONING LINK)
+cd your-repo-name
+```
+
+### 2. Install Dependencies
+
+Open the project repo in VS Code (or run "code ."), open the terminal and run:
+
+```bash
+npm install
+```
+
+### 3. Start the Development Server
+
+```bash
+npm run dev
+```
+
+### 4. Access the Application
+
+The flashcard application will typically be running at: http://localhost:5173/
+
+### 5. Troubleshooting
+
+- If port 5173 is already in use, Vite will automatically try the next available port. Be sure to read text in the terminal to see which port Vite has selected.
+
+- If you encounter any installation issues, try deleting the node_modules folder and running 'npm install' and 'npm run dev' again.
+
+- If you see any errors about missing dependencies, make sure you're in the correct folder and ry running 'npm install' and 'npm run dev' again.
+
+- For Windows users: If you get permission errors, try running your terminal and/or VS Code as administrator.

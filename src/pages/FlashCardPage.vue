@@ -16,6 +16,8 @@
         :showBackLink="true"
         alighmnet="left"
       />
+
+      <!-- TODO: Implement edit icon to trigger edit functionality -->
       <i class="bi bi-pen edit-icon" @click="handleEdit"></i>
     </div>
 
@@ -57,7 +59,7 @@ import { getFlashCardSet } from "../data/flashCardSets.js";
 import PageHeader from "../components/common/PageHeader.vue";
 import FlashCard from "../components/flashcard/FlashCard.vue";
 import CardNavigator from "../components/flashcard/CardNavigator.vue";
-// import CardIndicators from "../components/flashcard/CardIndicators.vue";
+// import CardIndicators from "../components/flashcard/CardIndicators.vue"; // Uncomment if you want to implement card indicators
 
 const route = useRoute();
 const router = useRouter();
@@ -110,13 +112,15 @@ function prevCard() {
   }
 }
 
-function goToCard(index) {
-  if (cardSet.value && index >= 0 && index < cardSet.value.cards.length) {
-    currentIndex.value = index;
-    isFlipped.value = false;
-  }
-}
+// Uncomment if you want to implement card indicators
+// function goToCard(index) {
+//   if (cardSet.value && index >= 0 && index < cardSet.value.cards.length) {
+//     currentIndex.value = index;
+//     isFlipped.value = false;
+//   }
+// }
 
+// Function to handle edit action (currently a mock alert)
 function handleEdit() {
   alert(
     `[MOCK] Edit flash card set: ${cardSet.value.title}\n\nTo edit a flash card set, please amend the code in src/data/flashCardSets.js`
