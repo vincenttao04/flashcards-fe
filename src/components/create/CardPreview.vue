@@ -1,3 +1,13 @@
+<!-- /**
+ * CardPreview Component
+ * Displays a preview of flashcards with navigation controls
+ * 
+ * @component
+ * @props {Array} cards - Array of flashcard objects to preview
+ * @props {Number} previewIndex - Current card index being displayed
+ * @emits {update:index} - Emits when navigation changes the current card
+ *                         Payload: (newIndex)
+ */ -->
 <template>
   <div class="preview-section">
     <h2>Preview</h2>

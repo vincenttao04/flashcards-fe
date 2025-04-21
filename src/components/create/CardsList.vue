@@ -1,3 +1,13 @@
+<!-- /**
+ * CardsList Component
+ * Manages a list of flashcards with add/remove functionality
+ * 
+ * @component
+ * @props {Array} cards - Array of flashcard objects
+ * @emits {add} - Emits when adding a new card
+ * @emits {remove} - Emits when removing a card (payload: index)
+ * @emits {update:cards} - Emits when updating cards (payload: newCardsArray)
+ */ -->
 <template>
   <div class="cards-list">
     <h2>Cards</h2>
@@ -7,6 +17,7 @@
         <button
           type="button"
           class="remove-btn"
+          :aria-label="`Remove card ${index + 1}`"
           @click="$emit('remove', index)"
           :disabled="cards.length <= 1"
         >
@@ -17,7 +28,12 @@
       <CardForm :card="card" :index="index" @update="updateCard" />
     </div>
 
-    <button type="button" class="add-card-btn" @click="$emit('add')">
+    <button
+      type="button"
+      class="add-card-btn"
+      aria-label="Add Another Card"
+      @click="$emit('add')"
+    >
       <i class="bi bi-plus-lg"></i>
       Add Another Card
     </button>
@@ -106,7 +122,6 @@ h2 {
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s;
-  gap: 0.5rem; /* gap between the icon and text */
   display: flex;
   place-content: center;
 }

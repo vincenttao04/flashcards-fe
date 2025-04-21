@@ -1,3 +1,13 @@
+<!-- /**
+ * SetHeaderInput Component
+ * Input form for flashcard set title and description
+ * 
+ * @component
+ * @props {String} title - The title of the flashcard set
+ * @props {String} description - The description of the flashcard set
+ * @emits {update:title} - Emits when title is modified (payload: newTitle)
+ * @emits {update:description} - Emits when description is modified (payload: newDescription)
+ */ -->
 <template>
   <div class="form-group">
     <div class="title">

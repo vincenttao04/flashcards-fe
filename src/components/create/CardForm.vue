@@ -1,9 +1,20 @@
+<!-- /**
+ * CardForm Component
+ * A form component for creating flashcard questions and answers
+ * 
+ * @component
+ * @props {Object} card - The flashcard object containing question and answer
+ * @props {Number} index - The index of the card in the set
+ * @emits {update} - Emits when either question or answer is modified
+ *                   Payload: (index, updatedCard)
+ */ -->
 <template>
   <div>
     <div class="form-group">
       <label :for="`question-${index}`">Question</label>
       <textarea
         :id="`question-${index}`"
+        :aria-label="`Question ${index + 1}`"
         :value="card.question"
         @input="updateField('question', $event.target.value)"
         placeholder="e.g. What is the capital of Australia?"
@@ -16,6 +27,7 @@
       <label :for="`answer-${index}`">Answer</label>
       <textarea
         :id="`answer-${index}`"
+        :aria-label="`Answer ${index + 1}`"
         :value="card.answer"
         @input="updateField('answer', $event.target.value)"
         placeholder="e.g. Canberra"
