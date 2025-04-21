@@ -52,6 +52,7 @@ const props = defineProps({
 
 const emit = defineEmits(["add", "remove", "update:cards"]);
 
+// Function to update a specific card in the list
 function updateCard(index, updatedCard) {
   const newCards = [...props.cards];
   newCards[index] = updatedCard;
