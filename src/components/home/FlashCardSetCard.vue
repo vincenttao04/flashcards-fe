@@ -1,3 +1,11 @@
+<!-- /**
+ * CardSet Component
+ * Displays a flashcard set preview with title, description, and metadata
+ * 
+ * @component
+ * @props {Object} set - Flashcard set data containing id, title, description, cards, and createdAt
+ * @emits {delete} - Emits when delete button is clicked (payload: setId, setTitle)
+ */ -->
 <template>
   <router-link
     :to="{ name: 'flashcards', params: { setId: set.id } }"
@@ -15,6 +23,7 @@
 
     <div class="set-footer">
       <span class="created-date">Created: {{ formatDate(set.createdAt) }}</span>
+
       <!-- TODO: Implement delete functionality -->
       <button
         class="delete-button"

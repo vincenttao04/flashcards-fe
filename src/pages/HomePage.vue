@@ -1,3 +1,12 @@
+<!-- /**
+ * HomePage Component
+ * Main landing page displaying all flashcard sets with search and creation functionality
+ * 
+ * @component
+ * @uses PageHeader
+ * @uses SearchBar
+ * @uses FlashCardSetCard
+ */ -->
 <template>
   <div class="home-page">
     <PageHeader

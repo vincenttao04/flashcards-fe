@@ -1,12 +1,20 @@
-// This component is used to navigate through a list of cards. It provides
-buttons to go to the previous and next cards, and displays the current card
-index out of the total number of cards.
+<!-- /**
+ * CardNavigator Component
+ * Navigation controls for moving between flashcards with progress indicator
+ * 
+ * @component
+ * @props {Number} currentIndex - Current card position (zero-based)
+ * @props {Number} total - Total number of cards
+ * @emits {prev} - Emits when previous button is clicked
+ * @emits {next} - Emits when next button is clicked
+ */ -->
 <template>
-  <div class="controls">
+  <div class="controls" aria-label="Flashcard Navigation Controls">
     <button
       class="control-btn"
       @click="$emit('prev')"
       :disabled="currentIndex === 0"
+      aria-label="Previous Card"
     >
       <i class="bi bi-chevron-left"></i>
       Previous
@@ -18,6 +26,7 @@ index out of the total number of cards.
       class="control-btn"
       @click="$emit('next')"
       :disabled="currentIndex === total - 1"
+      aria-label="Next Card"
     >
       Next
       <i class="bi bi-chevron-right"></i>

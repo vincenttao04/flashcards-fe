@@ -1,3 +1,14 @@
+<!-- /**
+ * CreateFlashcardPage Component
+ * Page for creating new flashcard sets with preview functionality
+ * 
+ * @component
+ * @uses PageHeader
+ * @uses SetTitleInput
+ * @uses CardsList
+ * @uses PreviewSection
+ * @uses FormActions
+ */ -->
 <template>
   <div class="create-flash-cards">
     <PageHeader

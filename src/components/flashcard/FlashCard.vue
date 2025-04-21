@@ -1,4 +1,12 @@
-// This component represents a flashcard that can be flipped to show the answer.
+<!-- /**
+ * FlashCard Component
+ * Interactive flashcard with flip animation showing question and answer
+ * 
+ * @component
+ * @props {Object} card - Flashcard data containing question and answer
+ * @props {Boolean} isFlipped - Controls card flip state
+ * @emits {flip} - Emits when card is clicked to flip
+ */ -->
 <template>
   <div class="card-container">
     <div class="card" :class="{ flipped: isFlipped }" @click="$emit('flip')">

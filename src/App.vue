@@ -1,3 +1,10 @@
+<!-- /**
+ * App Root Component
+ * Main application component that serves as the application shell
+ * 
+ * @component
+ * @uses RouterView
+ */ -->
 <template>
   <RouterView />
 </template>

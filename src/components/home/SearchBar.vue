@@ -1,3 +1,11 @@
+<!-- /**
+ * Search Component
+ * A search input field with clear functionality
+ * 
+ * @component
+ * @props {String} modelValue - v-model value for the search input
+ * @emits {update:modelValue} - Emits when input value changes or is cleared
+ */ -->
 <template>
   <div class="search-container">
     <input

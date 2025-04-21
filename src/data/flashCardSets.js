@@ -1,3 +1,18 @@
+/**
+ * Flashcard Sets Data Module
+ * Contains predefined flashcard sets and utility functions
+ *
+ * @typedef {Object} Card
+ * @property {string} question - The flashcard question
+ * @property {string} answer - The flashcard answer
+ *
+ * @typedef {Object} FlashCardSet
+ * @property {string} id - Unique identifier for the set
+ * @property {string} title - Set title
+ * @property {string} description - Set description
+ * @property {Date} createdAt - Creation date
+ * @property {Card[]} cards - Array of flashcards
+ */
 export const flashCardSets = [
   {
     id: "vue-basics",
@@ -234,6 +249,11 @@ export const flashCardSets = [
   },
 ];
 
+/**
+ * Retrieves a specific flashcard set by ID
+ * @param {string} setId - The ID of the desired flashcard set
+ * @returns {FlashCardSet|undefined} The matching flashcard set or undefined
+ */
 export function getFlashCardSet(setId) {
   return flashCardSets.find((set) => set.id === setId);
 }
