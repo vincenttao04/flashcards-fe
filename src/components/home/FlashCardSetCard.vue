@@ -4,40 +4,44 @@
  * 
  * @component
  * @props {Object} set - Flashcard set data containing id, title, description, cards, and createdAt
+ * @emits {edit} - Emits when edit button is clicked (payload: setId, setTitle)
  * @emits {delete} - Emits when delete button is clicked (payload: setId, setTitle)
  */ -->
 <template>
-  <router-link
-    :to="{ name: 'flashcards', params: { setId: set.id } }"
-    class="card-set"
-  >
-    <div class="set-header">
-      <h2 class="set-title">{{ set.title }}</h2>
-      <span class="card-count"
-        >{{ set.cards.length }}
-        {{ set.cards.length === 1 ? "card" : "cards" }}</span
-      >
-    </div>
-
-    <p class="set-description">{{ set.description }}</p>
-
-    <div class="set-footer">
-      <span class="created-date">Created: {{ formatDate(set.createdAt) }}</span>
-
-      <!-- TODO: Implement delete functionality -->
-      <div class="action-buttons">
-        <button class="edit-button" @click.prevent="$emit(handleEdit)">
-          <i class="bi bi-pen"></i>
-        </button>
-        <button
-          class="delete-button"
-          @click.prevent="$emit('delete', set.id, set.title)"
+  <div class="card-set">
+    <!-- Main clickable area -->
+    <router-link
+      :to="{ name: 'flashcards', params: { setId: set.id } }"
+      class="card-set-link"
+    >
+      <div class="set-header">
+        <h2 class="set-title">{{ set.title }}</h2>
+        <span class="card-count"
+          >{{ set.cards.length }}
+          {{ set.cards.length === 1 ? "card" : "cards" }}</span
         >
-          <i class="bi bi-trash"></i>
-        </button>
       </div>
+
+      <p class="set-description">{{ set.description }}</p>
+
+      <div class="set-footer">
+        <span class="created-date"
+          >Created: {{ formatDate(set.createdAt) }}</span
+        >
+      </div>
+    </router-link>
+
+    <!-- Action buttons -->
+    <!-- TODO: Implement delete functionality -->
+    <div class="action-buttons">
+      <button class="edit-button" @click="$emit('edit', set.id, set.title)">
+        <i class="bi bi-pen"></i>
+      </button>
+      <button class="delete-button" @click="$emit('delete', set.id, set.title)">
+        <i class="bi bi-trash"></i>
+      </button>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script setup>
@@ -48,7 +52,7 @@ defineProps({
   },
 });
 
-defineEmits(["delete"]);
+defineEmits(["edit", "delete"]);
 
 function formatDate(date) {
   return new Intl.DateTimeFormat("en-US", {
@@ -57,33 +61,30 @@ function formatDate(date) {
     day: "numeric",
   }).format(date);
 }
-
-// Function to handle edit action (currently a mock alert)
-function handleEdit() {
-  alert(
-    `[MOCK] Edit flash card set: ${cardSet.value.title}\n\nTo edit a flash card set, please amend the code in src/data/flashCardSets.js`,
-  );
-}
 </script>
 
 <style scoped>
 .card-set {
+  position: relative;
   background-color: white;
   border-radius: 6px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
   transition:
     transform 0.2s,
     box-shadow 0.2s;
-  text-decoration: none;
-  color: inherit;
 }
 
 .card-set:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-set-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
 }
 
 .set-header {
@@ -115,8 +116,6 @@ function handleEdit() {
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: 500;
-  width: fit-content;
-  text-align: center;
   white-space: nowrap;
 }
 
@@ -131,62 +130,73 @@ function handleEdit() {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-clamp: 2;
-  min-height: 3rem;
+  min-height: 2.85rem;
+  /* -webkit-line-clamp: 3;
+  line-clamp: 3;
+  min-height: 4.4rem; */
 }
 
 .set-footer {
   margin-top: auto;
-  padding-top: 1rem;
+  padding-top: 1.25rem;
   border-top: 1px solid #e9ecef;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .created-date {
   color: #6c757d;
   font-size: 0.85rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .action-buttons {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
   gap: 0.6rem;
+  z-index: 1;
+}
+
+.edit-button,
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
 .edit-button {
-  background: none;
   color: #666;
-  border: none;
-  cursor: pointer;
   font-size: 1.14rem;
-  transition: color 0.2s;
 }
 
 .edit-button:hover {
-  color: #000000;
+  color: #000;
+}
+
+.edit-button:focus-visible {
+  outline: 2px solid #666;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .delete-button {
-  background-color: #ffffff;
   color: #dc3545;
-  border: none;
-  cursor: pointer;
   font-size: 1.2rem;
-  transition: color 0.2s;
 }
 
 .delete-button:hover {
   color: #bb2d3b;
 }
 
+.delete-button:focus-visible {
+  outline: 2px solid #dc3545;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 @media (max-width: 480px) {
   .set-footer {
-    align-items: flex-start;
-    gap: 1rem;
+    padding-bottom: 2rem;
   }
 }
 </style>
