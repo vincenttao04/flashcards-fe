@@ -17,7 +17,7 @@
         alignment="left"
       />
 
-      <!-- TODO: Implement edit icon to trigger edit functionality -->
+      <!-- TODO: Implement edit icon to trigger edit functionality (and button wrapper?) -->
       <i class="bi bi-pen edit-icon" @click="handleEdit"></i>
     </div>
 
@@ -114,12 +114,12 @@ function prevCard() {
 }
 
 // Uncomment if you want to implement card indicators
-function goToCard(index) {
-  if (cardSet.value && index >= 0 && index < cardSet.value.cards.length) {
-    currentIndex.value = index;
-    isFlipped.value = false;
-  }
-}
+// function goToCard(index) {
+//   if (cardSet.value && index >= 0 && index < cardSet.value.cards.length) {
+//     currentIndex.value = index;
+//     isFlipped.value = false;
+//   }
+// }
 
 // Function to handle edit action (currently a mock alert)
 function handleEdit() {

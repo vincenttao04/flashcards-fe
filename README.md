@@ -67,3 +67,12 @@ The flashcard application will typically be running at: http://localhost:5173/
 - If you see any errors about missing dependencies, make sure you're in the correct folder and ry running 'npm install' and 'npm run dev' again.
 
 - For Windows users: If you get permission errors, try running your terminal and/or VS Code as administrator.
+
+## Future Work
+
+1. add a marquee carousel at the bottom for flash card navigation
+2. edit from home page (add an edit button to each card)
+3. a new edit page to edit the entire flash card set at once
+4. a new edit feature on each individual card (so users can edit on the individual flash card page as well)
+5. my personal attribution at the bottom (add name, tech stack, etc.)
+6. maybe deploy (see costing)
