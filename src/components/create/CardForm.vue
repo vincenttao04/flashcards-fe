@@ -17,7 +17,7 @@
         :aria-label="`Question ${index + 1}`"
         :value="card.question"
         @input="updateField('question', $event.target.value)"
-        placeholder="e.g. What is the capital of Australia?"
+        placeholder="What is the capital of Australia?"
         class="form-input"
         rows="2"
       ></textarea>
@@ -30,7 +30,7 @@
         :aria-label="`Answer ${index + 1}`"
         :value="card.answer"
         @input="updateField('answer', $event.target.value)"
-        placeholder="e.g. Canberra"
+        placeholder="Canberra"
         class="form-input"
         rows="3"
       ></textarea>
