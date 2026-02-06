@@ -17,7 +17,7 @@
         id="set-title"
         :value="title"
         @input="$emit('update:title', $event.target.value)"
-        placeholder="e.g. World Capitals Quiz"
+        placeholder="Capital Cities of the World"
         class="form-input"
       />
     </div>
@@ -28,7 +28,7 @@
         id="set-description"
         :value="description"
         @input="$emit('update:description', $event.target.value)"
-        placeholder="e.g. Test your knowledge of countries and their capitals from around the world"
+        placeholder="Test your knowledge of countries and their capital cities from around the world"
         class="form-input"
       />
     </div>
