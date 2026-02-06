@@ -11,7 +11,7 @@
 <template>
   <div class="form-group">
     <div class="title">
-      <label for="set-title">Set Title</label>
+      <label for="set-title">Title</label>
       <input
         type="text"
         id="set-title"
@@ -22,7 +22,7 @@
       />
     </div>
     <div class="description">
-      <label for="set-description">Set Description</label>
+      <label for="set-description">Description</label>
       <input
         type="text"
         id="set-description"
