@@ -64,7 +64,7 @@ const isFormValid = computed(() => {
     setTitle.value.trim() !== "" &&
     setDescription.value.trim() !== "" &&
     cards.value.every(
-      (card) => card.question.trim() !== "" && card.answer.trim() !== ""
+      (card) => card.question.trim() !== "" && card.answer.trim() !== "",
     )
   );
 });
@@ -72,7 +72,7 @@ const isFormValid = computed(() => {
 // Function to check if there is any content in the cards
 const hasContent = computed(() => {
   return cards.value.some(
-    (card) => card.question.trim() !== "" || card.answer.trim() !== ""
+    (card) => card.question.trim() !== "" || card.answer.trim() !== "",
   );
 });
 
@@ -100,7 +100,7 @@ function updateCards(newCards) {
 function saveFlashCards() {
   if (isFormValid.value) {
     alert(
-      `[MOCK] ${setTitle.value} saved successfully\n\nTo add a new flash card set, please amend the code in src/data/flashCardSets.js`
+      `[MOCK] ${setTitle.value} saved successfully\n\nTo add a new flash card set, please amend the code in src/data/flashCardSets.js`,
     );
     console.log("Saving:", { title: setTitle.value, cards: cards.value });
     resetForm();
@@ -111,6 +111,7 @@ function saveFlashCards() {
 // Function to reset the form fields after saving
 function resetForm() {
   setTitle.value = "";
+  setDescription.value = "";
   cards.value = [{ question: "", answer: "" }];
   previewIndex.value = 0;
 }
