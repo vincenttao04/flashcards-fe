@@ -25,12 +25,17 @@
       <span class="created-date">Created: {{ formatDate(set.createdAt) }}</span>
 
       <!-- TODO: Implement delete functionality -->
-      <button
-        class="delete-button"
-        @click.prevent="$emit('delete', set.id, set.title)"
-      >
-        <i class="bi bi-trash"></i>
-      </button>
+      <div class="action-buttons">
+        <button class="edit-button" @click.prevent="$emit(handleEdit)">
+          <i class="bi bi-pen"></i>
+        </button>
+        <button
+          class="delete-button"
+          @click.prevent="$emit('delete', set.id, set.title)"
+        >
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
     </div>
   </router-link>
 </template>
@@ -52,6 +57,13 @@ function formatDate(date) {
     day: "numeric",
   }).format(date);
 }
+
+// Function to handle edit action (currently a mock alert)
+function handleEdit() {
+  alert(
+    `[MOCK] Edit flash card set: ${cardSet.value.title}\n\nTo edit a flash card set, please amend the code in src/data/flashCardSets.js`,
+  );
+}
 </script>
 
 <style scoped>
@@ -62,7 +74,9 @@ function formatDate(date) {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
   text-decoration: none;
   color: inherit;
 }
@@ -134,6 +148,26 @@ function formatDate(date) {
   font-size: 0.85rem;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.edit-button {
+  background: none;
+  color: #666;
+  border: none;
+  cursor: pointer;
+  font-size: 1.14rem;
+  transition: color 0.2s;
+}
+
+.edit-button:hover {
+  color: #000000;
 }
 
 .delete-button {
