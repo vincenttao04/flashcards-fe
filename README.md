@@ -76,4 +76,4 @@ The flashcard application will typically be running at: http://localhost:5173/
 4. a new edit feature on each individual card (so users can edit on the individual flash card page as well)
 5. my personal attribution at the bottom (add name, tech stack, etc.)
 6. maybe deploy (see costing)
-7. instead of "5 cards", maybe "5 (icon)"? - test
+7. instead of "5 cards", maybe "5 (icon)"? - test ! 
