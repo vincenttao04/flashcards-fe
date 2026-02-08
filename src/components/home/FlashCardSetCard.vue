@@ -16,10 +16,6 @@
     >
       <div class="set-header">
         <h2 class="set-title">{{ set.title }}</h2>
-        <!-- <span class="card-count"
-          >{{ set.cards.length }}
-          {{ set.cards.length === 1 ? "card" : "cards" }}</span
-        > -->
         <span class="card-count"
           >{{ set.cards.length }}<i class="bi bi-card-text"></i>
         </span>
@@ -113,15 +109,20 @@ function formatDate(date) {
 }
 
 .card-count {
+  display: flex;
+  align-items: center;
   background-color: #e9ecef;
   color: #495057;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 400;
   white-space: nowrap;
   gap: 0.25rem;
-  display: flex;
+}
+
+.card-count i {
+  margin-top: 0.015rem;
 }
 
 .set-description {
