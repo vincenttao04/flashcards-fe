@@ -14,10 +14,10 @@
       <PageHeader
         :title="cardSet.title"
         :showBackLink="true"
-        alighmnet="left"
+        alignment="left"
       />
 
-      <!-- TODO: Implement edit icon to trigger edit functionality -->
+      <!-- TODO: Implement edit icon to trigger edit functionality (and button wrapper?) -->
       <i class="bi bi-pen edit-icon" @click="handleEdit"></i>
     </div>
 
@@ -72,7 +72,7 @@ watch(
   () => route.params.setId,
   (newSetId) => {
     loadCardSet(newSetId);
-  }
+  },
 );
 
 // Load card set data
@@ -84,7 +84,8 @@ function loadCardSet(setId) {
     isFlipped.value = false;
   } else {
     // Handle non-existent set
-    router.push("/");
+    // router.push("/");
+    cardSet.value = null;
   }
 }
 
@@ -123,7 +124,7 @@ function prevCard() {
 // Function to handle edit action (currently a mock alert)
 function handleEdit() {
   alert(
-    `[MOCK] Edit flash card set: ${cardSet.value.title}\n\nTo edit a flash card set, please amend the code in src/data/flashCardSets.js`
+    `[MOCK] Edit flash card set: ${cardSet.value.title}\n\nTo edit a flash card set, please amend the code in src/data/flashCardSets.js`,
   );
 }
 </script>
