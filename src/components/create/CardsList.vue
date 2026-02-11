@@ -125,6 +125,7 @@ h2 {
   transition: all 0.2s;
   display: flex;
   place-content: center;
+  gap: 0.35rem;
 }
 
 .add-card-btn:hover {

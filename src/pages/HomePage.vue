@@ -30,6 +30,7 @@
         v-for="set in filteredFlashCardSets"
         :key="set.id"
         :set="set"
+        @edit="handleEdit"
         @delete="handleDelete"
       />
     </div>
@@ -57,17 +58,24 @@ const filteredFlashCardSets = computed(() => {
     const cardsMatch = set.cards.some(
       (card) =>
         card.question.toLowerCase().includes(query) ||
-        card.answer.toLowerCase().includes(query)
+        card.answer.toLowerCase().includes(query),
     );
 
     return titleMatch || descriptionMatch || cardsMatch;
   });
 });
 
+// Function to handle edit action (currently a mock alert)
+function handleEdit(setId, setTitle) {
+  alert(
+    `[MOCK] Edit flash card set: ${setTitle}\n\nTo edit a flash card set, please amend the code in src/data/flashCardSets.js`,
+  );
+}
+
 // Function to handle the deletion of a flash card set, currently a mock function that shows an alert.
 function handleDelete(setId, setTitle) {
   alert(
-    `[MOCK] ${setTitle} has been successfully deleted\n\nTo delete a flash card set, please amend the code in src/data/flashCardSets.js`
+    `[MOCK] ${setTitle} has been successfully deleted\n\nTo delete a flash card set, please amend the code in src/data/flashCardSets.js`,
   );
 }
 </script>
