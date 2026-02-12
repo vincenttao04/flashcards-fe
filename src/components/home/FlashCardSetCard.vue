@@ -11,7 +11,7 @@
   <div class="card-set">
     <!-- Main clickable area -->
     <router-link
-      :to="{ name: 'flashcards', params: { setId: set.id } }"
+      :to="{ name: 'flashcard', params: { setId: set.id } }"
       class="card-set-link"
     >
       <div class="set-header">

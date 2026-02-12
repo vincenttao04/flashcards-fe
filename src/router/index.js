@@ -19,7 +19,7 @@ const router = createRouter({
     },
     {
       path: "/:setId",
-      name: "flashcards",
+      name: "flashcard",
       component: () => import("../pages/FlashCard.vue"),
       props: true,
     },
@@ -27,6 +27,11 @@ const router = createRouter({
       path: "/create",
       name: "create",
       component: () => import("../pages/Create.vue"),
+    },
+    {
+      path: "/:setId/edit",
+      name: "edit",
+      component: () => import("../pages/Edit.vue"),
     },
   ],
 });
