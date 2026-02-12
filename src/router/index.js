@@ -15,18 +15,18 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: () => import("../pages/HomePage.vue"),
+      component: () => import("../pages/Home.vue"),
     },
     {
-      path: "/flashcards/:setId",
+      path: "/:setId",
       name: "flashcards",
-      component: () => import("../pages/FlashCardPage.vue"),
+      component: () => import("../pages/FlashCard.vue"),
       props: true,
     },
     {
       path: "/create",
       name: "create",
-      component: () => import("../pages/CreateFlashCardPage.vue"),
+      component: () => import("../pages/Create.vue"),
     },
   ],
 });
