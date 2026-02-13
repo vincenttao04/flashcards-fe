@@ -32,6 +32,7 @@ const router = createRouter({
       path: "/:setId/edit",
       name: "edit",
       component: () => import("../pages/Edit.vue"),
+      props: true,
     },
   ],
 });

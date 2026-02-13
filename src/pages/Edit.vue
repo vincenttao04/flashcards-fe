@@ -1,14 +1,17 @@
 <script setup>
 import { ref, computed } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 import PageHeader from "../components/common/PageHeader.vue";
 import SetTitleInput from "../components/create/SetHeaderInput.vue";
 import CardsList from "../components/create/CardsList.vue";
 import PreviewSection from "../components/create/CardPreview.vue";
 import FormActions from "../components/create/FormActions.vue";
 
+const { setId } = defineProps({
+  setId: String,
+});
+
 const router = useRouter();
-const route = useRoute();
 const setTitle = ref("");
 const setDescription = ref("");
 const cards = ref([{ question: "", answer: "" }]);
@@ -61,7 +64,7 @@ function saveFlashCards() {
     resetForm();
     router.push({
       name: "flashcard",
-      params: { setId: route.params.setId },
+      params: { setId },
     });
   }
 }

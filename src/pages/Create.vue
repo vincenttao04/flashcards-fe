@@ -104,7 +104,7 @@ function saveFlashCards() {
     );
     console.log("Saving:", { title: setTitle.value, cards: cards.value });
     resetForm();
-    router.push("/");
+    router.push({ name: "home" });
   }
 }
 
