@@ -18,7 +18,9 @@
       />
 
       <!-- TODO: Implement edit icon to trigger edit functionality (and button wrapper?) -->
-      <i class="bi bi-pen edit-icon" @click="handleEdit"></i>
+      <router-link :to="{ name: 'edit', params: { setId } }" class="edit-icon">
+        <i class="bi bi-pen"></i>
+      </router-link>
     </div>
 
     <FlashCard
@@ -60,6 +62,10 @@ import PageHeader from "../components/common/PageHeader.vue";
 import FlashCard from "../components/flashcard/FlashCard.vue";
 import CardNavigator from "../components/flashcard/CardNavigator.vue";
 // import CardIndicators from "../components/flashcard/CardIndicators.vue"; // Uncomment if you want to implement card indicators
+
+const { setId } = defineProps({
+  setId: String,
+});
 
 const route = useRoute();
 const router = useRouter();
