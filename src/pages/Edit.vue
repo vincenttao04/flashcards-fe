@@ -83,6 +83,7 @@ function resetForm() {
     <PageHeader
       title="Edit Flash Cards"
       :showBackLink="true"
+      :backTo="{ name: 'flashcard', params: { setId } }"
       alignment="left"
     />
 
