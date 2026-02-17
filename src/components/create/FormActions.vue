@@ -6,6 +6,17 @@
  * @props {Boolean} isValid - Determines if the save action is enabled
  * @emits {save} - Emits when save button is clicked
  */ -->
+<script setup>
+defineProps({
+  isValid: {
+    type: Boolean,
+    required: true,
+  },
+});
+
+defineEmits(["save"]);
+</script>
+
 <template>
   <div class="form-actions" aria-label="Form Actions">
     <router-link to="/" class="cancel-btn"> Cancel </router-link>
@@ -19,17 +30,6 @@
     </button>
   </div>
 </template>
-
-<script setup>
-defineProps({
-  isValid: {
-    type: Boolean,
-    required: true,
-  },
-});
-
-defineEmits(["save"]);
-</script>
 
 <style scoped>
 .form-actions {

@@ -8,17 +8,6 @@
  * @props {Boolean} showBackLink - Whether to show the "Back to Sets" navigation link
  * @props {String} alignment - Text alignment ('left', 'center', or 'right')
  */ -->
-<template>
-  <header :class="['page-header', alignment]">
-    <router-link v-if="showBackLink" to="/" class="back-link">
-      <i class="bi bi-arrow-left"></i>
-      <span>Back to Sets</span>
-    </router-link>
-    <h1>{{ title }}</h1>
-    <h3 v-if="subtitle">{{ subtitle }}</h3>
-  </header>
-</template>
-
 <script setup>
 defineProps({
   title: {
@@ -33,6 +22,10 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  backTo: {
+    type: [String, Object],
+    default: "/",
+  },
   alignment: {
     type: String,
     default: "left",
@@ -40,6 +33,17 @@ defineProps({
   },
 });
 </script>
+
+<template>
+  <header :class="['page-header', alignment]">
+    <router-link v-if="showBackLink" :to="backTo" class="back-link">
+      <i class="bi bi-arrow-left"></i>
+      <span>Back</span>
+    </router-link>
+    <h1>{{ title }}</h1>
+    <h3 v-if="subtitle">{{ subtitle }}</h3>
+  </header>
+</template>
 
 <style scoped>
 .page-header {

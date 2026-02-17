@@ -9,41 +9,6 @@
  * @uses PreviewSection
  * @uses FormActions
  */ -->
-<template>
-  <div class="create-flash-cards">
-    <PageHeader
-      title="Create Flash Cards"
-      :showBackLink="true"
-      alignment="left"
-    />
-
-    <div class="form-container">
-      <SetTitleInput
-        :title="setTitle"
-        :description="setDescription"
-        @update:title="setTitle = $event"
-        @update:description="setDescription = $event"
-      />
-
-      <CardsList
-        :cards="cards"
-        @add="addCard"
-        @remove="removeCard"
-        @update:cards="updateCards"
-      />
-
-      <PreviewSection
-        v-if="cards.length > 0 && hasContent"
-        :cards="cards"
-        :preview-index="previewIndex"
-        @update:index="previewIndex = $event"
-      />
-
-      <FormActions :is-valid="isFormValid" @save="saveFlashCards" />
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
@@ -116,6 +81,42 @@ function resetForm() {
   previewIndex.value = 0;
 }
 </script>
+
+<template>
+  <div class="create-flash-cards">
+    <PageHeader
+      title="Create Flash Cards"
+      :showBackLink="true"
+      :backTo="{ name: 'home' }"
+      alignment="left"
+    />
+
+    <div class="form-container">
+      <SetTitleInput
+        :title="setTitle"
+        :description="setDescription"
+        @update:title="setTitle = $event"
+        @update:description="setDescription = $event"
+      />
+
+      <CardsList
+        :cards="cards"
+        @add="addCard"
+        @remove="removeCard"
+        @update:cards="updateCards"
+      />
+
+      <PreviewSection
+        v-if="cards.length > 0 && hasContent"
+        :cards="cards"
+        :preview-index="previewIndex"
+        @update:index="previewIndex = $event"
+      />
+
+      <FormActions :is-valid="isFormValid" @save="saveFlashCards" />
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .create-flash-cards {
