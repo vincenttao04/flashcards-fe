@@ -7,6 +7,20 @@
  * @props {Boolean} isFlipped - Controls card flip state
  * @emits {flip} - Emits when card is clicked to flip
  */ -->
+<script setup>
+defineProps({
+  card: {
+    type: Object,
+    required: true,
+  },
+  isFlipped: {
+    type: Boolean,
+    required: true,
+  },
+});
+
+defineEmits(["flip"]);
+</script>
 <template>
   <div class="card-container">
     <button class="card" :class="{ flipped: isFlipped }" @click="$emit('flip')">
@@ -25,21 +39,6 @@
     </button>
   </div>
 </template>
-
-<script setup>
-defineProps({
-  card: {
-    type: Object,
-    required: true,
-  },
-  isFlipped: {
-    type: Boolean,
-    required: true,
-  },
-});
-
-defineEmits(["flip"]);
-</script>
 
 <style scoped>
 .card-container {
