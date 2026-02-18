@@ -25,7 +25,10 @@
       </div>
     </div>
 
-    <div class="flash-card-sets">
+    <p v-if="loading">Loading...</p>
+    <p v-if="error">{{ error }}</p>
+
+    <div v-if="!loading && !error" class="flash-card-sets">
       <FlashCardSetCard
         v-for="set in filteredFlashCardSets"
         :key="set.id"
@@ -38,30 +41,48 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import PageHeader from "../components/global/PageHeader.vue";
 import SearchBar from "../components/home/SearchBar.vue";
 import FlashCardSetCard from "../components/home/FlashCardSetCard.vue";
 import { flashCardSets } from "../data/flashCardSets.js";
 
+import { getDecks } from "../api";
+
 const searchQuery = ref("");
+const decks = ref([]);
+const loading = ref(true);
+const error = ref(null);
+
+onMounted(async () => {
+  try {
+    decks.value = await getDecks();
+  } catch (err) {
+    console.error(err);
+    error.value = "Failed to load decks.";
+  } finally {
+    loading.value = false;
+  }
+});
 
 // Computed property to filter flash card sets based on the search query
 const filteredFlashCardSets = computed(() => {
   const query = searchQuery.value.toLowerCase().trim();
 
-  if (!query) return flashCardSets;
+  if (!query) return decks.value;
 
-  return flashCardSets.filter((set) => {
-    const titleMatch = set.title.toLowerCase().includes(query);
+  return decks.value.filter((set) => {
+    const nameMatch = set.name.toLowerCase().includes(query);
     const descriptionMatch = set.description.toLowerCase().includes(query);
-    const cardsMatch = set.cards.some(
-      (card) =>
-        card.question.toLowerCase().includes(query) ||
-        card.answer.toLowerCase().includes(query),
-    );
+    // TODO: add cards to GET /decks route
+    // const cardsMatch = set.cards.some(
+    //   (card) =>
+    //     card.question.toLowerCase().includes(query) ||
+    //     card.answer.toLowerCase().includes(query),
+    // );
 
-    return titleMatch || descriptionMatch || cardsMatch;
+    // return nameMatch || descriptionMatch || cardsMatch;
+    return nameMatch || descriptionMatch;
   });
 });
 
