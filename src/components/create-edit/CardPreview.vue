@@ -31,7 +31,7 @@
 
 <script setup>
 import { ref } from "vue";
-import FlashCard from "../flashcard/FlashCard.vue";
+import FlashCard from "../flashcard/CardInterface.vue";
 import CardNavigator from "../flashcard/CardNavigator.vue";
 
 const props = defineProps({

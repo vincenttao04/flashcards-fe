@@ -8,58 +8,18 @@
  * @uses CardNavigator
  * @uses CardIndicators (currently commented out)
  */ -->
-<template>
-  <div class="flash-card-app" v-if="cardSet">
-    <div class="header-container">
-      <PageHeader
-        :title="cardSet.title"
-        :showBackLink="true"
-        alignment="left"
-      />
-
-      <!-- TODO: Implement edit icon to trigger edit functionality (and button wrapper?) -->
-      <i class="bi bi-pen edit-icon" @click="handleEdit"></i>
-    </div>
-
-    <FlashCard
-      :key="currentIndex"
-      class="flash-card"
-      v-if="currentCard"
-      :card="currentCard"
-      :is-flipped="isFlipped"
-      @flip="handleFlip"
-    />
-
-    <CardNavigator
-      v-if="cardSet.cards.length"
-      :current-index="currentIndex"
-      :total="cardSet.cards.length"
-      @prev="prevCard"
-      @next="nextCard"
-    />
-
-    <!-- Not current used, but can be uncommented for card indicators -->
-    <!-- <CardIndicators
-      v-if="cardSet.cards.length"
-      :current-index="currentIndex"
-      :total="cardSet.cards.length"
-      @select="goToCard"
-    /> -->
-  </div>
-  <div v-else class="error-state">
-    <h2>Flash Card Set Not Found</h2>
-    <router-link to="/" class="back-link">Return to Home</router-link>
-  </div>
-</template>
-
 <script setup>
 import { ref, computed, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getFlashCardSet } from "../data/flashCardSets.js";
-import PageHeader from "../components/common/PageHeader.vue";
-import FlashCard from "../components/flashcard/FlashCard.vue";
+import PageHeader from "../components/global/PageHeader.vue";
+import FlashCard from "../components/flashcard/CardInterface.vue";
 import CardNavigator from "../components/flashcard/CardNavigator.vue";
 // import CardIndicators from "../components/flashcard/CardIndicators.vue"; // Uncomment if you want to implement card indicators
+
+const { setId } = defineProps({
+  setId: String,
+});
 
 const route = useRoute();
 const router = useRouter();
@@ -128,6 +88,53 @@ function handleEdit() {
   );
 }
 </script>
+
+<template>
+  <div class="flash-card-app" v-if="cardSet">
+    <div class="header-container">
+      <PageHeader
+        :title="cardSet.title"
+        :showBackLink="true"
+        :backTo="{ name: 'home' }"
+        alignment="left"
+      />
+
+      <!-- TODO: Implement edit icon to trigger edit functionality (and button wrapper?) -->
+      <router-link :to="{ name: 'edit', params: { setId } }" class="edit-icon">
+        <i class="bi bi-pen"></i>
+      </router-link>
+    </div>
+
+    <FlashCard
+      :key="currentIndex"
+      class="flash-card"
+      v-if="currentCard"
+      :card="currentCard"
+      :is-flipped="isFlipped"
+      @flip="handleFlip"
+    />
+
+    <CardNavigator
+      v-if="cardSet.cards.length"
+      :current-index="currentIndex"
+      :total="cardSet.cards.length"
+      @prev="prevCard"
+      @next="nextCard"
+    />
+
+    <!-- Not current used, but can be uncommented for card indicators -->
+    <!-- <CardIndicators
+      v-if="cardSet.cards.length"
+      :current-index="currentIndex"
+      :total="cardSet.cards.length"
+      @select="goToCard"
+    /> -->
+  </div>
+  <div v-else class="error-state">
+    <h2>Flash Card Set Not Found</h2>
+    <router-link to="/" class="back-link">Return to Home</router-link>
+  </div>
+</template>
 
 <style scoped>
 .flash-card-app {

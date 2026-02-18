@@ -7,11 +7,30 @@
  * @emits {edit} - Emits when edit button is clicked (payload: setId, setTitle)
  * @emits {delete} - Emits when delete button is clicked (payload: setId, setTitle)
  */ -->
+<script setup>
+const props = defineProps({
+  set: {
+    type: Object,
+    required: true,
+  },
+});
+
+defineEmits(["delete"]);
+
+function formatDate(date) {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(date);
+}
+</script>
+
 <template>
   <div class="card-set">
     <!-- Main clickable area -->
     <router-link
-      :to="{ name: 'flashcards', params: { setId: set.id } }"
+      :to="{ name: 'flashcard', params: { setId: props.set.id } }"
       class="card-set-link"
     >
       <div class="set-header">
@@ -33,34 +52,18 @@
     <!-- Action buttons -->
     <!-- TODO: Implement delete functionality -->
     <div class="action-buttons">
-      <button class="edit-button" @click="$emit('edit', set.id, set.title)">
+      <router-link
+        :to="{ name: 'edit', params: { setId: props.set.id } }"
+        class="edit-button"
+      >
         <i class="bi bi-pen"></i>
-      </button>
+      </router-link>
       <button class="delete-button" @click="$emit('delete', set.id, set.title)">
         <i class="bi bi-trash"></i>
       </button>
     </div>
   </div>
 </template>
-
-<script setup>
-defineProps({
-  set: {
-    type: Object,
-    required: true,
-  },
-});
-
-defineEmits(["edit", "delete"]);
-
-function formatDate(date) {
-  return new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  }).format(date);
-}
-</script>
 
 <style scoped>
 .card-set {
