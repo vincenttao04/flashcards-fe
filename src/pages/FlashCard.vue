@@ -9,65 +9,52 @@
  * @uses CardIndicators (currently commented out)
  */ -->
 <script setup>
-import { ref, computed, onMounted, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { getFlashCardSet } from "../data/flashCardSets.js";
+import { ref, computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import PageHeader from "../components/global/PageHeader.vue";
 import FlashCard from "../components/flashcard/CardInterface.vue";
 import CardNavigator from "../components/flashcard/CardNavigator.vue";
 // import CardIndicators from "../components/flashcard/CardIndicators.vue"; // Uncomment if you want to implement card indicators
 
+import { getDeck } from "../api";
+
 const { setId } = defineProps({
   setId: String,
 });
 
-const route = useRoute();
 const router = useRouter();
-const cardSet = ref(null);
+const deck = ref(null);
 const currentIndex = ref(0);
 const isFlipped = ref(false);
+const loading = ref(true);
+const error = ref(null);
 
-// Watch for route changes
-watch(
-  () => route.params.setId,
-  (newSetId) => {
-    loadCardSet(newSetId);
-  },
-);
-
-// Load card set data
-function loadCardSet(setId) {
-  const set = getFlashCardSet(setId);
-  if (set) {
-    cardSet.value = set;
-    currentIndex.value = 0;
-    isFlipped.value = false;
-  } else {
-    // Handle non-existent set
-    // router.push("/");
-    cardSet.value = null;
+onMounted(async () => {
+  try {
+    deck.value = await getDeck({ setId });
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
+  } finally {
+    loading.value = false;
   }
-}
-
-onMounted(() => {
-  loadCardSet(route.params.setId);
 });
 
-const currentCard = computed(() => cardSet.value?.cards?.[currentIndex.value]);
+const currentCard = computed(() => deck.value?.cards?.[currentIndex.value]);
 
 function handleFlip() {
   isFlipped.value = !isFlipped.value;
 }
 
 function nextCard() {
-  if (cardSet.value && currentIndex.value < cardSet.value.cards.length - 1) {
+  if (deck.value && currentIndex.value < deck.value.cards.length - 1) {
     currentIndex.value++;
     isFlipped.value = false;
   }
 }
 
 function prevCard() {
-  if (cardSet.value && currentIndex.value > 0) {
+  if (deck.value && currentIndex.value > 0) {
     currentIndex.value--;
     isFlipped.value = false;
   }

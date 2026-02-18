@@ -56,9 +56,9 @@ const error = ref(null);
 onMounted(async () => {
   try {
     decks.value = await getDecks();
-  } catch (err) {
-    console.error(err);
-    error.value = "Failed to load decks.";
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
   } finally {
     loading.value = false;
   }
