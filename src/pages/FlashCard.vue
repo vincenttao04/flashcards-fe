@@ -31,7 +31,7 @@ const error = ref(null);
 
 onMounted(async () => {
   try {
-    deck.value = await getDeck({ setId });
+    deck.value = await getDeck(Number(setId));
   } catch (error) {
     console.error(error);
     alert(error.message);
@@ -62,7 +62,7 @@ function prevCard() {
 
 // Uncomment if you want to implement card indicators
 // function goToCard(index) {
-//   if (cardSet.value && index >= 0 && index < cardSet.value.cards.length) {
+//   if (deck.value && index >= 0 && index < deck.value.cards.length) {
 //     currentIndex.value = index;
 //     isFlipped.value = false;
 //   }
@@ -71,16 +71,16 @@ function prevCard() {
 // Function to handle edit action (currently a mock alert)
 function handleEdit() {
   alert(
-    `[MOCK] Edit flash card set: ${cardSet.value.title}\n\nTo edit a flash card set, please amend the code in src/data/flashCardSets.js`,
+    `[MOCK] Edit flash card set: ${deck.value.title}\n\nTo edit a flash card set, please amend the code in src/data/flashCardSets.js`,
   );
 }
 </script>
 
 <template>
-  <div class="flash-card-app" v-if="cardSet">
+  <div class="flash-card-app" v-if="deck">
     <div class="header-container">
       <PageHeader
-        :title="cardSet.title"
+        :title="deck.title"
         :showBackLink="true"
         :backTo="{ name: 'home' }"
         alignment="left"
@@ -102,18 +102,18 @@ function handleEdit() {
     />
 
     <CardNavigator
-      v-if="cardSet.cards.length"
+      v-if="deck.cards.length"
       :current-index="currentIndex"
-      :total="cardSet.cards.length"
+      :total="deck.cards.length"
       @prev="prevCard"
       @next="nextCard"
     />
 
     <!-- Not current used, but can be uncommented for card indicators -->
     <!-- <CardIndicators
-      v-if="cardSet.cards.length"
+      v-if="deck.cards.length"
       :current-index="currentIndex"
-      :total="cardSet.cards.length"
+      :total="deck.cards.length"
       @select="goToCard"
     /> -->
   </div>

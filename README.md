@@ -76,3 +76,4 @@ The flashcard application will typically be running at: http://localhost:5173/
 4. maybe deploy (see costing)
 5. transition ease css ? 
 6. make names consistent -> decks/sets, 
+7. fix: tiny flicker, when fetching api, fe thinks there is no data when data has yet to arrive.

@@ -30,7 +30,7 @@ function formatDate(dateString) {
   <div class="card-set">
     <!-- Main clickable area -->
     <router-link
-      :to="{ name: 'flashcard', params: { setId: props.set.title } }"
+      :to="{ name: 'flashcard', params: { setId: props.set.id } }"
       class="card-set-link"
     >
       <div class="set-header">
@@ -53,7 +53,7 @@ function formatDate(dateString) {
     <!-- TODO: Implement delete functionality -->
     <div class="action-buttons">
       <router-link
-        :to="{ name: 'edit', params: { setId: props.set.title } }"
+        :to="{ name: 'edit', params: { setId: props.set.id } }"
         class="edit-button"
       >
         <i class="bi bi-pen"></i>
