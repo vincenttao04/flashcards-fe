@@ -17,12 +17,12 @@ const props = defineProps({
 
 defineEmits(["delete"]);
 
-function formatDate(date) {
+function formatDate(dateString) {
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
-  }).format(date);
+  }).format(new Date(dateString));
 }
 </script>
 
@@ -30,7 +30,7 @@ function formatDate(date) {
   <div class="card-set">
     <!-- Main clickable area -->
     <router-link
-      :to="{ name: 'flashcard', params: { setId: props.set.id } }"
+      :to="{ name: 'flashcard', params: { setId: props.set.title } }"
       class="card-set-link"
     >
       <div class="set-header">
@@ -43,9 +43,9 @@ function formatDate(date) {
       <p class="set-description">{{ set.description }}</p>
 
       <div class="set-footer">
-        <!-- <span class="created-date"
+        <span class="created-date"
           >Created: {{ formatDate(set.createdAt) }}</span
-        > -->
+        >
       </div>
     </router-link>
 
@@ -53,7 +53,7 @@ function formatDate(date) {
     <!-- TODO: Implement delete functionality -->
     <div class="action-buttons">
       <router-link
-        :to="{ name: 'edit', params: { setId: props.set.id } }"
+        :to="{ name: 'edit', params: { setId: props.set.title } }"
         class="edit-button"
       >
         <i class="bi bi-pen"></i>

@@ -45,7 +45,6 @@ import { ref, computed, onMounted } from "vue";
 import PageHeader from "../components/global/PageHeader.vue";
 import SearchBar from "../components/home/SearchBar.vue";
 import FlashCardSetCard from "../components/home/FlashCardSetCard.vue";
-import { flashCardSets } from "../data/flashCardSets.js";
 
 import { getDecks } from "../api";
 

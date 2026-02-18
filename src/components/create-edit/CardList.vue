@@ -94,22 +94,22 @@ h2 {
 }
 
 .remove-btn {
-  background-color: #f8d7da;
-  color: #842029;
+  background: none;
   border: none;
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
+  padding: 0;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.2s;
+  color: #dc3545;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
 }
 
 .remove-btn:hover:not(:disabled) {
-  background-color: #f5c2c7;
+  color: #bb2d3b;
 }
 
 .remove-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
