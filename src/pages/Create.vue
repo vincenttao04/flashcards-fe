@@ -18,6 +18,8 @@ import CardsList from "../components/create-edit/CardList.vue";
 import PreviewSection from "../components/create-edit/CardPreview.vue";
 import FormActions from "../components/create-edit/FormActions.vue";
 
+import { createDeck } from "../api";
+
 const router = useRouter();
 const setTitle = ref("");
 const setDescription = ref("");
@@ -62,15 +64,28 @@ function updateCards(newCards) {
 }
 
 // Function to save the flash card set, checks if the form fields are valid and displays a mock alert
-function saveFlashCards() {
-  if (isFormValid.value) {
-    alert(
-      `[MOCK] ${setTitle.value} saved successfully\n\nTo add a new flash card set, please amend the code in src/data/flashCardSets.js`,
-    );
-    console.log("Saving:", { title: setTitle.value, cards: cards.value });
+async function saveFlashCards() {
+  if (!isFormValid.value) return;
+
+  try {
+    const newDeck = await createDeck(setTitle.value, setDescription.value);
+
+    console.log("Created deck:", newDeck);
+
     resetForm();
     router.push({ name: "home" });
+  } catch (error) {
+    console.error(error);
+    alert("Failed to create deck");
   }
+  // if (isFormValid.value) {
+  //   alert(
+  //     `[MOCK] ${setTitle.value} saved successfully\n\nTo add a new flash card set, please amend the code in src/data/flashCardSets.js`,
+  //   );
+  //   console.log("Saving:", { title: setTitle.value, cards: cards.value });
+  //   resetForm();
+  //   router.push({ name: "home" });
+  // }
 }
 
 // Function to reset the form fields after saving
