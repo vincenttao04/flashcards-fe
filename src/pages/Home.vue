@@ -72,7 +72,7 @@ const filteredFlashCardSets = computed(() => {
   if (!query) return decks.value;
 
   return decks.value.filter((set) => {
-    const nameMatch = set.name.toLowerCase().includes(query);
+    const titleMatch = set.title.toLowerCase().includes(query);
     const descriptionMatch = set.description.toLowerCase().includes(query);
     // TODO: add cards to GET /decks route
     // const cardsMatch = set.cards.some(
@@ -82,7 +82,7 @@ const filteredFlashCardSets = computed(() => {
     // );
 
     // return nameMatch || descriptionMatch || cardsMatch;
-    return nameMatch || descriptionMatch;
+    return titleMatch || descriptionMatch;
   });
 });
 

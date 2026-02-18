@@ -1,12 +1,12 @@
 const API_BASE = "http://localhost:3000";
 
-export async function createDeck(name: string, description: string) {
+export async function createDeck(title: string, description: string) {
   const res = await fetch(`${API_BASE}/decks`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, description }),
+    body: JSON.stringify({ title, description }),
   });
 
   if (!res.ok) {
