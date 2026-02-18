@@ -1,57 +1,15 @@
-<!-- /**
- * CreateFlashcardPage Component
- * Page for creating new flashcard sets with preview functionality
- * 
- * @component
- * @uses PageHeader
- * @uses SetTitleInput
- * @uses CardsList
- * @uses PreviewSection
- * @uses FormActions
- */ -->
-<template>
-  <div class="create-flash-cards">
-    <PageHeader
-      title="Create Flash Cards"
-      :showBackLink="true"
-      alignment="left"
-    />
-
-    <div class="form-container">
-      <SetTitleInput
-        :title="setTitle"
-        :description="setDescription"
-        @update:title="setTitle = $event"
-        @update:description="setDescription = $event"
-      />
-
-      <CardsList
-        :cards="cards"
-        @add="addCard"
-        @remove="removeCard"
-        @update:cards="updateCards"
-      />
-
-      <PreviewSection
-        v-if="cards.length > 0 && hasContent"
-        :cards="cards"
-        :preview-index="previewIndex"
-        @update:index="previewIndex = $event"
-      />
-
-      <FormActions :is-valid="isFormValid" @save="saveFlashCards" />
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
-import PageHeader from "../components/common/PageHeader.vue";
-import SetTitleInput from "../components/create/SetHeaderInput.vue";
-import CardsList from "../components/create/CardsList.vue";
-import PreviewSection from "../components/create/CardPreview.vue";
-import FormActions from "../components/create/FormActions.vue";
+import PageHeader from "../components/global/PageHeader.vue";
+import SetTitleInput from "../components/create-edit/HeaderInput.vue";
+import CardsList from "../components/create-edit/CardList.vue";
+import PreviewSection from "../components/create-edit/CardPreview.vue";
+import FormActions from "../components/create-edit/FormActions.vue";
+
+const { setId } = defineProps({
+  setId: String,
+});
 
 const router = useRouter();
 const setTitle = ref("");
@@ -104,7 +62,10 @@ function saveFlashCards() {
     );
     console.log("Saving:", { title: setTitle.value, cards: cards.value });
     resetForm();
-    router.push("/");
+    router.push({
+      name: "flashcard",
+      params: { setId },
+    });
   }
 }
 
@@ -117,8 +78,48 @@ function resetForm() {
 }
 </script>
 
+<template>
+  <div class="edit-flash-cards">
+    <PageHeader
+      title="Edit Flash Cards"
+      :showBackLink="true"
+      :backTo="{ name: 'flashcard', params: { setId } }"
+      alignment="left"
+    />
+
+    <div class="form-container">
+      <SetTitleInput
+        :title="setTitle"
+        :description="setDescription"
+        @update:title="setTitle = $event"
+        @update:description="setDescription = $event"
+      />
+
+      <CardsList
+        :cards="cards"
+        @add="addCard"
+        @remove="removeCard"
+        @update:cards="updateCards"
+      />
+
+      <PreviewSection
+        v-if="cards.length > 0 && hasContent"
+        :cards="cards"
+        :preview-index="previewIndex"
+        @update:index="previewIndex = $event"
+      />
+
+      <FormActions
+        :is-valid="isFormValid"
+        :backTo="{ name: 'flashcard', params: { setId } }"
+        @save="saveFlashCards"
+      />
+    </div>
+  </div>
+</template>
+
 <style scoped>
-.create-flash-cards {
+.edit-flash-cards {
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
@@ -133,7 +134,7 @@ function resetForm() {
 }
 
 @media (max-width: 640px) {
-  .create-flash-cards {
+  .edit-flash-cards {
     padding: 1rem;
   }
 

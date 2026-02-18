@@ -71,7 +71,6 @@ The flashcard application will typically be running at: http://localhost:5173/
 ## Future Work
 
 1. add a marquee carousel at the bottom for flash card navigation
-2. a new edit page to edit the entire flash card set at once
-3. a new edit feature on each individual card (so users can edit on the individual flash card page as well)
-4. my personal attribution at the bottom (add name, tech stack, etc.)
-5. maybe deploy (see costing)
+2. a new edit feature on each individual card (so users can edit on the individual flash card page well)
+3. my personal attribution at the bottom (add name, tech stack, etc.)
+4. maybe deploy (see costing)
