@@ -21,7 +21,7 @@
           @click="$emit('remove', index)"
           :disabled="cards.length <= 1"
         >
-          Remove
+          <i class="bi bi-trash"></i>
         </button>
       </div>
 
@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import CardForm from "./CardForm.vue";
+import CardForm from "./CardInput.vue";
 
 const props = defineProps({
   cards: {
@@ -68,7 +68,7 @@ function updateCard(index, updatedCard) {
 h2 {
   color: #2c3e50;
   margin: 1.5rem 0 1rem;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.25rem;
 }
 

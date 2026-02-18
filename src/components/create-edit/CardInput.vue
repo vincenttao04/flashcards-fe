@@ -9,8 +9,8 @@
  *                   Payload: (index, updatedCard)
  */ -->
 <template>
-  <div>
-    <div class="form-group">
+  <div class="form-wrapper">
+    <div>
       <label :for="`question-${index}`">Question</label>
       <textarea
         :id="`question-${index}`"
@@ -23,7 +23,7 @@
       ></textarea>
     </div>
 
-    <div class="form-group">
+    <div>
       <label :for="`answer-${index}`">Answer</label>
       <textarea
         :id="`answer-${index}`"
@@ -61,8 +61,10 @@ function updateField(field, value) {
 </script>
 
 <style scoped>
-.form-group {
-  margin-bottom: 1.5rem;
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 label {
