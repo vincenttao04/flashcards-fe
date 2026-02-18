@@ -12,11 +12,11 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
-import PageHeader from "../components/common/PageHeader.vue";
-import SetTitleInput from "../components/create/SetHeaderInput.vue";
-import CardsList from "../components/create/CardsList.vue";
-import PreviewSection from "../components/create/CardPreview.vue";
-import FormActions from "../components/create/FormActions.vue";
+import PageHeader from "../components/global/PageHeader.vue";
+import SetTitleInput from "../components/create-edit/SetHeaderInput.vue";
+import CardsList from "../components/create-edit/CardsList.vue";
+import PreviewSection from "../components/create-edit/CardPreview.vue";
+import FormActions from "../components/create-edit/FormActions.vue";
 
 const router = useRouter();
 const setTitle = ref("");
@@ -113,7 +113,11 @@ function resetForm() {
         @update:index="previewIndex = $event"
       />
 
-      <FormActions :is-valid="isFormValid" @save="saveFlashCards" />
+      <FormActions
+        :is-valid="isFormValid"
+        :backTo="{ name: 'home' }"
+        @save="saveFlashCards"
+      />
     </div>
   </div>
 </template>

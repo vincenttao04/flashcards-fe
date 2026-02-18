@@ -12,7 +12,7 @@
 import { ref, computed, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getFlashCardSet } from "../data/flashCardSets.js";
-import PageHeader from "../components/common/PageHeader.vue";
+import PageHeader from "../components/global/PageHeader.vue";
 import FlashCard from "../components/flashcard/FlashCard.vue";
 import CardNavigator from "../components/flashcard/CardNavigator.vue";
 // import CardIndicators from "../components/flashcard/CardIndicators.vue"; // Uncomment if you want to implement card indicators

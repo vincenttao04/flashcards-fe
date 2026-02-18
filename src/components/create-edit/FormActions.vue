@@ -12,6 +12,10 @@ defineProps({
     type: Boolean,
     required: true,
   },
+  backTo: {
+    type: [String, Object],
+    default: "/",
+  },
 });
 
 defineEmits(["save"]);
@@ -19,7 +23,7 @@ defineEmits(["save"]);
 
 <template>
   <div class="form-actions" aria-label="Form Actions">
-    <router-link to="/" class="cancel-btn"> Cancel </router-link>
+    <router-link :to="backTo" class="cancel-btn"> Cancel </router-link>
     <button
       type="button"
       class="save-btn"
