@@ -35,17 +35,17 @@ function formatDate(date) {
     >
       <div class="set-header">
         <h2 class="set-title">{{ set.title }}</h2>
-        <span class="card-count"
+        <!-- <span class="card-count"
           >{{ set.cards.length }}<i class="bi bi-card-text"></i>
-        </span>
+        </span> -->
       </div>
 
       <p class="set-description">{{ set.description }}</p>
 
       <div class="set-footer">
-        <span class="created-date"
+        <!-- <span class="created-date"
           >Created: {{ formatDate(set.createdAt) }}</span
-        >
+        > -->
       </div>
     </router-link>
 
