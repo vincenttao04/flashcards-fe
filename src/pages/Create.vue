@@ -64,6 +64,7 @@ function updateCards(newCards) {
 }
 
 // Function to save the flash card set, checks if the form fields are valid and displays a mock alert
+// TODO: check if it needs a loading? like in home and flashcard pages.
 async function saveFlashCards() {
   if (!isFormValid.value) return;
 
@@ -76,7 +77,7 @@ async function saveFlashCards() {
     router.push({ name: "home" });
   } catch (error) {
     console.error(error);
-    alert("Failed to create deck");
+    alert(error.message);
   }
   // if (isFormValid.value) {
   //   alert(
