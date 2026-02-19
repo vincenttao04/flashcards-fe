@@ -1,12 +1,12 @@
 const API_BASE = "http://localhost:3000";
 
-export async function createDeck(name: string) {
+export async function createDeck(title: string, description: string) {
   const res = await fetch(`${API_BASE}/decks`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name }),
+    body: JSON.stringify({ title, description }),
   });
 
   if (!res.ok) {
@@ -36,6 +36,38 @@ export async function getDeck(id: number) {
   return res.json();
 }
 
-// update a deck: tbc
+export async function updateDeck(
+  id: number,
+  title: string,
+  description: string,
+) {
+  const res = await fetch(`${API_BASE}/decks/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title, description }),
+  });
 
-// delete a deck: tbc
+  if (!res.ok) {
+    const error = await res.json().catch(() => null);
+    throw new Error(error?.error || "Failed to update deck");
+  }
+
+  return res.json();
+}
+
+export async function deleteDeck(id: number) {
+  const res = await fetch(`${API_BASE}/decks/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => null);
+    throw new Error(error?.error || "Failed to delete deck");
+  }
+
+  return;
+}
+
+/////////////////////////////////// cards ///////////////////////////////
