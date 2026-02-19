@@ -39,3 +39,14 @@ export async function getDeck(id: number) {
 // update a deck: tbc
 
 // delete a deck: tbc
+export async function deleteDeck(id: number) {
+  const res = await fetch(`${API_BASE}/decks/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to delete deck");
+  }
+
+  return;
+}
