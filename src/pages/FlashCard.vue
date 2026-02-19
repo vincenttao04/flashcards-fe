@@ -63,17 +63,11 @@ function prevCard() {
 // Uncomment if you want to implement card indicators
 // function goToCard(index) {
 //   if (deck.value && index >= 0 && index < deck.value.cards.length) {
-//     currentIndex.value = index;
+//     currentIndex.value = index;  
 //     isFlipped.value = false;
 //   }
 // }
 
-// Function to handle edit action (currently a mock alert)
-function handleEdit() {
-  alert(
-    `[MOCK] Edit flash card set: ${deck.value.title}\n\nTo edit a flash card set, please amend the code in src/data/flashCardSets.js`,
-  );
-}
 </script>
 
 <template>

@@ -46,7 +46,7 @@ import PageHeader from "../components/global/PageHeader.vue";
 import SearchBar from "../components/home/SearchBar.vue";
 import FlashCardSetCard from "../components/home/FlashCardSetCard.vue";
 
-import { getDecks } from "../api";
+import { getDecks, deleteDeck } from "../api";
 
 const searchQuery = ref("");
 const decks = ref([]);
@@ -93,10 +93,13 @@ function handleEdit(setId, setTitle) {
 }
 
 // Function to handle the deletion of a flash card set, currently a mock function that shows an alert.
-function handleDelete(setId, setTitle) {
-  alert(
-    `[MOCK] ${setTitle} has been successfully deleted\n\nTo delete a flash card set, please amend the code in src/data/flashCardSets.js`,
-  );
+async function handleDelete(setId, setTitle) {
+  try {
+    await deleteDeck(setId);
+    decks.value = decks.value.filter((deck) => deck.id !== setId);
+  } catch (error) {
+    alert(error.message);
+  }
 }
 </script>
 
