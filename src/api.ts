@@ -45,8 +45,12 @@ export async function deleteDeck(id: number) {
   });
 
   if (!res.ok) {
-    throw new Error("Failed to delete deck");
+    const error = await res.json().catch(() => null);
+    throw new Error(error?.error || "Failed to delete deck");
   }
 
   return;
 }
+
+/////////////////////////////////// cards ///////////////////////////////
+
