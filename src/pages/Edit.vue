@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import PageHeader from "../components/global/PageHeader.vue";
 import HeaderInput from "../components/create-edit/HeaderInput.vue";
@@ -7,22 +7,33 @@ import CardsList from "../components/create-edit/CardList.vue";
 import PreviewSection from "../components/create-edit/CardPreview.vue";
 import FormActions from "../components/create-edit/FormActions.vue";
 
-import { updateDeck } from "../api";
+import { getDeck, updateDeck } from "../api";
 
 const { setId } = defineProps({
   setId: String,
 });
 
 const router = useRouter();
-const setTitle = ref("");
-const setDescription = ref("");
+const title = ref("");
+const description = ref("");
 const cards = ref([{ question: "", answer: "" }]);
 const previewIndex = ref(0);
 
+onMounted(async () => {
+  try {
+    const deck = await getDeck(Number(setId));
+
+    title.value = deck.title;
+    description.value = deck.description;
+  } catch (error) {
+    alert(error.message);
+  }
+});
+
 const isFormValid = computed(() => {
   return (
-    setTitle.value.trim() !== "" &&
-    setDescription.value.trim() !== "" &&
+    title.value.trim() !== "" &&
+    description.value.trim() !== "" &&
     cards.value.every(
       (card) => card.question.trim() !== "" && card.answer.trim() !== "",
     )
@@ -61,10 +72,7 @@ async function saveFlashCards() {
   if (!isFormValid.value) return;
 
   try {
-    await updateDeck(Number(setId), setTitle.value, setDescription.value);
-
-    console.log("Updated deck:", { id: setId, title: setTitle.value });
-
+    await updateDeck(Number(setId), title.value, description.value);
     resetForm();
     router.push({
       name: "flashcard",
@@ -77,8 +85,8 @@ async function saveFlashCards() {
 
 // Function to reset the form fields after saving
 function resetForm() {
-  setTitle.value = "";
-  setDescription.value = "";
+  title.value = "";
+  description.value = "";
   cards.value = [{ question: "", answer: "" }];
   previewIndex.value = 0;
 }
@@ -95,10 +103,10 @@ function resetForm() {
 
     <div class="form-container">
       <HeaderInput
-        :title="setTitle"
-        :description="setDescription"
-        @update:title="setTitle = $event"
-        @update:description="setDescription = $event"
+        :title="title"
+        :description="description"
+        @update:title="title = $event"
+        @update:description="description = $event"
       />
 
       <CardsList

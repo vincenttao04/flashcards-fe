@@ -33,7 +33,6 @@ onMounted(async () => {
   try {
     deck.value = await getDeck(Number(setId));
   } catch (error) {
-    console.error(error);
     alert(error.message);
   } finally {
     loading.value = false;
@@ -63,11 +62,10 @@ function prevCard() {
 // Uncomment if you want to implement card indicators
 // function goToCard(index) {
 //   if (deck.value && index >= 0 && index < deck.value.cards.length) {
-//     currentIndex.value = index;  
+//     currentIndex.value = index;
 //     isFlipped.value = false;
 //   }
 // }
-
 </script>
 
 <template>
