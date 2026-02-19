@@ -2,10 +2,12 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import PageHeader from "../components/global/PageHeader.vue";
-import SetTitleInput from "../components/create-edit/HeaderInput.vue";
+import HeaderInput from "../components/create-edit/HeaderInput.vue";
 import CardsList from "../components/create-edit/CardList.vue";
 import PreviewSection from "../components/create-edit/CardPreview.vue";
 import FormActions from "../components/create-edit/FormActions.vue";
+
+import { updateDeck } from "../api";
 
 const { setId } = defineProps({
   setId: String,
@@ -55,17 +57,21 @@ function updateCards(newCards) {
 }
 
 // Function to save the flash card set, checks if the form fields are valid and displays a mock alert
-function saveFlashCards() {
-  if (isFormValid.value) {
-    alert(
-      `[MOCK] ${setTitle.value} saved successfully\n\nTo add a new flash card set, please amend the code in src/data/flashCardSets.js`,
-    );
-    console.log("Saving:", { title: setTitle.value, cards: cards.value });
+async function saveFlashCards() {
+  if (!isFormValid.value) return;
+
+  try {
+    await updateDeck(Number(setId), setTitle.value, setDescription.value);
+
+    console.log("Updated deck:", { id: setId, title: setTitle.value });
+
     resetForm();
     router.push({
       name: "flashcard",
       params: { setId },
     });
+  } catch (error) {
+    alert(error.message);
   }
 }
 
@@ -88,7 +94,7 @@ function resetForm() {
     />
 
     <div class="form-container">
-      <SetTitleInput
+      <HeaderInput
         :title="setTitle"
         :description="setDescription"
         @update:title="setTitle = $event"
