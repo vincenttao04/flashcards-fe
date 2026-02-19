@@ -74,3 +74,6 @@ The flashcard application will typically be running at: http://localhost:5173/
 2. a new edit feature on each individual card (so users can edit on the individual flash card page well)
 3. my personal attribution at the bottom (add name, tech stack, etc.)
 4. maybe deploy (see costing)
+5. transition ease css ? 
+6. make names consistent -> decks/sets, 
+7. fix: tiny flicker, when fetching api, fe thinks there is no data when data has yet to arrive.

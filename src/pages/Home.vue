@@ -25,12 +25,14 @@
       </div>
     </div>
 
-    <div class="flash-card-sets">
+    <p v-if="loading">Loading...</p>
+    <p v-if="error">{{ error }}</p>
+
+    <div v-if="!loading && !error" class="flash-card-sets">
       <FlashCardSetCard
         v-for="set in filteredFlashCardSets"
         :key="set.id"
         :set="set"
-        @edit="handleEdit"
         @delete="handleDelete"
       />
     </div>
@@ -38,45 +40,62 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import PageHeader from "../components/global/PageHeader.vue";
 import SearchBar from "../components/home/SearchBar.vue";
 import FlashCardSetCard from "../components/home/FlashCardSetCard.vue";
-import { flashCardSets } from "../data/flashCardSets.js";
+
+import { getDecks, deleteDeck } from "../api";
 
 const searchQuery = ref("");
+const decks = ref([]);
+const loading = ref(true);
+const error = ref(null);
+
+onMounted(async () => {
+  try {
+    decks.value = await getDecks();
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
+  } finally {
+    loading.value = false;
+  }
+});
 
 // Computed property to filter flash card sets based on the search query
 const filteredFlashCardSets = computed(() => {
   const query = searchQuery.value.toLowerCase().trim();
 
-  if (!query) return flashCardSets;
+  if (!query) return decks.value;
 
-  return flashCardSets.filter((set) => {
+  return decks.value.filter((set) => {
     const titleMatch = set.title.toLowerCase().includes(query);
     const descriptionMatch = set.description.toLowerCase().includes(query);
-    const cardsMatch = set.cards.some(
-      (card) =>
-        card.question.toLowerCase().includes(query) ||
-        card.answer.toLowerCase().includes(query),
-    );
+    // TODO: add cards to GET /decks route
+    // const cardsMatch = set.cards.some(
+    //   (card) =>
+    //     card.question.toLowerCase().includes(query) ||
+    //     card.answer.toLowerCase().includes(query),
+    // );
 
-    return titleMatch || descriptionMatch || cardsMatch;
+    // return nameMatch || descriptionMatch || cardsMatch;
+    return titleMatch || descriptionMatch;
   });
 });
 
-// Function to handle edit action (currently a mock alert)
-function handleEdit(setId, setTitle) {
-  alert(
-    `[MOCK] Edit flash card set: ${setTitle}\n\nTo edit a flash card set, please amend the code in src/data/flashCardSets.js`,
-  );
-}
-
 // Function to handle the deletion of a flash card set, currently a mock function that shows an alert.
-function handleDelete(setId, setTitle) {
-  alert(
-    `[MOCK] ${setTitle} has been successfully deleted\n\nTo delete a flash card set, please amend the code in src/data/flashCardSets.js`,
-  );
+async function handleDelete(setId, setTitle) {
+  if (!confirm(`Delete "${setTitle}"? This cannot be undone.`)) {
+    return;
+  }
+
+  try {
+    await deleteDeck(setId);
+    decks.value = decks.value.filter((deck) => deck.id !== setId);
+  } catch (error) {
+    alert(error.message);
+  }
 }
 </script>
 

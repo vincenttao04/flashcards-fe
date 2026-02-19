@@ -9,65 +9,51 @@
  * @uses CardIndicators (currently commented out)
  */ -->
 <script setup>
-import { ref, computed, onMounted, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { getFlashCardSet } from "../data/flashCardSets.js";
+import { ref, computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import PageHeader from "../components/global/PageHeader.vue";
 import FlashCard from "../components/flashcard/CardInterface.vue";
 import CardNavigator from "../components/flashcard/CardNavigator.vue";
 // import CardIndicators from "../components/flashcard/CardIndicators.vue"; // Uncomment if you want to implement card indicators
 
+import { getDeck } from "../api";
+
 const { setId } = defineProps({
   setId: String,
 });
 
-const route = useRoute();
 const router = useRouter();
-const cardSet = ref(null);
+const deck = ref(null);
 const currentIndex = ref(0);
 const isFlipped = ref(false);
+const loading = ref(true);
+const error = ref(null);
 
-// Watch for route changes
-watch(
-  () => route.params.setId,
-  (newSetId) => {
-    loadCardSet(newSetId);
-  },
-);
-
-// Load card set data
-function loadCardSet(setId) {
-  const set = getFlashCardSet(setId);
-  if (set) {
-    cardSet.value = set;
-    currentIndex.value = 0;
-    isFlipped.value = false;
-  } else {
-    // Handle non-existent set
-    // router.push("/");
-    cardSet.value = null;
+onMounted(async () => {
+  try {
+    deck.value = await getDeck(Number(setId));
+  } catch (error) {
+    alert(error.message);
+  } finally {
+    loading.value = false;
   }
-}
-
-onMounted(() => {
-  loadCardSet(route.params.setId);
 });
 
-const currentCard = computed(() => cardSet.value?.cards?.[currentIndex.value]);
+const currentCard = computed(() => deck.value?.cards?.[currentIndex.value]);
 
 function handleFlip() {
   isFlipped.value = !isFlipped.value;
 }
 
 function nextCard() {
-  if (cardSet.value && currentIndex.value < cardSet.value.cards.length - 1) {
+  if (deck.value && currentIndex.value < deck.value.cards.length - 1) {
     currentIndex.value++;
     isFlipped.value = false;
   }
 }
 
 function prevCard() {
-  if (cardSet.value && currentIndex.value > 0) {
+  if (deck.value && currentIndex.value > 0) {
     currentIndex.value--;
     isFlipped.value = false;
   }
@@ -75,25 +61,18 @@ function prevCard() {
 
 // Uncomment if you want to implement card indicators
 // function goToCard(index) {
-//   if (cardSet.value && index >= 0 && index < cardSet.value.cards.length) {
+//   if (deck.value && index >= 0 && index < deck.value.cards.length) {
 //     currentIndex.value = index;
 //     isFlipped.value = false;
 //   }
 // }
-
-// Function to handle edit action (currently a mock alert)
-function handleEdit() {
-  alert(
-    `[MOCK] Edit flash card set: ${cardSet.value.title}\n\nTo edit a flash card set, please amend the code in src/data/flashCardSets.js`,
-  );
-}
 </script>
 
 <template>
-  <div class="flash-card-app" v-if="cardSet">
+  <div class="flash-card-app" v-if="deck">
     <div class="header-container">
       <PageHeader
-        :title="cardSet.title"
+        :title="deck.title"
         :showBackLink="true"
         :backTo="{ name: 'home' }"
         alignment="left"
@@ -115,18 +94,18 @@ function handleEdit() {
     />
 
     <CardNavigator
-      v-if="cardSet.cards.length"
+      v-if="deck.cards.length"
       :current-index="currentIndex"
-      :total="cardSet.cards.length"
+      :total="deck.cards.length"
       @prev="prevCard"
       @next="nextCard"
     />
 
     <!-- Not current used, but can be uncommented for card indicators -->
     <!-- <CardIndicators
-      v-if="cardSet.cards.length"
+      v-if="deck.cards.length"
       :current-index="currentIndex"
-      :total="cardSet.cards.length"
+      :total="deck.cards.length"
       @select="goToCard"
     /> -->
   </div>
