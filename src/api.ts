@@ -36,9 +36,27 @@ export async function getDeck(id: number) {
   return res.json();
 }
 
-// update a deck: tbc
+export async function updateDeck(
+  id: number,
+  title: string,
+  description: string,
+) {
+  const res = await fetch(`${API_BASE}/decks/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title, description }),
+  });
 
-// delete a deck: tbc
+  if (!res.ok) {
+    const error = await res.json().catch(() => null);
+    throw new Error(error?.error || "Failed to update deck");
+  }
+
+  return res.json();
+}
+
 export async function deleteDeck(id: number) {
   const res = await fetch(`${API_BASE}/decks/${id}`, {
     method: "DELETE",
@@ -53,4 +71,3 @@ export async function deleteDeck(id: number) {
 }
 
 /////////////////////////////////// cards ///////////////////////////////
-
