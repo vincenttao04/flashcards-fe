@@ -18,7 +18,7 @@ import CardsList from "../components/create-edit/CardList.vue";
 import PreviewSection from "../components/create-edit/CardPreview.vue";
 import FormActions from "../components/create-edit/FormActions.vue";
 
-import { createDeck, createCard } from "../api";
+import { createDeck } from "../api";
 
 const router = useRouter();
 const setTitle = ref("");
@@ -69,7 +69,7 @@ async function saveFlashCards() {
   if (!isFormValid.value) return;
 
   try {
-    const newDeck = await createDeck(
+    await createDeck(
       setTitle.value.trim(),
       setDescription.value.trim(),
       cards.value.map((card) => ({
@@ -80,7 +80,6 @@ async function saveFlashCards() {
     resetForm();
     router.push({ name: "home" });
   } catch (error) {
-    console.error(error);
     alert(error.message);
   }
 }
