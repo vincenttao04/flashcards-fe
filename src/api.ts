@@ -1,12 +1,36 @@
 const API_BASE = "http://localhost:3000";
 
-export async function createDeck(title: string, description: string) {
+export async function createCard(
+  deckId: number,
+  question: string,
+  answer: string,
+) {
+  const res = await fetch(`${API_BASE}/decks/${deckId}/cards`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ question, answer }),
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to create card");
+  }
+
+  return res.json();
+}
+
+export async function createDeck(
+  title: string,
+  description: string,
+  cards: { question: string; answer: string }[],
+) {
   const res = await fetch(`${API_BASE}/decks`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ title, description }),
+    body: JSON.stringify({ title, description, cards }),
   });
 
   if (!res.ok) {
