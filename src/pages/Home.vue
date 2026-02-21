@@ -7,38 +7,6 @@
  * @uses SearchBar
  * @uses FlashCardSetCard
  */ -->
-<template>
-  <div class="home-page">
-    <PageHeader
-      title="Flash Card Library"
-      subtitle="Explore and create your personal collection of flash cards"
-      alignment="center"
-    />
-
-    <div class="actions-container">
-      <router-link to="/create" class="create-button">
-        <i class="bi bi-plus-lg"></i>
-        <span class="button-text">Create New Set</span>
-      </router-link>
-      <div class="search-wrapper">
-        <SearchBar v-model="searchQuery" />
-      </div>
-    </div>
-
-    <p v-if="loading">Loading...</p>
-    <p v-if="error">{{ error }}</p>
-
-    <div v-if="!loading && !error" class="flash-card-sets">
-      <FlashCardSetCard
-        v-for="set in filteredFlashCardSets"
-        :key="set.id"
-        :set="set"
-        @delete="handleDelete"
-      />
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import PageHeader from "../components/global/PageHeader.vue";
@@ -98,6 +66,38 @@ async function handleDelete(setId, setTitle) {
   }
 }
 </script>
+
+<template>
+  <div class="home-page">
+    <PageHeader
+      title="Flash Card Library"
+      subtitle="Explore and create your personal collection of flash cards"
+      alignment="center"
+    />
+
+    <div class="actions-container">
+      <router-link to="/create" class="create-button">
+        <i class="bi bi-plus-lg"></i>
+        <span class="button-text">Create New Set</span>
+      </router-link>
+      <div class="search-wrapper">
+        <SearchBar v-model="searchQuery" />
+      </div>
+    </div>
+
+    <p v-if="loading">Loading...</p>
+    <p v-if="error">{{ error }}</p>
+
+    <div v-if="!loading && !error" class="flash-card-sets">
+      <FlashCardSetCard
+        v-for="set in filteredFlashCardSets"
+        :key="set.id"
+        :set="set"
+        @delete="handleDelete"
+      />
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .home-page {
