@@ -25,6 +25,10 @@ onMounted(async () => {
 
     title.value = deck.title;
     description.value = deck.description;
+    cards.value = deck.cards.map((card) => ({
+      question: card.question,
+      answer: card.answer,
+    }));
   } catch (error) {
     alert(error.message);
   }

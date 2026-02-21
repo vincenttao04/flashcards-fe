@@ -40,15 +40,13 @@ const filteredFlashCardSets = computed(() => {
   return decks.value.filter((set) => {
     const titleMatch = set.title.toLowerCase().includes(query);
     const descriptionMatch = set.description.toLowerCase().includes(query);
-    // TODO: add cards to GET /decks route
-    // const cardsMatch = set.cards.some(
-    //   (card) =>
-    //     card.question.toLowerCase().includes(query) ||
-    //     card.answer.toLowerCase().includes(query),
-    // );
+    const cardsMatch = set.cards.some((card) => {
+      const questionMatch = card.question.toLowerCase().includes(query);
+      const answerMatch = card.answer.toLowerCase().includes(query);
+      return questionMatch || answerMatch;
+    });
 
-    // return nameMatch || descriptionMatch || cardsMatch;
-    return titleMatch || descriptionMatch;
+    return titleMatch || descriptionMatch || cardsMatch;
   });
 });
 
