@@ -72,7 +72,12 @@ async function saveFlashCards() {
   if (!isFormValid.value) return;
 
   try {
-    await updateDeck(Number(setId), title.value, description.value);
+    await updateDeck(
+      Number(setId),
+      title.value,
+      description.value,
+      cards.value,
+    );
     resetForm();
     router.push({
       name: "flashcard",
