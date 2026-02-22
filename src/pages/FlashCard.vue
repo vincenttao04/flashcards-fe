@@ -10,7 +10,6 @@
  */ -->
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import { useRouter } from "vue-router";
 import PageHeader from "../components/global/PageHeader.vue";
 import FlashCard from "../components/flashcard/CardInterface.vue";
 import CardNavigator from "../components/flashcard/CardNavigator.vue";
@@ -22,7 +21,6 @@ const { setId } = defineProps({
   setId: String,
 });
 
-const router = useRouter();
 const deck = ref(null);
 const currentIndex = ref(0);
 const isFlipped = ref(false);
@@ -31,9 +29,12 @@ const error = ref(null);
 
 onMounted(async () => {
   try {
+    loading.value = true;
+    error.value = null;
     deck.value = await getDeck(Number(setId));
-  } catch (error) {
-    alert(error.message);
+  } catch (err) {
+    alert(err.message);
+    error.value = err.message || "Failed to load flashcards";
   } finally {
     loading.value = false;
   }
@@ -69,7 +70,7 @@ function prevCard() {
 </script>
 
 <template>
-  <div class="flash-card-app" v-if="deck">
+  <div class="flash-card-app" v-if="!loading && !error && deck">
     <div class="header-container">
       <PageHeader
         :title="deck.title"
@@ -78,7 +79,6 @@ function prevCard() {
         alignment="left"
       />
 
-      <!-- TODO: Implement edit icon to trigger edit functionality (and button wrapper?) -->
       <router-link :to="{ name: 'edit', params: { setId } }" class="edit-icon">
         <i class="bi bi-pen"></i>
       </router-link>
@@ -94,7 +94,7 @@ function prevCard() {
     />
 
     <CardNavigator
-      v-if="deck.cards.length"
+      v-if="deck.cards?.length"
       :current-index="currentIndex"
       :total="deck.cards.length"
       @prev="prevCard"
@@ -109,9 +109,20 @@ function prevCard() {
       @select="goToCard"
     /> -->
   </div>
-  <div v-else class="error-state">
-    <h2>Flash Card Set Not Found</h2>
-    <router-link to="/" class="back-link">Return to Home</router-link>
+
+  <!-- Loading State-->
+  <div v-else-if="loading" class="flash-card-app">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Error State-->
+  <div v-else-if="error" class="flash-card-app">
+    <div class="error-state">
+      <h2>Flash Card Set Not Found</h2>
+      <router-link to="/" class="back-link">Return to Home</router-link>
+    </div>
   </div>
 </template>
 
@@ -150,13 +161,10 @@ function prevCard() {
 }
 
 .error-state {
+  display: flex;
+  flex-direction: column;
   text-align: center;
   padding: 2rem;
-}
-
-.error-state h2 {
-  margin-bottom: 1rem;
-  color: #666;
 }
 
 @media (max-width: 640px) {

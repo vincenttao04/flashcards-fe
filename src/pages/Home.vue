@@ -22,10 +22,12 @@ const error = ref(null);
 
 onMounted(async () => {
   try {
+    loading.value = true;
+    error.value = null;
     decks.value = await getDecks();
-  } catch (error) {
-    alert(error.message);
-    error.value = error.message || "Failed to load flashcards";
+  } catch (err) {
+    alert(err);
+    error.value = err.message || "Failed to load flashcards";
   } finally {
     loading.value = false;
   }
@@ -92,16 +94,20 @@ async function handleDelete(setId, setTitle) {
       </div>
     </div>
 
+    <!-- Loading State -->
     <div v-if="loading" class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
+    <!-- Error State -->
     <p v-else-if="error" class="text-muted">
       <em>{{ error }}</em>
     </p>
+    <!-- No Search Results State -->
     <p v-else-if="noSearchResults" class="text-muted">
       <em>No search results for: {{ searchQuery }}</em>
     </p>
-    <div v-else="!loading && !error" class="flash-card-sets">
+
+    <div v-else class="flash-card-sets">
       <FlashCardChip
         v-for="set in filteredFlashCards"
         :key="set.id"
