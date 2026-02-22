@@ -19,7 +19,7 @@
         @input="updateField('question', $event.target.value)"
         placeholder="What is the capital of Australia?"
         class="form-input"
-        rows="2"
+        rows="1"
       ></textarea>
     </div>
 
@@ -32,7 +32,7 @@
         @input="updateField('answer', $event.target.value)"
         placeholder="Canberra"
         class="form-input"
-        rows="3"
+        rows="2"
       ></textarea>
     </div>
   </div>

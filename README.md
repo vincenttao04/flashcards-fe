@@ -1,6 +1,6 @@
 # FlashCard App (Vue)
 
-This is a simple frontend flash card application built with Vue 3 and Vite. It demonstrates core Vue concepts like component structure, routing, and state management using basic functionalities.
+This is a simple frontend flashcard application built with Vue 3 and Vite. It demonstrates core Vue concepts like component structure, routing, and state management using basic functionalities.
 
 ---
 
@@ -70,10 +70,13 @@ The flashcard application will typically be running at: http://localhost:5173/
 
 ## Future Work
 
-1. add a marquee carousel at the bottom for flash card navigation
-2. a new edit feature on each individual card (so users can edit on the individual flash card page well)
-3. my personal attribution at the bottom (add name, tech stack, etc.)
-4. maybe deploy (see costing)
-5. transition ease css ? 
-6. make names consistent -> decks/sets, 
-7. fix: tiny flicker, when fetching api, fe thinks there is no data when data has yet to arrive.
+1. add a marquee carousel at the bottom for flashcard navigation
+2. my personal attribution at the bottom (add name, tech stack, etc.)
+3. maybe deploy (see costing)
+4. transition ease css ?
+5. make names consistent -> decks/sets,
+6. fix: tiny flicker, when fetching api, fe thinks there is no data when data has yet to arrive.
+
+7. fix tiny flicker, add more loading states, etc
+8. refactor: naming consistent, etc. -> also make mobile responsive, see transition ease css?, personal attribution, more global components (error, loading, etc.)
+9. marquee carousel

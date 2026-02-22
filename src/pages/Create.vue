@@ -63,30 +63,25 @@ function updateCards(newCards) {
   cards.value = newCards;
 }
 
-// Function to save the flash card set, checks if the form fields are valid and displays a mock alert
+// Function to save the flashcard set, checks if the form fields are valid and displays a mock alert
 // TODO: check if it needs a loading? like in home and flashcard pages.
 async function saveFlashCards() {
   if (!isFormValid.value) return;
 
   try {
-    const newDeck = await createDeck(setTitle.value, setDescription.value);
-
-    console.log("Created deck:", newDeck);
-
+    await createDeck(
+      setTitle.value.trim(),
+      setDescription.value.trim(),
+      cards.value.map((card) => ({
+        question: card.question.trim(),
+        answer: card.answer.trim(),
+      })),
+    );
     resetForm();
     router.push({ name: "home" });
   } catch (error) {
-    console.error(error);
     alert(error.message);
   }
-  // if (isFormValid.value) {
-  //   alert(
-  //     `[MOCK] ${setTitle.value} saved successfully\n\nTo add a new flash card set, please amend the code in src/data/flashCardSets.js`,
-  //   );
-  //   console.log("Saving:", { title: setTitle.value, cards: cards.value });
-  //   resetForm();
-  //   router.push({ name: "home" });
-  // }
 }
 
 // Function to reset the form fields after saving

@@ -4,6 +4,7 @@
  * 
  * @component
  * @props {Boolean} isValid - Determines if the save action is enabled
+ * @props {String | Object} backTo - Route to navigate when cancelling
  * @emits {save} - Emits when save button is clicked
  */ -->
 <script setup>
@@ -23,26 +24,39 @@ defineEmits(["save"]);
 
 <template>
   <div class="form-actions" aria-label="Form Actions">
-    <router-link :to="backTo" class="cancel-btn"> Cancel </router-link>
-    <button
-      type="button"
-      class="save-btn"
-      @click="$emit('save')"
-      :disabled="!isValid"
-    >
-      Save Flash Cards
-    </button>
+    <div class="button-group">
+      <router-link :to="backTo" class="cancel-btn"> Cancel </router-link>
+
+      <button
+        type="button"
+        class="save-btn"
+        @click="$emit('save')"
+        :disabled="!isValid"
+      >
+        Save Flashcards
+      </button>
+    </div>
+
+    <p v-if="!isValid" class="helper-text text-muted">
+      <em>All fields required</em>
+    </p>
   </div>
 </template>
 
 <style scoped>
 .form-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid #e9ecef;
+}
+
+.button-group {
+  display: inline-flex;
+  gap: 1rem;
 }
 
 .cancel-btn {
@@ -81,6 +95,10 @@ defineEmits(["save"]);
 .save-btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+.helper-text {
+  margin: 0;
 }
 
 @media (max-width: 640px) {

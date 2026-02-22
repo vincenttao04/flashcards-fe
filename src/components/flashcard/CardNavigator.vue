@@ -20,7 +20,7 @@
       Previous
     </button>
 
-    <div class="progress">{{ currentIndex + 1 }} / {{ total }}</div>
+    <div class="progress-index">{{ currentIndex + 1 }} / {{ total }}</div>
 
     <button
       class="control-btn"
@@ -81,7 +81,7 @@ defineEmits(["prev", "next"]);
   cursor: not-allowed;
 }
 
-.progress {
+.progress-index {
   font-size: 0.9rem;
   color: #6c757d;
 }
