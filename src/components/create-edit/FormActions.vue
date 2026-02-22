@@ -33,7 +33,7 @@ defineEmits(["save"]);
         @click="$emit('save')"
         :disabled="!isValid"
       >
-        Save Flash Cards
+        Save Flashcards
       </button>
     </div>
 

@@ -5,13 +5,13 @@
  * @component
  * @uses PageHeader
  * @uses SearchBar
- * @uses FlashCardSetCard
+ * @uses FlashCardChip
  */ -->
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import PageHeader from "../components/global/PageHeader.vue";
 import SearchBar from "../components/home/SearchBar.vue";
-import FlashCardSetCard from "../components/home/FlashCardSetCard.vue";
+import FlashCardChip from "../components/home/FlashCardChip.vue";
 
 import { getDecks, deleteDeck } from "../api";
 
@@ -31,8 +31,8 @@ onMounted(async () => {
   }
 });
 
-// Computed property to filter flash card sets based on the search query
-const filteredFlashCardSets = computed(() => {
+// Computed property to filter flashcard sets based on the search query
+const filteredFlashCards = computed(() => {
   const query = searchQuery.value.toLowerCase().trim();
 
   if (!query) return decks.value;
@@ -55,7 +55,7 @@ const noSearchResults = computed(() => {
     !loading.value &&
     !error.value &&
     searchQuery.value.trim() !== "" &&
-    filteredFlashCardSets.value.length === 0
+    filteredFlashCards.value.length === 0
   );
 });
 
@@ -77,15 +77,15 @@ async function handleDelete(setId, setTitle) {
 <template>
   <div class="home-page">
     <PageHeader
-      title="Flash Card Library"
-      subtitle="Explore and create your personal collection of flash cards"
+      title="Flashcard Library"
+      subtitle="Explore and create your personal collection of flashcards"
       alignment="center"
     />
 
     <div class="actions-container">
       <router-link to="/create" class="create-button">
         <i class="bi bi-plus-lg"></i>
-        <span class="button-text">Create New Set</span>
+        <span class="button-text">Create Flashcards</span>
       </router-link>
       <div class="search-wrapper">
         <SearchBar v-model="searchQuery" />
@@ -96,14 +96,14 @@ async function handleDelete(setId, setTitle) {
       <span class="visually-hidden">Loading...</span>
     </div>
     <p v-else-if="error" class="text-muted">
-      <em>{{ error }} asdfdasf</em>
+      <em>{{ error }}</em>
     </p>
     <p v-else-if="noSearchResults" class="text-muted">
       <em>No search results for: {{ searchQuery }}</em>
     </p>
     <div v-else="!loading && !error" class="flash-card-sets">
-      <FlashCardSetCard
-        v-for="set in filteredFlashCardSets"
+      <FlashCardChip
+        v-for="set in filteredFlashCards"
         :key="set.id"
         :set="set"
         @delete="handleDelete"
