@@ -18,10 +18,19 @@ const title = ref("");
 const description = ref("");
 const cards = ref([{ question: "", answer: "" }]);
 const previewIndex = ref(0);
+const loading = ref(true);
+const error = ref(null);
 
 onMounted(async () => {
   try {
+    loading.value = true;
+    error.value = null;
+
     const deck = await getDeck(Number(setId));
+    if (!deck) {
+      error.value = "Flashcards not found";
+      return;
+    }
 
     title.value = deck.title;
     description.value = deck.description;
@@ -29,8 +38,11 @@ onMounted(async () => {
       question: card.question,
       answer: card.answer,
     }));
-  } catch (error) {
-    alert(error.message);
+  } catch (err) {
+    alert(err.message);
+    error.value = err.message || "Failed to load flashcards";
+  } finally {
+    loading.value = false;
   }
 });
 
@@ -82,22 +94,13 @@ async function saveFlashCards() {
       description.value,
       cards.value,
     );
-    resetForm();
     router.push({
       name: "flashcard",
       params: { setId },
     });
-  } catch (error) {
-    alert(error.message);
+  } catch (err) {
+    alert(err.message);
   }
-}
-
-// Function to reset the form fields after saving
-function resetForm() {
-  title.value = "";
-  description.value = "";
-  cards.value = [{ question: "", answer: "" }];
-  previewIndex.value = 0;
 }
 </script>
 
@@ -110,7 +113,16 @@ function resetForm() {
       alignment="left"
     />
 
-    <div class="form-container">
+    <!-- Loading State -->
+    <div v-if="loading" class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <!-- Error State -->
+    <p v-else-if="error" class="text-muted">
+      <em>{{ error }} </em>
+    </p>
+
+    <div class="form-container" v-else>
       <HeaderInput
         :title="title"
         :description="description"
