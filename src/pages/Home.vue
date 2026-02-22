@@ -24,8 +24,8 @@ onMounted(async () => {
   try {
     decks.value = await getDecks();
   } catch (error) {
-    console.error(error);
     alert(error.message);
+    error.value = error.message || "Failed to load flashcards";
   } finally {
     loading.value = false;
   }
@@ -48,6 +48,15 @@ const filteredFlashCardSets = computed(() => {
 
     return titleMatch || descriptionMatch || cardsMatch;
   });
+});
+
+const noSearchResults = computed(() => {
+  return (
+    !loading.value &&
+    !error.value &&
+    searchQuery.value.trim() !== "" &&
+    filteredFlashCardSets.value.length === 0
+  );
 });
 
 // Function to handle the deletion of a flash card set, currently a mock function that shows an alert.
@@ -83,10 +92,16 @@ async function handleDelete(setId, setTitle) {
       </div>
     </div>
 
-    <p v-if="loading">Loading...</p>
-    <p v-if="error">{{ error }}</p>
-
-    <div v-if="!loading && !error" class="flash-card-sets">
+    <div v-if="loading" class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p v-else-if="error" class="text-muted">
+      <em>{{ error }} asdfdasf</em>
+    </p>
+    <p v-else-if="noSearchResults" class="text-muted">
+      <em>No search results for: {{ searchQuery }}</em>
+    </p>
+    <div v-else="!loading && !error" class="flash-card-sets">
       <FlashCardSetCard
         v-for="set in filteredFlashCardSets"
         :key="set.id"
