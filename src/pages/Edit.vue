@@ -18,15 +18,31 @@ const title = ref("");
 const description = ref("");
 const cards = ref([{ question: "", answer: "" }]);
 const previewIndex = ref(0);
+const loading = ref(true);
+const error = ref(null);
 
 onMounted(async () => {
   try {
+    loading.value = true;
+    error.value = null;
+
     const deck = await getDeck(Number(setId));
+    if (!deck) {
+      error.value = "Flashcards not found";
+      return;
+    }
 
     title.value = deck.title;
     description.value = deck.description;
-  } catch (error) {
-    alert(error.message);
+    cards.value = deck.cards.map((card) => ({
+      question: card.question,
+      answer: card.answer,
+    }));
+  } catch (err) {
+    alert(err.message);
+    error.value = err.message || "Failed to load flashcards";
+  } finally {
+    loading.value = false;
   }
 });
 
@@ -67,41 +83,46 @@ function updateCards(newCards) {
   cards.value = newCards;
 }
 
-// Function to save the flash card set, checks if the form fields are valid and displays a mock alert
+// Function to save the flashcard set, checks if the form fields are valid and displays a mock alert
 async function saveFlashCards() {
   if (!isFormValid.value) return;
 
   try {
-    await updateDeck(Number(setId), title.value, description.value);
-    resetForm();
+    await updateDeck(
+      Number(setId),
+      title.value,
+      description.value,
+      cards.value,
+    );
     router.push({
       name: "flashcard",
       params: { setId },
     });
-  } catch (error) {
-    alert(error.message);
+  } catch (err) {
+    alert(err.message);
   }
-}
-
-// Function to reset the form fields after saving
-function resetForm() {
-  title.value = "";
-  description.value = "";
-  cards.value = [{ question: "", answer: "" }];
-  previewIndex.value = 0;
 }
 </script>
 
 <template>
   <div class="edit-flash-cards">
     <PageHeader
-      title="Edit Flash Cards"
+      title="Edit Flash cards"
       :showBackLink="true"
       :backTo="{ name: 'flashcard', params: { setId } }"
       alignment="left"
     />
 
-    <div class="form-container">
+    <!-- Loading State -->
+    <div v-if="loading" class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <!-- Error State -->
+    <p v-else-if="error" class="text-muted">
+      <em>{{ error }} </em>
+    </p>
+
+    <div class="form-container" v-else>
       <HeaderInput
         :title="title"
         :description="description"
