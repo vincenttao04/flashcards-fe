@@ -63,7 +63,7 @@ function updateCards(newCards) {
   cards.value = newCards;
 }
 
-// Function to save the flash card set, checks if the form fields are valid and displays a mock alert
+// Function to save the flashcard set, checks if the form fields are valid and displays a mock alert
 // TODO: check if it needs a loading? like in home and flashcard pages.
 async function saveFlashCards() {
   if (!isFormValid.value) return;

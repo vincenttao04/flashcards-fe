@@ -71,7 +71,7 @@ function updateCards(newCards) {
   cards.value = newCards;
 }
 
-// Function to save the flash card set, checks if the form fields are valid and displays a mock alert
+// Function to save the flashcard set, checks if the form fields are valid and displays a mock alert
 async function saveFlashCards() {
   if (!isFormValid.value) return;
 
@@ -104,7 +104,7 @@ function resetForm() {
 <template>
   <div class="edit-flash-cards">
     <PageHeader
-      title="Edit Flash Cards"
+      title="Edit Flash cards"
       :showBackLink="true"
       :backTo="{ name: 'flashcard', params: { setId } }"
       alignment="left"
