@@ -78,5 +78,5 @@ The flashcard application will typically be running at: http://localhost:5173/
 6. fix: tiny flicker, when fetching api, fe thinks there is no data when data has yet to arrive.
 
 7. fix tiny flicker
-8. refactor: naming consistent, etc. -> also make mobile responsive, see transition ease css?, personal attribution, more global components (error, loading, etc.)
+8. refactor: naming consistent, etc. -> also make mobile responsive, see transition ease css?, personal attribution, more global components (etc.)
 9. marquee carousel

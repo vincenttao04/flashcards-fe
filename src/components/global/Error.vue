@@ -1,4 +1,6 @@
 <script setup>
+import { useRouter, useRoute } from "vue-router";
+
 defineProps({
   message: {
     type: String,
@@ -14,14 +16,25 @@ defineProps({
     validator: (value) => ["page", "component"].includes(value),
   },
 });
+
+const router = useRouter();
+const route = useRoute();
+
+function goHome(e) {
+  e.preventDefault();
+
+  if (route.path === "/") {
+    window.location.reload();
+  } else {
+    router.push({ name: "home" });
+  }
+}
 </script>
 
 <template>
   <div v-if="type === 'page'" class="error-page-container">
     <h3>{{ message }}</h3>
-    <router-link v-if="link" to="/" class="back-link"
-      >Return to Home
-    </router-link>
+    <a href="/" class="back-link" @click="goHome"> Home </a>
   </div>
 
   <div v-else class="error-component-container">
