@@ -17,6 +17,7 @@ import CardNavigator from "../components/flashcard/CardNavigator.vue";
 
 import { getDeck } from "../api";
 import Error from "../components/global/Error.vue";
+import Loading from "../components/global/Loading.vue";
 
 const { setId } = defineProps({
   setId: String,
@@ -71,7 +72,7 @@ function prevCard() {
 </script>
 
 <template>
-  <div class="flash-card-app" v-if="!loading && error && deck">
+  <div class="flash-card-app" v-if="!loading && !error && deck">
     <div class="header-container">
       <PageHeader
         :title="deck.title"
@@ -112,15 +113,11 @@ function prevCard() {
   </div>
 
   <!-- Loading State-->
-  <div v-else-if="loading" class="flash-card-app">
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>
+  <Loading v-else-if="loading"></Loading>
 
   <!-- Error State-->
   <Error
-    v-else-if="!error"
+    v-else-if="error"
     :message="'Flashcard Deck Not Found'"
     :link="true"
   ></Error>
