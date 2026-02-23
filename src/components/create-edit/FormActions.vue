@@ -31,14 +31,25 @@ defineEmits(["save"]);
         type="button"
         class="save-btn"
         @click="$emit('save')"
-        :disabled="!isValid"
+        :disabled="!isValid || isSaving"
       >
-        Save Flashcards
+        <div v-if="isSaving">
+          <span
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          ></span>
+        </div>
+
+        <div v-else>Save Flashcards</div>
       </button>
     </div>
 
     <p v-if="!isValid" class="helper-text text-muted">
       <em>All fields required</em>
+    </p>
+    <p v-else-if="saveError" class="helper-text">
+      <em>{{ saveError }}</em>
     </p>
   </div>
 </template>
@@ -48,7 +59,7 @@ defineEmits(["save"]);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.5rem;
+  gap: 1rem;
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid #e9ecef;
@@ -99,6 +110,7 @@ defineEmits(["save"]);
 
 .helper-text {
   margin: 0;
+  color: #dc3545;
 }
 
 @media (max-width: 640px) {
