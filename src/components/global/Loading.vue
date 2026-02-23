@@ -1,12 +1,26 @@
+<script setup>
+defineProps({
+  type: {
+    type: String,
+    required: true,
+    validator: (value) => ["page", "component"].includes(value),
+  },
+});
+</script>
+
 <template>
-  <div class="loading-container">
+  <div v-if="type === 'page'" class="loading-page-container">
     <div class="spinner-border" role="status"></div>
     <h3>Loading...</h3>
+  </div>
+
+  <div v-else>
+    <div class="spinner-border" role="status"></div>
   </div>
 </template>
 
 <style>
-.loading-container {
+.loading-page-container {
   display: flex;
   justify-content: center;
   align-items: center;
