@@ -16,6 +16,7 @@ import CardNavigator from "../components/flashcard/CardNavigator.vue";
 // import CardIndicators from "../components/flashcard/CardIndicators.vue"; // Uncomment if you want to implement card indicators
 
 import { getDeck } from "../api";
+import Error from "../components/global/Error.vue";
 
 const { setId } = defineProps({
   setId: String,
@@ -70,7 +71,7 @@ function prevCard() {
 </script>
 
 <template>
-  <div class="flash-card-app" v-if="!loading && !error && deck">
+  <div class="flash-card-app" v-if="!loading && error && deck">
     <div class="header-container">
       <PageHeader
         :title="deck.title"
@@ -118,12 +119,11 @@ function prevCard() {
   </div>
 
   <!-- Error State-->
-  <div v-else-if="error" class="flash-card-app">
-    <div class="error-state">
-      <h2>Flash Card Set Not Found</h2>
-      <router-link to="/" class="back-link">Return to Home</router-link>
-    </div>
-  </div>
+  <Error
+    v-else-if="!error"
+    :message="'Flashcard Deck Not Found'"
+    :link="true"
+  ></Error>
 </template>
 
 <style scoped>
@@ -158,13 +158,6 @@ function prevCard() {
 .flash-card {
   margin-top: 1rem;
   margin-bottom: 3rem;
-}
-
-.error-state {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  padding: 2rem;
 }
 
 @media (max-width: 640px) {
