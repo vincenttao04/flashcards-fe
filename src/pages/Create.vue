@@ -25,6 +25,8 @@ const setTitle = ref("");
 const setDescription = ref("");
 const cards = ref([{ question: "", answer: "" }]);
 const previewIndex = ref(0);
+const isSaving = ref(false);
+const saveError = ref(null);
 
 const isFormValid = computed(() => {
   return (
@@ -66,7 +68,10 @@ function updateCards(newCards) {
 // Function to save the flashcard set, checks if the form fields are valid and displays a mock alert
 // TODO: check if it needs a loading? like in home and flashcard pages.
 async function saveFlashCards() {
-  if (!isFormValid.value) return;
+  if (!isFormValid.value || isSaving.value) return;
+
+  isSaving.value = true;
+  saveError.value = null;
 
   try {
     await createDeck(
@@ -79,8 +84,11 @@ async function saveFlashCards() {
     );
     resetForm();
     router.push({ name: "home" });
-  } catch (error) {
-    alert(error.message);
+  } catch (err) {
+    alert(err.message);
+    saveError.value = err?.message || "Failed to save flashcards";
+  } finally {
+    isSaving.value = false;
   }
 }
 
@@ -125,7 +133,7 @@ function resetForm() {
       />
 
       <FormActions
-        :is-valid="isFormValid"
+        :isValid="isFormValid"
         :backTo="{ name: 'home' }"
         @save="saveFlashCards"
       />
