@@ -9,6 +9,9 @@ import FormActions from "../components/create-edit/FormActions.vue";
 
 import { getDeck, updateDeck } from "../api";
 
+import Error from "../components/global/Error.vue";
+import Loading from "../components/global/Loading.vue";
+
 const { setId } = defineProps({
   setId: String,
 });
@@ -107,20 +110,23 @@ async function saveFlashCards() {
 <template>
   <div class="edit-flash-cards">
     <PageHeader
-      title="Edit Flash cards"
+      title="Edit Flashcards"
       :showBackLink="true"
       :backTo="{ name: 'flashcard', params: { setId } }"
       alignment="left"
     />
 
     <!-- Loading State -->
-    <div v-if="loading" class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
+    <Loading v-if="loading" type="component"></Loading>
+
     <!-- Error State -->
-    <p v-else-if="error" class="text-muted">
-      <em>{{ error }} </em>
-    </p>
+    <Error
+      v-else-if="!error"
+      :message="error ? 'true error' : 'fake error'"
+      :link="false"
+      type="component"
+    >
+    </Error>
 
     <div class="form-container" v-else>
       <HeaderInput

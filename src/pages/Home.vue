@@ -100,7 +100,7 @@ async function handleDelete(setId, setTitle) {
     </div>
     <!-- Error State -->
     <p v-else-if="error" class="text-muted">
-      <em>{{ error }}</em>
+      <em>{{ error }} </em>
     </p>
     <!-- No Search Results State -->
     <p v-else-if="noSearchResults" class="text-muted">
