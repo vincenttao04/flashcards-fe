@@ -12,6 +12,8 @@ import { ref, computed, onMounted } from "vue";
 import PageHeader from "../components/global/PageHeader.vue";
 import SearchBar from "../components/home/SearchBar.vue";
 import FlashCardChip from "../components/home/FlashCardChip.vue";
+import Error from "../components/global/Error.vue";
+import Loading from "../components/global/Loading.vue";
 
 import { getDecks, deleteDeck } from "../api";
 
@@ -21,9 +23,10 @@ const loading = ref(true);
 const error = ref(null);
 
 onMounted(async () => {
+  loading.value = true;
+  error.value = null;
+
   try {
-    loading.value = true;
-    error.value = null;
     decks.value = await getDecks();
   } catch (err) {
     alert(err);
@@ -36,7 +39,6 @@ onMounted(async () => {
 // Computed property to filter flashcard sets based on the search query
 const filteredFlashCards = computed(() => {
   const query = searchQuery.value.toLowerCase().trim();
-
   if (!query) return decks.value;
 
   return decks.value.filter((set) => {
@@ -70,51 +72,52 @@ async function handleDelete(setId, setTitle) {
   try {
     await deleteDeck(setId);
     decks.value = decks.value.filter((deck) => deck.id !== setId);
-  } catch (error) {
-    alert(error.message);
+  } catch (err) {
+    alert(err.message);
+    error.value = err.message || "Failed to delete flashcards";
   }
 }
 </script>
 
 <template>
   <div class="home-page">
-    <PageHeader
-      title="Flashcard Library"
-      subtitle="Explore and create your personal collection of flashcards"
-      alignment="center"
-    />
+    <!-- Loading State-->
+    <Loading v-if="loading" type="page" />
+    <!-- Error State-->
+    <Error v-else-if="error" :message="error" :link="true" type="page" />
 
-    <div class="actions-container">
-      <router-link to="/create" class="create-button">
-        <i class="bi bi-plus-lg"></i>
-        <span class="button-text">Create Flashcards</span>
-      </router-link>
-      <div class="search-wrapper">
-        <SearchBar v-model="searchQuery" />
-      </div>
-    </div>
-
-    <!-- Loading State -->
-    <div v-if="loading" class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <!-- Error State -->
-    <p v-else-if="error" class="text-muted">
-      <em>{{ error }} </em>
-    </p>
-    <!-- No Search Results State -->
-    <p v-else-if="noSearchResults" class="text-muted">
-      <em>No search results for: {{ searchQuery }}</em>
-    </p>
-
-    <div v-else class="flash-card-sets">
-      <FlashCardChip
-        v-for="set in filteredFlashCards"
-        :key="set.id"
-        :set="set"
-        @delete="handleDelete"
+    <!-- Main Content -->
+    <template v-else>
+      <PageHeader
+        title="Flashcard Library"
+        subtitle="Explore and create your personal collection of flashcards"
+        alignment="center"
       />
-    </div>
+
+      <div class="actions-container">
+        <router-link to="/create" class="create-button">
+          <i class="bi bi-plus-lg" aria-hidden="true"></i>
+          <span>Create Flashcards</span>
+        </router-link>
+
+        <div class="search-wrapper">
+          <SearchBar v-model="searchQuery" />
+        </div>
+      </div>
+
+      <p v-if="noSearchResults" class="text-muted">
+        <em>No search results for: {{ searchQuery }}</em>
+      </p>
+
+      <div v-else class="flash-card-sets">
+        <FlashCardChip
+          v-for="set in filteredFlashCards"
+          :key="set.id"
+          :set="set"
+          @delete="handleDelete"
+        />
+      </div>
+    </template>
   </div>
 </template>
 

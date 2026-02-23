@@ -114,11 +114,10 @@ function prevCard() {
 
   <!-- Loading State-->
   <Loading v-else-if="loading" type="page"></Loading>
-
   <!-- Error State-->
   <Error
     v-else-if="error"
-    :message="'Flashcard Deck Not Found'"
+    :message="'Flashcard deck not found'"
     :link="true"
     type="page"
   ></Error>
