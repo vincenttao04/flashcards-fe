@@ -11,17 +11,24 @@ import Attribution from "./components/global/Attribution.vue";
 </script>
 
 <template>
-  <RouterView />
-  <Attribution />
+  <div class="app-container">
+    <main class="page-content">
+      <RouterView />
+    </main>
+    <Attribution />
+  </div>
 </template>
 
 <style>
-:root {
-  font-family: "Inter", sans-serif;
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
 }
 
-p {
-  margin: 0;
+:root {
+  font-family: "Inter", sans-serif;
 }
 
 *,
@@ -38,10 +45,19 @@ textarea {
   font-family: inherit;
 }
 
-#app {
-  height: 100vh;
+.app-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   background-color: #f5f5f5;
-  overflow-y: auto;
   padding: 2rem;
+}
+
+.page-content {
+  flex: 1;
+}
+
+p {
+  margin: 0;
 }
 </style>
