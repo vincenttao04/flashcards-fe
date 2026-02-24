@@ -80,3 +80,39 @@ The flashcard application will typically be running at: http://localhost:5173/
 7. fix tiny flicker
 8. refactor: naming consistent, etc. -> also make mobile responsive, see transition ease css?, personal attribution, more global components (etc.)
 9. marquee carousel
+
+## Simple Icons Setup (Vue 3 + Vite)
+`npm install -D unplugin-icons unplugin-vue-components`
+
+vite.config.js:
+
+```
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import Icons from "unplugin-icons/vite";
+import Components from "unplugin-vue-components/vite";
+import IconsResolver from "unplugin-icons/resolver";
+
+export default defineConfig({
+  plugins: [
+    vue(),
+
+    Icons({
+      compiler: "vue3",
+      autoInstall: true,
+    }),
+
+    Components({
+      resolvers: [
+        IconsResolver({
+          prefix: "i", // enables <i-...> usage
+        }),
+      ],
+    }),
+  ],
+});
+```
+
+restart server (re-run npm run dev)
+
+use like so: `<i-simple-icons-vuedotjs width="20" height="20" />`

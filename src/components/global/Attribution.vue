@@ -1,0 +1,26 @@
+<template>
+  <div class="attribution-container text-muted">
+    Vincent Tao ·&nbsp;
+    <div class="icon-container">
+      <i-simple-icons-vuedotjs />
+      <i-simple-icons-typescript />
+      <i-simple-icons-nodedotjs />
+      <i-simple-icons-prisma />
+    </div>
+  </div>
+</template>
+
+<style>
+.attribution-container {
+  display: flex;
+  align-items: flex-end;
+  padding-top: 4rem;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.35rem;
+  margin-bottom: 0.12rem;
+}
+</style>

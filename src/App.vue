@@ -5,17 +5,23 @@
  * @component
  * @uses RouterView
  */ -->
-<template>
-  <RouterView />
-</template>
-
 <script setup>
 import { RouterView } from "vue-router";
+import Attribution from "./components/global/Attribution.vue";
 </script>
+
+<template>
+  <RouterView />
+  <Attribution />
+</template>
 
 <style>
 :root {
   font-family: "Inter", sans-serif;
+}
+
+p {
+  margin: 0;
 }
 
 *,
@@ -36,5 +42,6 @@ textarea {
   height: 100vh;
   background-color: #f5f5f5;
   overflow-y: auto;
+  padding: 2rem;
 }
 </style>
