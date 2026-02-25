@@ -1,5 +1,5 @@
 <template>
-  <div class="attribution-container text-muted">
+  <div class="attribution-container">
     Vincent Tao ·&nbsp;
     <div class="icon-container">
       <i-simple-icons-vuedotjs />
@@ -15,6 +15,7 @@
   display: flex;
   align-items: flex-end;
   padding-top: 4rem;
+  color: #6c757d;
 }
 
 .icon-container {
@@ -22,5 +23,6 @@
   flex-direction: row;
   gap: 0.35rem;
   margin-bottom: 0.12rem;
+  opacity: 95%;
 }
 </style>

@@ -21,10 +21,13 @@ import Attribution from "./components/global/Attribution.vue";
 
 <style>
 html,
-body,
-#app {
-  height: 100%;
+body {
   margin: 0;
+  min-height: 100%;
+}
+
+#app {
+  min-height: 100vh;
 }
 
 :root {
@@ -46,7 +49,7 @@ textarea {
 }
 
 .app-container {
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
