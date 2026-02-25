@@ -5,9 +5,9 @@ import { createRouter, createWebHistory } from "vue-router";
  * Defines the routing structure for the Flash Card application
  *
  * Routes:
- * - / (home): Displays all flashcard sets
- * - /flashcards/:setId: Shows specific flashcard set
- * - /create: Create new flashcard set
+ * - / (home): Displays all decks
+ * - /deck/:deckId: Shows a specific deck's cards
+ * - /create: Create a new deck of cards
  */
 const router = createRouter({
   history: createWebHistory(),
