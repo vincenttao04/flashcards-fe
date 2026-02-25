@@ -1,5 +1,5 @@
 <!-- /**
- * Card Component
+ * CardInterface Component
  * Interactive card with flip animation showing question and answer
  * 
  * @component

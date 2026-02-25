@@ -65,7 +65,6 @@ function updateCards(newCards) {
   cards.value = newCards;
 }
 
-// Function to save the deck, checks if the form fields are valid and displays a mock alert
 async function saveDeck() {
   if (!isFormValid.value || isSaving.value) return;
 

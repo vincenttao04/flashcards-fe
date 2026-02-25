@@ -28,7 +28,7 @@ function formatDate(dateString) {
 
 <template>
   <div class="chip-container">
-    <!-- Main clickable area -->
+    <!-- Main Clickable Area -->
     <router-link
       :to="{ name: 'deck', params: { deckId: props.deck.id } }"
       class="chip-link"
@@ -49,19 +49,15 @@ function formatDate(dateString) {
       </div>
     </router-link>
 
-    <!-- Action buttons -->
-    <!-- TODO: Implement delete functionality -->
+    <!-- Action Buttons -->
     <div class="chip-actions">
       <router-link
         :to="{ name: 'edit', params: { deckId: props.deck.id } }"
-        class="edit-button"
+        class="edit-btn"
       >
         <i class="bi bi-pen"></i>
       </router-link>
-      <button
-        class="delete-button"
-        @click="$emit('delete', deck.id, deck.title)"
-      >
+      <button class="delete-btn" @click="$emit('delete', deck.id, deck.title)">
         <i class="bi bi-trash"></i>
       </button>
     </div>
@@ -168,39 +164,39 @@ function formatDate(dateString) {
   z-index: 1;
 }
 
-.edit-button,
-.delete-button {
+.edit-btn,
+.delete-btn {
   background: none;
   border: none;
   cursor: pointer;
   transition: color 0.2s;
 }
 
-.edit-button {
+.edit-btn {
   color: #666;
   font-size: 1.14rem;
 }
 
-.edit-button:hover {
+.edit-btn:hover {
   color: #000;
 }
 
-.edit-button:focus-visible {
+.edit-btn:focus-visible {
   outline: 2px solid #666;
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-.delete-button {
+.delete-btn {
   color: #dc3545;
   font-size: 1.2rem;
 }
 
-.delete-button:hover {
+.delete-btn:hover {
   color: #bb2d3b;
 }
 
-.delete-button:focus-visible {
+.delete-btn:focus-visible {
   outline: 2px solid #dc3545;
   outline-offset: 2px;
   border-radius: 4px;

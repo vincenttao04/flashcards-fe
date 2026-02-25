@@ -41,10 +41,10 @@ const filteredDecks = computed(() => {
   const query = searchQuery.value.toLowerCase().trim();
   if (!query) return decks.value;
 
-  return decks.value.filter((set) => {
-    const titleMatch = set.title.toLowerCase().includes(query);
-    const descriptionMatch = set.description.toLowerCase().includes(query);
-    const cardsMatch = set.cards.some((card) => {
+  return decks.value.filter((deck) => {
+    const titleMatch = deck.title.toLowerCase().includes(query);
+    const descriptionMatch = deck.description.toLowerCase().includes(query);
+    const cardsMatch = deck.cards.some((card) => {
       const questionMatch = card.question.toLowerCase().includes(query);
       const answerMatch = card.answer.toLowerCase().includes(query);
       return questionMatch || answerMatch;
@@ -63,15 +63,14 @@ const noSearchResults = computed(() => {
   );
 });
 
-// Function to handle the deletion of a flash card set, currently a mock function that shows an alert.
-async function handleDelete(setId, setTitle) {
-  if (!confirm(`Delete "${setTitle}"? This cannot be undone.`)) {
+async function handleDelete(deckId, deckTitle) {
+  if (!confirm(`Delete "${deckTitle}"? This cannot be undone.`)) {
     return;
   }
 
   try {
-    await deleteDeck(setId);
-    decks.value = decks.value.filter((deck) => deck.id !== setId);
+    await deleteDeck(deckId);
+    decks.value = decks.value.filter((deck) => deck.id !== deckId);
   } catch (err) {
     alert(err.message);
     error.value = err.message || "Failed to delete flashcards";
@@ -80,7 +79,7 @@ async function handleDelete(setId, setTitle) {
 </script>
 
 <template>
-  <div class="home-page">
+  <div class="home-page-container">
     <!-- Loading State-->
     <Loading v-if="loading" type="page" />
     <!-- Error State-->
@@ -95,12 +94,12 @@ async function handleDelete(setId, setTitle) {
       />
 
       <div class="actions-container">
-        <router-link to="/create" class="create-button">
+        <router-link to="/create" class="create-btn">
           <i class="bi bi-plus-lg" aria-hidden="true"></i>
           <span>Create Flashcards</span>
         </router-link>
 
-        <div class="search-wrapper">
+        <div class="search-bar">
           <SearchBar v-model="searchQuery" />
         </div>
       </div>
@@ -109,11 +108,11 @@ async function handleDelete(setId, setTitle) {
         <em>No search results for: {{ searchQuery }}</em>
       </p>
 
-      <div v-else class="flash-card-sets">
+      <div v-else class="decks-container">
         <DeckChip
-          v-for="set in filteredDecks"
-          :key="set.id"
-          :deck="set"
+          v-for="deck in filteredDecks"
+          :key="deck.id"
+          :deck="deck"
           @delete="handleDelete"
         />
       </div>
@@ -122,7 +121,7 @@ async function handleDelete(setId, setTitle) {
 </template>
 
 <style scoped>
-.home-page {
+.home-page-container {
   max-width: 1200px;
   margin: 0 auto;
   padding-top: 2.5rem;
@@ -138,7 +137,7 @@ async function handleDelete(setId, setTitle) {
   margin-bottom: 2.5rem;
 }
 
-.create-button {
+.create-btn {
   background-color: #228be6;
   color: white;
   padding: 0.75rem 1.5rem;
@@ -159,15 +158,11 @@ async function handleDelete(setId, setTitle) {
   gap: 0.5rem; /* Gap between the icon and text */
 }
 
-.create-button:hover {
+.create-btn:hover {
   background-color: #1c7ed6;
 }
 
-.button-text {
-  margin-right: 0.25rem;
-}
-
-.search-wrapper {
+.search-bar {
   margin-left: auto;
   max-width: 500px;
   min-width: 0;
@@ -178,14 +173,14 @@ async function handleDelete(setId, setTitle) {
   flex: 1;
 }
 
-.flash-card-sets {
+.decks-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
 }
 
 @media (max-width: 640px) {
-  .home-page {
+  .home-page-container {
     padding: 1rem;
   }
 
@@ -193,13 +188,13 @@ async function handleDelete(setId, setTitle) {
     height: auto;
   }
 
-  .create-button {
+  .create-btn {
     width: 100%;
     min-width: 100%;
     max-width: 100%;
   }
 
-  .search-wrapper {
+  .search-bar {
     margin-left: 0;
     max-width: 100%;
     width: 100%;
