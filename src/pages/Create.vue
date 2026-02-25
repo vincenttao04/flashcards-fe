@@ -133,6 +133,8 @@ function resetForm() {
       <FormActions
         :isValid="isFormValid"
         :backTo="{ name: 'home' }"
+        :is-saving="isSaving"
+        :save-error="saveError"
         @save="saveDeck"
       />
     </div>

@@ -72,12 +72,9 @@ The flashcard application will typically be running at: http://localhost:5173/
 
 1. add a marquee carousel at the bottom for flashcard navigation
 2. maybe deploy (see costing)
-3. transition ease css ?
-4. make names consistent -> decks/sets,
-5. fix: tiny flicker, when fetching api, fe thinks there is no data when data has yet to arrive.
 
-6. refactor: naming consistent, etc. -> also make mobile responsive, more global components (etc.)
-7. marquee carousel
+3. mobile responsive, more global components (etc.)
+4. marquee carousel
 
 ## Simple Icons Setup (Vue 3 + Vite)
 

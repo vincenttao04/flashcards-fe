@@ -23,6 +23,8 @@ const cards = ref([{ question: "", answer: "" }]);
 const previewIndex = ref(0);
 const loading = ref(true);
 const error = ref(null);
+const isSaving = ref(false);
+const saveError = ref("");
 
 onMounted(async () => {
   try {
@@ -89,6 +91,9 @@ function updateCards(newCards) {
 async function saveDeck() {
   if (!isFormValid.value) return;
 
+  isSaving.value = true;
+  saveError.value = "";
+
   try {
     await updateDeck(
       Number(deckId),
@@ -102,6 +107,9 @@ async function saveDeck() {
     });
   } catch (err) {
     alert(err.message);
+    saveError.value = err.message || "Failed to save flashcards";
+  } finally {
+    isSaving.value = false;
   }
 }
 </script>
@@ -145,6 +153,8 @@ async function saveDeck() {
       <FormActions
         :is-valid="isFormValid"
         :backTo="{ name: 'deck', params: { deckId } }"
+        :is-saving="isSaving"
+        :save-error="saveError"
         @save="saveDeck"
       />
     </div>

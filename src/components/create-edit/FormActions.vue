@@ -17,6 +17,14 @@ defineProps({
     type: [String, Object],
     default: "/",
   },
+  isSaving: {
+    type: Boolean,
+    default: false,
+  },
+  saveError: {
+    type: String,
+    default: "",
+  },
 });
 
 defineEmits(["save"]);
