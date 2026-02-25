@@ -1,21 +1,21 @@
 <!-- /**
- * CreateFlashcardPage Component
- * Page for creating new flashcard sets with preview functionality
+ * Create Page
+ * Page for creating new decks with preview functionality
  * 
  * @component
  * @uses PageHeader
- * @uses SetTitleInput
- * @uses CardsList
- * @uses PreviewSection
+ * @uses HeaderInput
+ * @uses CardList
+ * @uses CardPreview
  * @uses FormActions
  */ -->
 <script setup>
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import PageHeader from "../components/global/PageHeader.vue";
-import SetTitleInput from "../components/create-edit/HeaderInput.vue";
-import CardsList from "../components/create-edit/CardList.vue";
-import PreviewSection from "../components/create-edit/CardPreview.vue";
+import HeaderInput from "../components/create-edit/HeaderInput.vue";
+import CardList from "../components/create-edit/CardList.vue";
+import CardPreview from "../components/create-edit/CardPreview.vue";
 import FormActions from "../components/create-edit/FormActions.vue";
 
 import { createDeck } from "../api";
@@ -65,9 +65,8 @@ function updateCards(newCards) {
   cards.value = newCards;
 }
 
-// Function to save the flashcard set, checks if the form fields are valid and displays a mock alert
-// TODO: check if it needs a loading? like in home and flashcard pages.
-async function saveFlashCards() {
+// Function to save the deck, checks if the form fields are valid and displays a mock alert
+async function saveDeck() {
   if (!isFormValid.value || isSaving.value) return;
 
   isSaving.value = true;
@@ -102,7 +101,7 @@ function resetForm() {
 </script>
 
 <template>
-  <div class="create-flash-cards">
+  <div class="create-page-container">
     <PageHeader
       title="Create Flash Cards"
       :showBackLink="true"
@@ -111,21 +110,21 @@ function resetForm() {
     />
 
     <div class="form-container">
-      <SetTitleInput
+      <HeaderInput
         :title="setTitle"
         :description="setDescription"
         @update:title="setTitle = $event"
         @update:description="setDescription = $event"
       />
 
-      <CardsList
+      <CardList
         :cards="cards"
         @add="addCard"
         @remove="removeCard"
         @update:cards="updateCards"
       />
 
-      <PreviewSection
+      <CardPreview
         v-if="cards.length > 0 && hasContent"
         :cards="cards"
         :preview-index="previewIndex"
@@ -135,14 +134,14 @@ function resetForm() {
       <FormActions
         :isValid="isFormValid"
         :backTo="{ name: 'home' }"
-        @save="saveFlashCards"
+        @save="saveDeck"
       />
     </div>
   </div>
 </template>
 
 <style scoped>
-.create-flash-cards {
+.create-page-container {
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
@@ -157,7 +156,7 @@ function resetForm() {
 }
 
 @media (max-width: 640px) {
-  .create-flash-cards {
+  .create-page-container {
     padding: 1rem;
   }
 

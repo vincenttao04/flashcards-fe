@@ -76,9 +76,8 @@ The flashcard application will typically be running at: http://localhost:5173/
 4. make names consistent -> decks/sets,
 5. fix: tiny flicker, when fetching api, fe thinks there is no data when data has yet to arrive.
 
-6. fix tiny flicker
-7. refactor: naming consistent, etc. -> also make mobile responsive, see transition ease css? more global components (etc.)
-8. marquee carousel
+6. refactor: naming consistent, etc. -> also make mobile responsive, more global components (etc.)
+7. marquee carousel
 
 ## Simple Icons Setup (Vue 3 + Vite)
 

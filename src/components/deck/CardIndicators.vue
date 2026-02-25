@@ -1,26 +1,12 @@
 <!-- /**
  * CardIndicators Component
- * Displays interactive pagination dots for navigating through flashcards
+ * Displays interactive pagination dots for navigating through a deck of cards
  * 
  * @component
  * @props {Number} currentIndex - The index of the currently active card
  * @props {Number} total - Total number of cards
  * @emits {select} - Emits when an indicator is clicked (payload: selectedIndex)
  */ -->
-<template>
-  <div class="card-indicators" aria-label="Flashcard Indicators">
-    <span
-      v-for="index in total"
-      :key="index - 1"
-      class="indicator"
-      :class="{ active: index - 1 === currentIndex }"
-      @click="$emit('select', index - 1)"
-      :aria-selected="index - 1 === currentIndex"
-      :aria-label="`Card ${index} of ${total}`"
-    ></span>
-  </div>
-</template>
-
 <script setup>
 defineProps({
   currentIndex: {
@@ -35,6 +21,20 @@ defineProps({
 
 defineEmits(["select"]);
 </script>
+
+<template>
+  <div class="card-indicators" aria-label="Flashcard Indicators">
+    <span
+      v-for="index in total"
+      :key="index - 1"
+      class="indicator"
+      :class="{ active: index - 1 === currentIndex }"
+      @click="$emit('select', index - 1)"
+      :aria-selected="index - 1 === currentIndex"
+      :aria-label="`Card ${index} of ${total}`"
+    ></span>
+  </div>
+</template>
 
 <style scoped>
 .card-indicators {

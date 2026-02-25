@@ -12,8 +12,8 @@ import { getDeck, updateDeck } from "../api";
 import Error from "../components/global/Error.vue";
 import Loading from "../components/global/Loading.vue";
 
-const { setId } = defineProps({
-  setId: String,
+const { deckId } = defineProps({
+  deckId: String,
 });
 
 const router = useRouter();
@@ -29,7 +29,7 @@ onMounted(async () => {
     loading.value = true;
     error.value = null;
 
-    const deck = await getDeck(Number(setId));
+    const deck = await getDeck(Number(deckId));
     if (!deck) {
       error.value = "Flashcards not found";
       return;
@@ -86,20 +86,20 @@ function updateCards(newCards) {
   cards.value = newCards;
 }
 
-// Function to save the flashcard set, checks if the form fields are valid and displays a mock alert
-async function saveFlashCards() {
+// Function to save deck, checks if the form fields are valid and displays a mock alert
+async function saveDeck() {
   if (!isFormValid.value) return;
 
   try {
     await updateDeck(
-      Number(setId),
+      Number(deckId),
       title.value,
       description.value,
       cards.value,
     );
     router.push({
-      name: "flashcard",
-      params: { setId },
+      name: "deck",
+      params: { deckId },
     });
   } catch (err) {
     alert(err.message);
@@ -108,11 +108,11 @@ async function saveFlashCards() {
 </script>
 
 <template>
-  <div class="edit-flash-cards">
+  <div class="edit-page-container">
     <PageHeader
       title="Edit Flashcards"
       :showBackLink="true"
-      :backTo="{ name: 'flashcard', params: { setId } }"
+      :backTo="{ name: 'deck', params: { deckId } }"
       alignment="left"
     />
 
@@ -145,15 +145,15 @@ async function saveFlashCards() {
 
       <FormActions
         :is-valid="isFormValid"
-        :backTo="{ name: 'flashcard', params: { setId } }"
-        @save="saveFlashCards"
+        :backTo="{ name: 'deck', params: { deckId } }"
+        @save="saveDeck"
       />
     </div>
   </div>
 </template>
 
 <style scoped>
-.edit-flash-cards {
+.edit-page-container {
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
@@ -168,7 +168,7 @@ async function saveFlashCards() {
 }
 
 @media (max-width: 640px) {
-  .edit-flash-cards {
+  .edit-page-container {
     padding: 1rem;
   }
 

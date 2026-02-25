@@ -1,15 +1,29 @@
 <!-- /**
- * SetHeaderInput Component
- * Input form for flashcard set title and description
+ * HeaderInput Component
+ * Input for deck title and description
  * 
  * @component
- * @props {String} title - The title of the flashcard set
- * @props {String} description - The description of the flashcard set
+ * @props {String} title - The title of the deck
+ * @props {String} description - The description of the deck
  * @emits {update:title} - Emits when title is modified (payload: newTitle)
  * @emits {update:description} - Emits when description is modified (payload: newDescription)
  */ -->
+<script setup>
+defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+});
+defineEmits(["update:title", "update:description"]);
+</script>
+
 <template>
-  <div class="form-group">
+  <div class="form-container">
     <div class="title">
       <label for="set-title">Title</label>
       <input
@@ -35,22 +49,8 @@
   </div>
 </template>
 
-<script setup>
-defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-});
-defineEmits(["update:title", "update:description"]);
-</script>
-
 <style scoped>
-.form-group {
+.form-container {
   margin-bottom: 2rem;
 }
 

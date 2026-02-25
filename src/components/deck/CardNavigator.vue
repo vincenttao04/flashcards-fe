@@ -1,6 +1,6 @@
 <!-- /**
  * CardNavigator Component
- * Navigation controls for moving between flashcards with progress indicator
+ * Navigation controls for moving between a deck of cards
  * 
  * @component
  * @props {Number} currentIndex - Current card position (zero-based)

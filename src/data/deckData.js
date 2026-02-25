@@ -13,7 +13,7 @@
  * @property {Date} createdAt - Creation date
  * @property {Card[]} cards - Array of flashcards
  */
-export const flashCardSets = [
+export const deckData = [
   {
     id: "vue-basics",
     title: "Vue.js Basics",
@@ -254,6 +254,6 @@ export const flashCardSets = [
  * @param {string} setId - The ID of the desired flashcard set
  * @returns {FlashCardSet|undefined} The matching flashcard set or undefined
  */
-export function getFlashCardSet(setId) {
-  return flashCardSets.find((set) => set.id === setId);
+export function getDeckData(setId) {
+  return deckData.find((set) => set.id === setId);
 }

@@ -1,9 +1,9 @@
 <!-- /**
- * FlashCard Component
- * Interactive flashcard with flip animation showing question and answer
+ * Card Component
+ * Interactive card with flip animation showing question and answer
  * 
  * @component
- * @props {Object} card - Flashcard data containing question and answer
+ * @props {Object} card - Card data containing question and answer
  * @props {Boolean} isFlipped - Controls card flip state
  * @emits {flip} - Emits when card is clicked to flip
  */ -->
@@ -63,7 +63,7 @@ defineEmits(["flip"]);
   height: 100%;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.6s;
+  transition: transform 0.8s;
   cursor: pointer;
   display: block;
 }
