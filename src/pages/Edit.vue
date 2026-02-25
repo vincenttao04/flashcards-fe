@@ -117,10 +117,9 @@ async function saveFlashCards() {
     />
 
     <!-- Loading State -->
-    <Loading v-if="loading" type="component"></Loading>
+    <Loading v-if="loading" type="component" />
     <!-- Error State -->
-    <Error v-else-if="error" :message="error" :link="false" type="component">
-    </Error>
+    <Error v-else-if="error" :message="error" :link="false" type="component" />
 
     <div class="form-container" v-else>
       <HeaderInput
