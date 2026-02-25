@@ -71,17 +71,17 @@ The flashcard application will typically be running at: http://localhost:5173/
 ## Future Work
 
 1. add a marquee carousel at the bottom for flashcard navigation
-2. my personal attribution at the bottom (add name, tech stack, etc.)
-3. maybe deploy (see costing)
-4. transition ease css ?
-5. make names consistent -> decks/sets,
-6. fix: tiny flicker, when fetching api, fe thinks there is no data when data has yet to arrive.
+2. maybe deploy (see costing)
+3. transition ease css ?
+4. make names consistent -> decks/sets,
+5. fix: tiny flicker, when fetching api, fe thinks there is no data when data has yet to arrive.
 
-7. fix tiny flicker
-8. refactor: naming consistent, etc. -> also make mobile responsive, see transition ease css?, personal attribution, more global components (etc.)
-9. marquee carousel
+6. fix tiny flicker
+7. refactor: naming consistent, etc. -> also make mobile responsive, see transition ease css? more global components (etc.)
+8. marquee carousel
 
 ## Simple Icons Setup (Vue 3 + Vite)
+
 `npm install -D unplugin-icons unplugin-vue-components`
 
 vite.config.js:

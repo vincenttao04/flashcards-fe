@@ -53,7 +53,7 @@ textarea {
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
-  padding: 2rem;
+  padding: 1.6rem 2rem;
 }
 
 .page-content {
