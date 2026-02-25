@@ -9,7 +9,7 @@
  */ -->
 <script setup>
 const props = defineProps({
-  set: {
+  deck: {
     type: Object,
     required: true,
   },
@@ -27,38 +27,41 @@ function formatDate(dateString) {
 </script>
 
 <template>
-  <div class="card-set">
+  <div class="chip-container">
     <!-- Main clickable area -->
     <router-link
-      :to="{ name: 'flashcard', params: { setId: props.set.id } }"
-      class="card-set-link"
+      :to="{ name: 'deck', params: { deckId: props.deck.id } }"
+      class="chip-link"
     >
-      <div class="set-header">
-        <h2 class="set-title">{{ set.title }}</h2>
+      <div class="chip-header">
+        <h2 class="chip-title">{{ deck.title }}</h2>
         <span class="card-count"
-          >{{ set.cards.length }}<i class="bi bi-card-text"></i>
+          >{{ deck.cards.length }}<i class="bi bi-card-text"></i>
         </span>
       </div>
 
-      <p class="set-description">{{ set.description }}</p>
+      <p class="chip-description">{{ deck.description }}</p>
 
-      <div class="set-footer">
+      <div class="chip-footer">
         <span class="created-date"
-          >Created: {{ formatDate(set.createdAt) }}</span
+          >Created: {{ formatDate(deck.createdAt) }}</span
         >
       </div>
     </router-link>
 
     <!-- Action buttons -->
     <!-- TODO: Implement delete functionality -->
-    <div class="action-buttons">
+    <div class="chip-actions">
       <router-link
-        :to="{ name: 'edit', params: { setId: props.set.id } }"
+        :to="{ name: 'edit', params: { deckId: props.deck.id } }"
         class="edit-button"
       >
         <i class="bi bi-pen"></i>
       </router-link>
-      <button class="delete-button" @click="$emit('delete', set.id, set.title)">
+      <button
+        class="delete-button"
+        @click="$emit('delete', deck.id, deck.title)"
+      >
         <i class="bi bi-trash"></i>
       </button>
     </div>
@@ -66,7 +69,7 @@ function formatDate(dateString) {
 </template>
 
 <style scoped>
-.card-set {
+.chip-container {
   position: relative;
   background-color: white;
   border-radius: 6px;
@@ -77,19 +80,19 @@ function formatDate(dateString) {
     box-shadow 0.2s;
 }
 
-.card-set:hover {
+.chip-container:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
 }
 
-.card-set-link {
+.chip-link {
   text-decoration: none;
   color: inherit;
   display: flex;
   flex-direction: column;
 }
 
-.set-header {
+.chip-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -97,7 +100,7 @@ function formatDate(dateString) {
   gap: 0.75rem;
 }
 
-.set-title {
+.chip-title {
   font-size: 1.25rem;
   font-weight: 600;
   color: #2c3e50;
@@ -128,7 +131,7 @@ function formatDate(dateString) {
   margin-top: 0.015rem;
 }
 
-.set-description {
+.chip-description {
   color: #6c757d;
   margin-bottom: 1.25rem;
   font-size: 0.95rem;
@@ -145,7 +148,7 @@ function formatDate(dateString) {
   min-height: 4.4rem; */
 }
 
-.set-footer {
+.chip-footer {
   margin-top: auto;
   padding-top: 1.25rem;
   border-top: 1px solid #e9ecef;
@@ -156,7 +159,7 @@ function formatDate(dateString) {
   font-size: 0.85rem;
 }
 
-.action-buttons {
+.chip-actions {
   position: absolute;
   bottom: 1.5rem;
   right: 1.5rem;
@@ -204,7 +207,7 @@ function formatDate(dateString) {
 }
 
 @media (max-width: 480px) {
-  .set-footer {
+  .chip-footer {
     padding-bottom: 2rem;
   }
 }

@@ -18,9 +18,9 @@ const router = createRouter({
       component: () => import("../pages/Home.vue"),
     },
     {
-      path: "/:setId",
-      name: "flashcard",
-      component: () => import("../pages/FlashCard.vue"),
+      path: "/:deckId",
+      name: "deck",
+      component: () => import("../pages/DeckView.vue"),
       props: true,
     },
     {
@@ -29,7 +29,7 @@ const router = createRouter({
       component: () => import("../pages/Create.vue"),
     },
     {
-      path: "/:setId/edit",
+      path: "/:deckId/edit",
       name: "edit",
       component: () => import("../pages/Edit.vue"),
       props: true,

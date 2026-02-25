@@ -1,17 +1,17 @@
 <!-- /**
  * HomePage Component
- * Main landing page displaying all flashcard sets with search and creation functionality
+ * Main landing page displaying all decks with search and creation functionality
  * 
  * @component
  * @uses PageHeader
  * @uses SearchBar
- * @uses FlashCardChip
+ * @uses DeckChip
  */ -->
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import PageHeader from "../components/global/PageHeader.vue";
 import SearchBar from "../components/home/SearchBar.vue";
-import FlashCardChip from "../components/home/FlashCardChip.vue";
+import DeckChip from "../components/home/DeckChip.vue";
 import Error from "../components/global/Error.vue";
 import Loading from "../components/global/Loading.vue";
 
@@ -36,8 +36,8 @@ onMounted(async () => {
   }
 });
 
-// Computed property to filter flashcard sets based on the search query
-const filteredFlashCards = computed(() => {
+// Computed property to filter deck sets based on the search query
+const filteredDecks = computed(() => {
   const query = searchQuery.value.toLowerCase().trim();
   if (!query) return decks.value;
 
@@ -59,7 +59,7 @@ const noSearchResults = computed(() => {
     !loading.value &&
     !error.value &&
     searchQuery.value.trim() !== "" &&
-    filteredFlashCards.value.length === 0
+    filteredDecks.value.length === 0
   );
 });
 
@@ -110,10 +110,10 @@ async function handleDelete(setId, setTitle) {
       </p>
 
       <div v-else class="flash-card-sets">
-        <FlashCardChip
-          v-for="set in filteredFlashCards"
+        <DeckChip
+          v-for="set in filteredDecks"
           :key="set.id"
-          :set="set"
+          :deck="set"
           @delete="handleDelete"
         />
       </div>

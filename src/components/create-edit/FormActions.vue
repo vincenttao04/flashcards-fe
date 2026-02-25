@@ -1,6 +1,6 @@
 <!-- /**
  * FormActions Component
- * Provides Save and Cancel actions for the flashcard form
+ * Provides Save and Cancel actions for the deck create and edit pages
  * 
  * @component
  * @props {Boolean} isValid - Determines if the save action is enabled
@@ -23,7 +23,7 @@ defineEmits(["save"]);
 </script>
 
 <template>
-  <div class="form-actions" aria-label="Form Actions">
+  <div class="actions-container" aria-label="Form Actions">
     <div class="button-group">
       <router-link :to="backTo" class="cancel-btn"> Cancel </router-link>
 
@@ -55,7 +55,7 @@ defineEmits(["save"]);
 </template>
 
 <style scoped>
-.form-actions {
+.actions-container {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -114,7 +114,7 @@ defineEmits(["save"]);
 }
 
 @media (max-width: 640px) {
-  .form-actions {
+  .actions-container {
     flex-direction: column;
     gap: 0.75rem;
   }

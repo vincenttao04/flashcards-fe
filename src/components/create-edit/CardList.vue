@@ -1,47 +1,15 @@
 <!-- /**
  * CardsList Component
- * Manages a list of flashcards with add/remove functionality
+ * Manages a deck's list of cards with add/remove functionality
  * 
  * @component
- * @props {Array} cards - Array of flashcard objects
+ * @props {Array} cards - Array of card objects
  * @emits {add} - Emits when adding a new card
  * @emits {remove} - Emits when removing a card (payload: index)
  * @emits {update:cards} - Emits when updating cards (payload: newCardsArray)
  */ -->
-<template>
-  <div class="cards-list">
-    <h2>Cards</h2>
-    <div v-for="(card, index) in cards" :key="index" class="card-form">
-      <div class="card-header">
-        <h3>Card {{ index + 1 }}</h3>
-        <button
-          type="button"
-          class="remove-btn"
-          :aria-label="`Remove card ${index + 1}`"
-          @click="$emit('remove', index)"
-          :disabled="cards.length <= 1"
-        >
-          <i class="bi bi-trash"></i>
-        </button>
-      </div>
-
-      <CardForm :card="card" :index="index" @update="updateCard" />
-    </div>
-
-    <button
-      type="button"
-      class="add-card-btn"
-      aria-label="Add Another Card"
-      @click="$emit('add')"
-    >
-      <i class="bi bi-plus-lg"></i>
-      Add Another Card
-    </button>
-  </div>
-</template>
-
 <script setup>
-import CardForm from "./CardInput.vue";
+import CardInput from "./CardInput.vue";
 
 const props = defineProps({
   cards: {
@@ -60,8 +28,40 @@ function updateCard(index, updatedCard) {
 }
 </script>
 
+<template>
+  <div class="cards-container">
+    <h2>Cards</h2>
+    <div v-for="(card, index) in cards" :key="index" class="card-form">
+      <div class="card-header">
+        <h3>Card {{ index + 1 }}</h3>
+        <button
+          type="button"
+          class="remove-btn"
+          :aria-label="`Remove card ${index + 1}`"
+          @click="$emit('remove', index)"
+          :disabled="cards.length <= 1"
+        >
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+
+      <CardInput :card="card" :index="index" @update="updateCard" />
+    </div>
+
+    <button
+      type="button"
+      class="add-btn"
+      aria-label="Add Another Card"
+      @click="$emit('add')"
+    >
+      <i class="bi bi-plus-lg"></i>
+      Add Another Card
+    </button>
+  </div>
+</template>
+
 <style scoped>
-.cards-list {
+.cards-container {
   margin-top: 2rem;
 }
 
@@ -115,7 +115,7 @@ h2 {
   cursor: not-allowed;
 }
 
-.add-card-btn {
+.add-btn {
   background-color: #e9ecef;
   border: 1px dashed #adb5bd;
   color: #495057;
@@ -130,7 +130,7 @@ h2 {
   gap: 0.35rem;
 }
 
-.add-card-btn:hover {
+.add-btn:hover {
   background-color: #dee2e6;
 }
 </style>

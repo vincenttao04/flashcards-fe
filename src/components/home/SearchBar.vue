@@ -6,23 +6,6 @@
  * @props {String} modelValue - v-model value for the search input
  * @emits {update:modelValue} - Emits when input value changes or is cleared
  */ -->
-<template>
-  <div class="search-container">
-    <input
-      type="text"
-      :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
-      placeholder="Search..."
-      class="search-input"
-    />
-    <i
-      class="bi"
-      :class="[modelValue ? 'bi-x-lg clear-icon' : 'bi-search search-icon']"
-      @click="handleIconClick"
-    ></i>
-  </div>
-</template>
-
 <script setup>
 const props = defineProps({
   modelValue: {
@@ -39,6 +22,23 @@ function handleIconClick() {
   }
 }
 </script>
+
+<template>
+  <div class="search-container">
+    <input
+      type="text"
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
+      placeholder="Search..."
+      class="search-input"
+    />
+    <i
+      class="bi"
+      :class="[modelValue ? 'bi-x-lg clear-icon' : 'bi-search search-icon']"
+      @click="handleIconClick"
+    ></i>
+  </div>
+</template>
 
 <style scoped>
 .search-container {
@@ -57,7 +57,9 @@ function handleIconClick() {
   border: 2px solid #e9ecef;
   border-radius: 6px;
   background-color: white;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 .search-input:focus {

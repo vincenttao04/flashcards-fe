@@ -11,9 +11,9 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import PageHeader from "../components/global/PageHeader.vue";
-import FlashCard from "../components/flashcard/CardInterface.vue";
-import CardNavigator from "../components/flashcard/CardNavigator.vue";
-// import CardIndicators from "../components/flashcard/CardIndicators.vue"; // Uncomment if you want to implement card indicators
+import FlashCard from "../components/deck/CardInterface.vue";
+import CardNavigator from "../components/deck/CardNavigator.vue";
+// import CardIndicators from "../components/deck/CardIndicators.vue"; // Uncomment if you want to implement card indicators
 
 import { getDeck } from "../api";
 import Error from "../components/global/Error.vue";
@@ -81,7 +81,7 @@ function prevCard() {
         alignment="left"
       />
 
-      <router-link :to="{ name: 'edit', params: { setId } }" class="edit-icon">
+      <router-link :to="{ name: 'edit', params: { deckId: setId } }" class="edit-icon">
         <i class="bi bi-pen"></i>
       </router-link>
     </div>

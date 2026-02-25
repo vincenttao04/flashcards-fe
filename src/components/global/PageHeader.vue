@@ -5,7 +5,7 @@
  * @component
  * @props {String} title - The main header text
  * @props {String} subtitle - Optional secondary text below the title
- * @props {Boolean} showBackLink - Whether to show the "Back to Sets" navigation link
+ * @props {Boolean} showBackLink - Whether to show the "Back" navigation link
  * @props {String} alignment - Text alignment ('left', 'center', or 'right')
  */ -->
 <script setup>

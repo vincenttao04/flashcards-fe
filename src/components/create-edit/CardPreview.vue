@@ -1,38 +1,17 @@
 <!-- /**
  * CardPreview Component
- * Displays a preview of flashcards with navigation controls
+ * Displays a preview of a deck's cards with navigation controls
  * 
  * @component
- * @props {Array} cards - Array of flashcard objects to preview
+ * @props {Array} cards - Array of card objects to preview
  * @props {Number} previewIndex - Current card index being displayed
  * @emits {update:index} - Emits when navigation changes the current card
  *                         Payload: (newIndex)
  */ -->
-<template>
-  <div class="preview-section">
-    <h2>Preview</h2>
-    <div class="preview-card">
-      <FlashCard
-        :card="cards[previewIndex]"
-        :is-flipped="isFlipped"
-        @flip="isFlipped = !isFlipped"
-      />
-
-      <CardNavigator
-        :current-index="previewIndex"
-        :total="cards.length"
-        @prev="prevCard"
-        @next="nextCard"
-        class="preview-navigator"
-      />
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { ref } from "vue";
-import FlashCard from "../flashcard/CardInterface.vue";
-import CardNavigator from "../flashcard/CardNavigator.vue";
+import CardInterface from "../deck/CardInterface.vue";
+import CardNavigator from "../deck/CardNavigator.vue";
 
 const props = defineProps({
   cards: {
@@ -65,8 +44,29 @@ function prevCard() {
 }
 </script>
 
+<template>
+  <div class="preview-container">
+    <h2>Preview</h2>
+    <div class="preview-card">
+      <CardInterface
+        :card="cards[previewIndex]"
+        :is-flipped="isFlipped"
+        @flip="isFlipped = !isFlipped"
+      />
+
+      <CardNavigator
+        :current-index="previewIndex"
+        :total="cards.length"
+        @prev="prevCard"
+        @next="nextCard"
+        class="preview-navigator"
+      />
+    </div>
+  </div>
+</template>
+
 <style scoped>
-.preview-section {
+.preview-container {
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid #e9ecef;

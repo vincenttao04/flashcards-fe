@@ -1,13 +1,35 @@
 <!-- /**
- * CardForm Component
- * A form component for creating flashcard questions and answers
+ * CardInput Component
+ * A form component for creating a deck's questions and answers (cards)
  * 
  * @component
- * @props {Object} card - The flashcard object containing question and answer
+ * @props {Object} card - The card object containing question and answer
  * @props {Number} index - The index of the card in the set
  * @emits {update} - Emits when either question or answer is modified
  *                   Payload: (index, updatedCard)
  */ -->
+<script setup>
+const props = defineProps({
+  card: {
+    type: Object,
+    required: true,
+  },
+  index: {
+    type: Number,
+    required: true,
+  },
+});
+
+const emit = defineEmits(["update"]);
+
+function updateField(field, value) {
+  emit("update", props.index, {
+    ...props.card,
+    [field]: value,
+  });
+}
+</script>
+
 <template>
   <div class="form-wrapper">
     <div>
@@ -37,28 +59,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-const props = defineProps({
-  card: {
-    type: Object,
-    required: true,
-  },
-  index: {
-    type: Number,
-    required: true,
-  },
-});
-
-const emit = defineEmits(["update"]);
-
-function updateField(field, value) {
-  emit("update", props.index, {
-    ...props.card,
-    [field]: value,
-  });
-}
-</script>
 
 <style scoped>
 .form-wrapper {
