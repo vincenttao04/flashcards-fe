@@ -55,7 +55,6 @@ defineEmits(["prev", "next"]);
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 1.5rem;
 }
 
 .control-btn {

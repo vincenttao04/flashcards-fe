@@ -40,6 +40,7 @@ defineEmits(["select"]);
 .card-indicators {
   display: flex;
   gap: 8px;
+  margin-top: 1.5rem;
 }
 
 .indicator {

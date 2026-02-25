@@ -125,6 +125,7 @@ async function handleDelete(setId, setTitle) {
 .home-page {
   max-width: 1200px;
   margin: 0 auto;
+  padding-top: 2.5rem;
 }
 
 .actions-container {

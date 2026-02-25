@@ -47,7 +47,7 @@ defineProps({
 
 <style scoped>
 .page-header {
-  margin: 2.5rem 0 2rem 0;
+  margin-bottom: 2rem;
 }
 
 .page-header.center {
@@ -77,7 +77,6 @@ defineProps({
 
 h1 {
   color: #2c3e50;
-  margin-bottom: 0.5rem;
   font-weight: 600;
   line-height: 0.8;
 }
@@ -86,6 +85,7 @@ h3 {
   font-size: 1.1rem;
   font-weight: 500;
   color: #495057;
+  margin-top: 1rem;
 }
 
 @media (max-width: 640px) {

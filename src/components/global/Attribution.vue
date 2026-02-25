@@ -14,7 +14,7 @@
 .attribution-container {
   display: flex;
   align-items: flex-end;
-  padding-top: 4rem;
+  padding-top: 3.5rem;
   color: #6c757d;
 }
 
@@ -23,6 +23,5 @@
   flex-direction: row;
   gap: 0.35rem;
   margin-bottom: 0.12rem;
-  opacity: 95%;
 }
 </style>
