@@ -1,5 +1,5 @@
 <!-- /**
- * CardsList Component
+ * CardList Component
  * Manages a deck's list of cards with add/remove functionality
  * 
  * @component

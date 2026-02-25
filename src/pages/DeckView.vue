@@ -1,17 +1,17 @@
 <!-- /**
- * FlashCardPage Component
- * Main page for displaying and interacting with flashcard sets
+ * DeckView Page
+ * Main page for displaying and interacting with a specific deck of cards
  * 
  * @component
  * @uses PageHeader
- * @uses FlashCard
+ * @uses CardInterface
  * @uses CardNavigator
  * @uses CardIndicators (currently commented out)
  */ -->
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import PageHeader from "../components/global/PageHeader.vue";
-import FlashCard from "../components/deck/CardInterface.vue";
+import CardInterface from "../components/deck/CardInterface.vue";
 import CardNavigator from "../components/deck/CardNavigator.vue";
 // import CardIndicators from "../components/deck/CardIndicators.vue"; // Uncomment if you want to implement card indicators
 
@@ -19,8 +19,8 @@ import { getDeck } from "../api";
 import Error from "../components/global/Error.vue";
 import Loading from "../components/global/Loading.vue";
 
-const { setId } = defineProps({
-  setId: String,
+const { deckId } = defineProps({
+  deckId: String,
 });
 
 const deck = ref(null);
@@ -33,7 +33,7 @@ onMounted(async () => {
   try {
     loading.value = true;
     error.value = null;
-    deck.value = await getDeck(Number(setId));
+    deck.value = await getDeck(Number(deckId));
   } catch (err) {
     alert(err.message);
     error.value = err.message || "Failed to load flashcards";
@@ -81,12 +81,12 @@ function prevCard() {
         alignment="left"
       />
 
-      <router-link :to="{ name: 'edit', params: { deckId: setId } }" class="edit-icon">
+      <router-link :to="{ name: 'edit', params: { deckId } }" class="edit-icon">
         <i class="bi bi-pen"></i>
       </router-link>
     </div>
 
-    <FlashCard
+    <CardInterface
       :key="currentIndex"
       class="flash-card"
       v-if="currentCard"

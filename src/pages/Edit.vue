@@ -3,8 +3,8 @@ import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import PageHeader from "../components/global/PageHeader.vue";
 import HeaderInput from "../components/create-edit/HeaderInput.vue";
-import CardsList from "../components/create-edit/CardList.vue";
-import PreviewSection from "../components/create-edit/CardPreview.vue";
+import CardList from "../components/create-edit/CardList.vue";
+import CardPreview from "../components/create-edit/CardPreview.vue";
 import FormActions from "../components/create-edit/FormActions.vue";
 
 import { getDeck, updateDeck } from "../api";
@@ -86,7 +86,6 @@ function updateCards(newCards) {
   cards.value = newCards;
 }
 
-// Function to save deck, checks if the form fields are valid and displays a mock alert
 async function saveDeck() {
   if (!isFormValid.value) return;
 
@@ -129,14 +128,14 @@ async function saveDeck() {
         @update:description="description = $event"
       />
 
-      <CardsList
+      <CardList
         :cards="cards"
         @add="addCard"
         @remove="removeCard"
         @update:cards="updateCards"
       />
 
-      <PreviewSection
+      <CardPreview
         v-if="cards.length > 0 && hasContent"
         :cards="cards"
         :preview-index="previewIndex"

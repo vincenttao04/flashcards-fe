@@ -24,7 +24,7 @@ defineEmits(["save"]);
 
 <template>
   <div class="actions-container" aria-label="Form Actions">
-    <div class="button-group">
+    <div class="btn-group">
       <router-link :to="backTo" class="cancel-btn"> Cancel </router-link>
 
       <button
@@ -65,7 +65,7 @@ defineEmits(["save"]);
   border-top: 1px solid #e9ecef;
 }
 
-.button-group {
+.btn-group {
   display: inline-flex;
   gap: 1rem;
 }

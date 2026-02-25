@@ -2,7 +2,7 @@
  * CardInput Component
  * A form component for creating a deck's questions and answers (cards)
  * 
- * @component
+ * @components
  * @props {Object} card - The card object containing question and answer
  * @props {Number} index - The index of the card in the set
  * @emits {update} - Emits when either question or answer is modified
