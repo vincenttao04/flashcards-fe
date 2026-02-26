@@ -16,23 +16,23 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: () => import("@/pages/Home.vue"),
+      component: () => import("@/pages/HomePage.vue"),
     },
     {
       path: "/:deckId",
       name: "deck",
-      component: () => import("@/pages/DeckView.vue"),
+      component: () => import("@/pages/ViewDeck.vue"),
       props: true,
     },
     {
       path: "/create",
       name: "create",
-      component: () => import("@/pages/Create.vue"),
+      component: () => import("@/pages/CreateDeck.vue"),
     },
     {
       path: "/:deckId/edit",
       name: "edit",
-      component: () => import("@/pages/Edit.vue"),
+      component: () => import("@/pages/EditDeck.vue"),
       props: true,
     },
   ],

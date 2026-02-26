@@ -11,16 +11,15 @@
  */ -->
 <script setup>
 import { useRouter } from "vue-router";
-import PageHeader from "@/components/global/PageHeader.vue";
-import HeaderInput from "@/components/create-edit/HeaderInput.vue";
+
+import { deckApi } from "@/api/deckApi";
 import CardList from "@/components/create-edit/CardList.vue";
 import CardPreview from "@/components/create-edit/CardPreview.vue";
 import FormActions from "@/components/create-edit/FormActions.vue";
-
-import { deckApi } from "@/api/deckApi";
-
-import { useDeckForm } from "@/composables/useDeckForm";
+import HeaderInput from "@/components/create-edit/HeaderInput.vue";
+import PageHeader from "@/components/global/PageHeader.vue";
 import { useAsyncState } from "@/composables/useAsyncState";
+import { useDeckForm } from "@/composables/useDeckForm";
 
 const {
   title,

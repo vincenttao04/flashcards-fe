@@ -73,8 +73,9 @@ The flashcard application will typically be running at: http://localhost:5173/
 1. add a marquee carousel at the bottom for flashcard navigation
 2. maybe deploy (see costing)
 
-3. mobile responsive, more global components (etc.)
-4. marquee carousel
+3. mobile responsive, aria labels, code comments at the top of the file.
+4. readme
+5. marquee carousel
 
 ## Simple Icons Setup (Vue 3 + Vite)
 

@@ -13,6 +13,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  deleting: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 defineEmits(["delete"]);
@@ -57,7 +61,11 @@ function formatDate(dateString) {
       >
         <i class="bi bi-pen"></i>
       </router-link>
-      <button class="delete-btn" @click="$emit('delete', deck.id, deck.title)">
+      <button
+        class="delete-btn"
+        :disabled="deleting"
+        @click="$emit('delete', deck.id, deck.title)"
+      >
         <i class="bi bi-trash"></i>
       </button>
     </div>
