@@ -1,19 +1,19 @@
 <script setup>
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
-import PageHeader from "../components/global/PageHeader.vue";
-import HeaderInput from "../components/create-edit/HeaderInput.vue";
-import CardList from "../components/create-edit/CardList.vue";
-import CardPreview from "../components/create-edit/CardPreview.vue";
-import FormActions from "../components/create-edit/FormActions.vue";
+import PageHeader from "@/components/global/PageHeader.vue";
+import HeaderInput from "@/components/create-edit/HeaderInput.vue";
+import CardList from "@/components/create-edit/CardList.vue";
+import CardPreview from "@/components/create-edit/CardPreview.vue";
+import FormActions from "@/components/create-edit/FormActions.vue";
 
-import { deckApi } from "../api/deckApi";
-import Error from "../components/global/Error.vue";
-import Loading from "../components/global/Loading.vue";
+import { deckApi } from "@/api/deckApi";
+import Error from "@/components/global/Error.vue";
+import Loading from "@/components/global/Loading.vue";
 
-import { useDeckForm } from "../composables/useDeckForm";
+import { useDeckForm } from "@/composables/useDeckForm";
 
-import { useAsyncState } from "../composables/useAsyncState";
+import { useAsyncState } from "@/composables/useAsyncState";
 
 const {
   title,
@@ -39,6 +39,11 @@ const { loading: isSaving, error: saveError, run: runSave } = useAsyncState();
 
 onMounted(() => {
   run(async () => {
+    if (Number.isNaN(Number(deckId))) {
+      error.value = "Invalid deck id";
+      return;
+    }
+
     const deck = await deckApi.get(Number(deckId));
 
     if (!deck) {
@@ -59,10 +64,18 @@ async function saveDeck() {
   if (!isFormValid.value) return;
 
   await runSave(async () => {
+    if (Number.isNaN(Number(deckId))) {
+      error.value = "Invalid deck id";
+      return;
+    }
+
     await deckApi.update(Number(deckId), {
-      title: title.value,
-      description: description.value,
-      cards: cards.value,
+      title: title.value.trim(),
+      description: description.value.trim(),
+      cards: cards.value.map((card) => ({
+        question: card.question.trim(),
+        answer: card.answer.trim(),
+      })),
     });
 
     router.push({

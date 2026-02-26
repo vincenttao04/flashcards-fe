@@ -34,7 +34,9 @@ function goHome(e) {
 <template>
   <div v-if="type === 'page'" class="error-page-container">
     <h3>{{ message }}</h3>
-    <a href="/" class="back-link" @click="goHome"> Home </a>
+    <a v-if="link === true" href="/" class="back-link" @click="goHome">
+      Home
+    </a>
   </div>
 
   <div v-else class="error-component-container">

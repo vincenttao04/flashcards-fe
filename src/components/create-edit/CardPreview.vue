@@ -10,8 +10,8 @@
  */ -->
 <script setup>
 import { ref } from "vue";
-import CardInterface from "../deck/CardInterface.vue";
-import CardNavigator from "../deck/CardNavigator.vue";
+import CardInterface from "@/deck/CardInterface.vue";
+import CardNavigator from "@/deck/CardNavigator.vue";
 
 const props = defineProps({
   cards: {
