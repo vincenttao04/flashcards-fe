@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import PageHeader from "../components/global/PageHeader.vue";
 import HeaderInput from "../components/create-edit/HeaderInput.vue";
@@ -11,15 +11,25 @@ import { deckApi } from "../api/deckApi";
 import Error from "../components/global/Error.vue";
 import Loading from "../components/global/Loading.vue";
 
+import { useDeckForm } from "../composables/useDeckForm";
+
+const {
+  title,
+  description,
+  cards,
+  previewIndex,
+  isFormValid,
+  hasContent,
+  addCard,
+  removeCard,
+  updateCards,
+} = useDeckForm();
+
 const { deckId } = defineProps({
   deckId: String,
 });
 
 const router = useRouter();
-const title = ref("");
-const description = ref("");
-const cards = ref([{ question: "", answer: "" }]);
-const previewIndex = ref(0);
 const loading = ref(true);
 const error = ref(null);
 const isSaving = ref(false);
@@ -38,9 +48,9 @@ onMounted(async () => {
 
     title.value = deck.title;
     description.value = deck.description;
-    cards.value = deck.cards.map((card) => ({
-      question: card.question,
-      answer: card.answer,
+    cards.value = deck.cards.map(({ question, answer }) => ({
+      question,
+      answer,
     }));
   } catch (err) {
     alert(err.message);
@@ -50,43 +60,6 @@ onMounted(async () => {
   }
 });
 
-const isFormValid = computed(() => {
-  return (
-    title.value.trim() !== "" &&
-    description.value.trim() !== "" &&
-    cards.value.every(
-      (card) => card.question.trim() !== "" && card.answer.trim() !== "",
-    )
-  );
-});
-
-// Function to check if there is any content in the cards
-const hasContent = computed(() => {
-  return cards.value.some(
-    (card) => card.question.trim() !== "" || card.answer.trim() !== "",
-  );
-});
-
-// Function to add a new card to the list
-function addCard() {
-  cards.value.push({ question: "", answer: "" });
-}
-
-// Function to remove a card from the list
-function removeCard(index) {
-  if (cards.value.length > 1) {
-    cards.value.splice(index, 1);
-    if (previewIndex.value >= cards.value.length) {
-      previewIndex.value = cards.value.length - 1;
-    }
-  }
-}
-
-// Function to update the cards list when a card is modified
-function updateCards(newCards) {
-  cards.value = newCards;
-}
-
 async function saveDeck() {
   if (!isFormValid.value) return;
 
@@ -94,12 +67,11 @@ async function saveDeck() {
   saveError.value = "";
 
   try {
-    await deckApi.update(
-      Number(deckId),
-      title.value,
-      description.value,
-      cards.value,
-    );
+    await deckApi.update(Number(deckId), {
+      title: title.value,
+      description: description.value,
+      cards: cards.value,
+    });
     router.push({
       name: "deck",
       params: { deckId },
