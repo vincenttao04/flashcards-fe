@@ -10,15 +10,15 @@
  */ -->
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import PageHeader from "../components/global/PageHeader.vue";
-import CardInterface from "../components/deck/CardInterface.vue";
-import CardNavigator from "../components/deck/CardNavigator.vue";
-// import CardIndicators from "../components/deck/CardIndicators.vue"; // Uncomment if you want to implement card indicators
+import PageHeader from "@/components/global/PageHeader.vue";
+import CardInterface from "@/components/deck/CardInterface.vue";
+import CardNavigator from "@/components/deck/CardNavigator.vue";
+// import CardIndicators from "@/components/deck/CardIndicators.vue"; // Uncomment if you want to implement card indicators
 
-import { deckApi } from "../api/deckApi";
-import Error from "../components/global/Error.vue";
-import Loading from "../components/global/Loading.vue";
-import { useAsyncState } from "../composables/useAsyncState";
+import { deckApi } from "@/api/deckApi";
+import Error from "@/components/global/Error.vue";
+import Loading from "@/components/global/Loading.vue";
+import { useAsyncState } from "@/composables/useAsyncState";
 
 // State for page loading
 const { loading, error, run } = useAsyncState();
@@ -33,6 +33,11 @@ const isFlipped = ref(false);
 
 onMounted(() => {
   run(async () => {
+    if (Number.isNaN(Number(deckId))) {
+      error.value = "Invalid deck id";
+      return;
+    }
+
     const data = await deckApi.get(Number(deckId));
 
     if (!data) {

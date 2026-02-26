@@ -9,15 +9,15 @@
  */ -->
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import PageHeader from "../components/global/PageHeader.vue";
-import SearchBar from "../components/home/SearchBar.vue";
-import DeckChip from "../components/home/DeckChip.vue";
-import Error from "../components/global/Error.vue";
-import Loading from "../components/global/Loading.vue";
+import PageHeader from "@/components/global/PageHeader.vue";
+import SearchBar from "@/components/home/SearchBar.vue";
+import DeckChip from "@/components/home/DeckChip.vue";
+import Error from "@/components/global/Error.vue";
+import Loading from "@/components/global/Loading.vue";
 
-import { deckApi } from "../api/deckApi";
+import { deckApi } from "@/api/deckApi";
 
-import { useAsyncState } from "../composables/useAsyncState";
+import { useAsyncState } from "@/composables/useAsyncState";
 
 // State for page loading
 const { loading, error, run } = useAsyncState();
@@ -66,7 +66,9 @@ const filteredDecks = computed(() => {
   return decks.value.filter((deck) => {
     const titleMatch = deck.title.toLowerCase().includes(query);
     const descriptionMatch = deck.description.toLowerCase().includes(query);
-    const cardsMatch = deck.cards.some((card) => {
+
+    const cards = deck.cards ?? [];
+    const cardsMatch = cards.some((card) => {
       const questionMatch = card.question.toLowerCase().includes(query);
       const answerMatch = card.answer.toLowerCase().includes(query);
       return questionMatch || answerMatch;

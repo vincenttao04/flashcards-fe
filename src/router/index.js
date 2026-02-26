@@ -6,8 +6,9 @@ import { createRouter, createWebHistory } from "vue-router";
  *
  * Routes:
  * - / (home): Displays all decks
- * - /deck/:deckId: Shows a specific deck's cards
+ * - /deck/:deckId: Shows a specific deck of cards
  * - /create: Create a new deck of cards
+ * - /edit/:deckId: Edit an existing deck of cards
  */
 const router = createRouter({
   history: createWebHistory(),
@@ -15,23 +16,23 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: () => import("../pages/Home.vue"),
+      component: () => import("@/pages/Home.vue"),
     },
     {
       path: "/:deckId",
       name: "deck",
-      component: () => import("../pages/DeckView.vue"),
+      component: () => import("@/pages/DeckView.vue"),
       props: true,
     },
     {
       path: "/create",
       name: "create",
-      component: () => import("../pages/Create.vue"),
+      component: () => import("@/pages/Create.vue"),
     },
     {
       path: "/:deckId/edit",
       name: "edit",
-      component: () => import("../pages/Edit.vue"),
+      component: () => import("@/pages/Edit.vue"),
       props: true,
     },
   ],
