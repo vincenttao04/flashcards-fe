@@ -7,8 +7,7 @@ import CardList from "../components/create-edit/CardList.vue";
 import CardPreview from "../components/create-edit/CardPreview.vue";
 import FormActions from "../components/create-edit/FormActions.vue";
 
-import { getDeck, updateDeck } from "../api";
-
+import { deckApi } from "../api/deckApi";
 import Error from "../components/global/Error.vue";
 import Loading from "../components/global/Loading.vue";
 
@@ -31,7 +30,7 @@ onMounted(async () => {
     loading.value = true;
     error.value = null;
 
-    const deck = await getDeck(Number(deckId));
+    const deck = await deckApi.get(Number(deckId));
     if (!deck) {
       error.value = "Flashcards not found";
       return;
@@ -95,7 +94,7 @@ async function saveDeck() {
   saveError.value = "";
 
   try {
-    await updateDeck(
+    await deckApi.update(
       Number(deckId),
       title.value,
       description.value,

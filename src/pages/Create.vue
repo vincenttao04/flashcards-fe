@@ -18,7 +18,7 @@ import CardList from "../components/create-edit/CardList.vue";
 import CardPreview from "../components/create-edit/CardPreview.vue";
 import FormActions from "../components/create-edit/FormActions.vue";
 
-import { createDeck } from "../api";
+import { deckApi } from "../api/deckApi.ts";
 
 const router = useRouter();
 const setTitle = ref("");
@@ -72,7 +72,7 @@ async function saveDeck() {
   saveError.value = null;
 
   try {
-    await createDeck(
+    await deckApi.create(
       setTitle.value.trim(),
       setDescription.value.trim(),
       cards.value.map((card) => ({

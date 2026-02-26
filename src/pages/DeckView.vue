@@ -15,7 +15,7 @@ import CardInterface from "../components/deck/CardInterface.vue";
 import CardNavigator from "../components/deck/CardNavigator.vue";
 // import CardIndicators from "../components/deck/CardIndicators.vue"; // Uncomment if you want to implement card indicators
 
-import { getDeck } from "../api";
+import { deckApi } from "../api/deckApi";
 import Error from "../components/global/Error.vue";
 import Loading from "../components/global/Loading.vue";
 
@@ -33,7 +33,7 @@ onMounted(async () => {
   try {
     loading.value = true;
     error.value = null;
-    deck.value = await getDeck(Number(deckId));
+    deck.value = await deckApi.get(Number(deckId));
   } catch (err) {
     alert(err.message);
     error.value = err.message || "Failed to load flashcards";
