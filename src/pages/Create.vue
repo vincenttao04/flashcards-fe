@@ -10,7 +10,7 @@
  * @uses FormActions
  */ -->
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import PageHeader from "../components/global/PageHeader.vue";
 import HeaderInput from "../components/create-edit/HeaderInput.vue";
@@ -20,50 +20,24 @@ import FormActions from "../components/create-edit/FormActions.vue";
 
 import { deckApi } from "../api/deckApi.ts";
 
+import { useDeckForm } from "../composables/useDeckForm";
+
+const {
+  title,
+  description,
+  cards,
+  previewIndex,
+  isFormValid,
+  hasContent,
+  addCard,
+  removeCard,
+  updateCards,
+} = useDeckForm();
+
 const router = useRouter();
-const setTitle = ref("");
-const setDescription = ref("");
-const cards = ref([{ question: "", answer: "" }]);
-const previewIndex = ref(0);
+
 const isSaving = ref(false);
 const saveError = ref(null);
-
-const isFormValid = computed(() => {
-  return (
-    setTitle.value.trim() !== "" &&
-    setDescription.value.trim() !== "" &&
-    cards.value.every(
-      (card) => card.question.trim() !== "" && card.answer.trim() !== "",
-    )
-  );
-});
-
-// Function to check if there is any content in the cards
-const hasContent = computed(() => {
-  return cards.value.some(
-    (card) => card.question.trim() !== "" || card.answer.trim() !== "",
-  );
-});
-
-// Function to add a new card to the list
-function addCard() {
-  cards.value.push({ question: "", answer: "" });
-}
-
-// Function to remove a card from the list
-function removeCard(index) {
-  if (cards.value.length > 1) {
-    cards.value.splice(index, 1);
-    if (previewIndex.value >= cards.value.length) {
-      previewIndex.value = cards.value.length - 1;
-    }
-  }
-}
-
-// Function to update the cards list when a card is modified
-function updateCards(newCards) {
-  cards.value = newCards;
-}
 
 async function saveDeck() {
   if (!isFormValid.value || isSaving.value) return;
@@ -72,14 +46,14 @@ async function saveDeck() {
   saveError.value = null;
 
   try {
-    await deckApi.create(
-      setTitle.value.trim(),
-      setDescription.value.trim(),
-      cards.value.map((card) => ({
+    await deckApi.create({
+      title: title.value.trim(),
+      description: description.value.trim(),
+      cards: cards.value.map((card) => ({
         question: card.question.trim(),
         answer: card.answer.trim(),
       })),
-    );
+    });
     resetForm();
     router.push({ name: "home" });
   } catch (err) {
@@ -92,8 +66,8 @@ async function saveDeck() {
 
 // Function to reset the form fields after saving
 function resetForm() {
-  setTitle.value = "";
-  setDescription.value = "";
+  title.value = "";
+  description.value = "";
   cards.value = [{ question: "", answer: "" }];
   previewIndex.value = 0;
 }
@@ -110,10 +84,10 @@ function resetForm() {
 
     <div class="form-container">
       <HeaderInput
-        :title="setTitle"
-        :description="setDescription"
-        @update:title="setTitle = $event"
-        @update:description="setDescription = $event"
+        :title="title"
+        :description="description"
+        @update:title="title = $event"
+        @update:description="description = $event"
       />
 
       <CardList
