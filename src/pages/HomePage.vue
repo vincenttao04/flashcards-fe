@@ -18,6 +18,9 @@ import DeckChip from "@/components/home/DeckChip.vue";
 import SearchBar from "@/components/home/SearchBar.vue";
 import { useAsyncState } from "@/composables/useAsyncState";
 
+const searchQuery = ref("");
+const decks = ref([]);
+
 // State for page loading
 const { loading, error, run } = useAsyncState();
 // State for deleting
@@ -26,9 +29,6 @@ const {
   error: deleteError,
   run: runDelete,
 } = useAsyncState();
-
-const searchQuery = ref("");
-const decks = ref([]);
 
 onMounted(() => {
   run(async () => {

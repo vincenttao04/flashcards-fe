@@ -30,6 +30,7 @@ const { deckId } = defineProps({
 });
 
 const router = useRouter();
+
 // State for page loading
 const { loading, error, run } = useAsyncState();
 // State for saving
@@ -103,7 +104,7 @@ async function saveDeck() {
       type="component"
     />
 
-    <div class="form-container" v-else>
+    <div v-else>
       <HeaderInput
         :title="title"
         :description="description"
@@ -111,27 +112,29 @@ async function saveDeck() {
         @update:description="description = $event"
       />
 
-      <CardList
-        :cards="cards"
-        @add="addCard"
-        @remove="removeCard"
-        @update:cards="updateCards"
-      />
+      <div class="card-container">
+        <CardList
+          :cards="cards"
+          @add="addCard"
+          @remove="removeCard"
+          @update:cards="updateCards"
+        />
 
-      <CardPreview
-        v-if="cards.length > 0 && hasContent"
-        :cards="cards"
-        :preview-index="previewIndex"
-        @update:index="previewIndex = $event"
-      />
+        <CardPreview
+          v-if="cards.length > 0 && hasContent"
+          :cards="cards"
+          :preview-index="previewIndex"
+          @update:index="previewIndex = $event"
+        />
 
-      <FormActions
-        :is-valid="isFormValid"
-        :backTo="{ name: 'deck', params: { deckId } }"
-        :is-saving="isSaving"
-        :save-error="saveError"
-        @save="saveDeck"
-      />
+        <FormActions
+          :is-valid="isFormValid"
+          :backTo="{ name: 'deck', params: { deckId } }"
+          :is-saving="isSaving"
+          :save-error="saveError"
+          @save="saveDeck"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -144,7 +147,7 @@ async function saveDeck() {
   color: #333;
 }
 
-.form-container {
+.card-container {
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -156,7 +159,7 @@ async function saveDeck() {
     padding: 1rem;
   }
 
-  .form-container {
+  .card-container {
     padding: 1.5rem;
   }
 }

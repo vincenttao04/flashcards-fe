@@ -19,12 +19,6 @@ const router = createRouter({
       component: () => import("@/pages/HomePage.vue"),
     },
     {
-      path: "/:deckId",
-      name: "deck",
-      component: () => import("@/pages/ViewDeck.vue"),
-      props: true,
-    },
-    {
       path: "/create",
       name: "create",
       component: () => import("@/pages/CreateDeck.vue"),
@@ -33,6 +27,12 @@ const router = createRouter({
       path: "/:deckId/edit",
       name: "edit",
       component: () => import("@/pages/EditDeck.vue"),
+      props: true,
+    },
+    {
+      path: "/:deckId",
+      name: "deck",
+      component: () => import("@/pages/ViewDeck.vue"),
       props: true,
     },
   ],

@@ -29,51 +29,45 @@ function updateCard(index, updatedCard) {
 </script>
 
 <template>
-  <div class="cards-container">
-    <h2>Cards</h2>
-    <div v-for="(card, index) in cards" :key="index" class="card-form">
-      <div class="card-header">
-        <h3>Card {{ index + 1 }}</h3>
-        <button
-          type="button"
-          class="remove-btn"
-          :aria-label="`Remove card ${index + 1}`"
-          @click="$emit('remove', index)"
-          :disabled="cards.length <= 1"
-        >
-          <i class="bi bi-trash"></i>
-        </button>
-      </div>
-
-      <CardInput :card="card" :index="index" @update="updateCard" />
+  <h2>Cards</h2>
+  <div v-for="(card, index) in cards" :key="index" class="card-form">
+    <div class="card-header">
+      <h3>Card {{ index + 1 }}</h3>
+      <button
+        type="button"
+        class="remove-btn"
+        :aria-label="`Remove card ${index + 1}`"
+        @click="$emit('remove', index)"
+        :disabled="cards.length <= 1"
+      >
+        <i class="bi bi-trash"></i>
+      </button>
     </div>
 
-    <button
-      type="button"
-      class="add-btn"
-      aria-label="Add Another Card"
-      @click="$emit('add')"
-    >
-      <i class="bi bi-plus-lg"></i>
-      Add Another Card
-    </button>
+    <CardInput :card="card" :index="index" @update="updateCard" />
   </div>
+
+  <button
+    type="button"
+    class="add-btn"
+    aria-label="Add Card"
+    @click="$emit('add')"
+  >
+    <i class="bi bi-plus-lg"></i>
+    Add Card
+  </button>
 </template>
 
 <style scoped>
-.cards-container {
-  margin-top: 2rem;
-}
-
 h2 {
   color: #2c3e50;
-  margin: 1.5rem 0 1rem;
+  margin-bottom: 1rem;
   font-weight: 600;
   font-size: 1.25rem;
 }
 
 .card-form {
-  background-color: #f8f9fa;
+  background-color: #e9ecef;
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -85,7 +79,7 @@ h2 {
   align-items: center;
   padding-bottom: 0.5rem;
   margin-bottom: 0.5rem;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid #dee2e6;
 }
 
 .card-header h3 {
@@ -121,7 +115,7 @@ h2 {
   color: #495057;
   padding: 0.75rem;
   width: 100%;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s;

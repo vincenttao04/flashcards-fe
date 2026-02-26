@@ -75,7 +75,8 @@ The flashcard application will typically be running at: http://localhost:5173/
 
 3. mobile responsive, aria labels, code comments at the top of the file.
 4. readme
-5. marquee carousel
+5. add deckData, delete deckData
+6. marquee carousel
 
 ## Simple Icons Setup (Vue 3 + Vite)
 
@@ -113,3 +114,7 @@ export default defineConfig({
 restart server (re-run npm run dev)
 
 use like so: `<i-simple-icons-vuedotjs width="20" height="20" />`
+
+## Fix Linting Issues
+
+Manual run command - should already run automatically on auto save: `npx eslint . --fix`

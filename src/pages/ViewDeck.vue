@@ -20,9 +20,6 @@ import LoadingInterface from "@/components/global/LoadingInterface.vue";
 import PageHeader from "@/components/global/PageHeader.vue";
 import { useAsyncState } from "@/composables/useAsyncState";
 
-// State for page loading
-const { loading, error, run } = useAsyncState();
-
 const { deckId } = defineProps({
   deckId: String,
 });
@@ -30,6 +27,9 @@ const { deckId } = defineProps({
 const deck = ref(null);
 const currentIndex = ref(0);
 const isFlipped = ref(false);
+
+// State for page loading
+const { loading, error, run } = useAsyncState();
 
 onMounted(() => {
   run(async () => {

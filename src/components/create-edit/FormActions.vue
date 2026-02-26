@@ -69,7 +69,7 @@ defineEmits(["save"]);
   align-items: flex-end;
   gap: 1rem;
   margin-top: 2rem;
-  padding-top: 1.5rem;
+  padding-top: 2rem;
   border-top: 1px solid #e9ecef;
 }
 

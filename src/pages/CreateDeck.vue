@@ -67,14 +67,14 @@ async function saveDeck() {
       alignment="left"
     />
 
-    <div class="form-container">
-      <HeaderInput
-        :title="title"
-        :description="description"
-        @update:title="title = $event"
-        @update:description="description = $event"
-      />
+    <HeaderInput
+      :title="title"
+      :description="description"
+      @update:title="title = $event"
+      @update:description="description = $event"
+    />
 
+    <div class="card-container">
       <CardList
         :cards="cards"
         @add="addCard"
@@ -108,7 +108,7 @@ async function saveDeck() {
   color: #333;
 }
 
-.form-container {
+.card-container {
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -120,7 +120,7 @@ async function saveDeck() {
     padding: 1rem;
   }
 
-  .form-container {
+  .card-container {
     padding: 1.5rem;
   }
 }
