@@ -1,22 +1,9 @@
 import { ref, computed } from "vue";
 
-type Card = {
-  question: string;
-  answer: string;
-};
-
-type DeckFormInput = {
-  title: string;
-  description: string;
-  cards: Card[];
-};
-
-export function useDeckForm(initialData?: Partial<DeckFormInput>) {
+export function useDeckForm(initialData) {
   const title = ref(initialData?.title ?? "");
   const description = ref(initialData?.description ?? "");
-  const cards = ref<Card[]>(
-    initialData?.cards ?? [{ question: "", answer: "" }],
-  );
+  const cards = ref(initialData?.cards ?? [{ question: "", answer: "" }]);
   const previewIndex = ref(0);
 
   const isFormValid = computed(() => {
@@ -39,7 +26,7 @@ export function useDeckForm(initialData?: Partial<DeckFormInput>) {
     cards.value.push({ question: "", answer: "" });
   }
 
-  function removeCard(index: number) {
+  function removeCard(index) {
     if (cards.value.length > 1) {
       cards.value.splice(index, 1);
       if (previewIndex.value >= cards.value.length) {
@@ -48,7 +35,7 @@ export function useDeckForm(initialData?: Partial<DeckFormInput>) {
     }
   }
 
-  function updateCards(newCards: Card[]) {
+  function updateCards(newCards) {
     cards.value = newCards;
   }
 
