@@ -9,15 +9,15 @@
  * @uses CardIndicators (currently commented out)
  */ -->
 <script setup>
-import { ref, computed, onMounted } from "vue";
-import PageHeader from "@/components/global/PageHeader.vue";
+import { computed, onMounted, ref } from "vue";
+
+// import CardIndicators from "@/components/deck/CardIndicators.vue"; // Uncomment if you want to implement card indicators
+import { deckApi } from "@/api/deckApi";
 import CardInterface from "@/components/deck/CardInterface.vue";
 import CardNavigator from "@/components/deck/CardNavigator.vue";
-// import CardIndicators from "@/components/deck/CardIndicators.vue"; // Uncomment if you want to implement card indicators
-
-import { deckApi } from "@/api/deckApi";
-import Error from "@/components/global/Error.vue";
-import Loading from "@/components/global/Loading.vue";
+import ErrorInterface from "@/components/global/ErrorInterface.vue";
+import LoadingInterface from "@/components/global/LoadingInterface.vue";
+import PageHeader from "@/components/global/PageHeader.vue";
 import { useAsyncState } from "@/composables/useAsyncState";
 
 // State for page loading
@@ -120,14 +120,14 @@ function prevCard() {
   </div>
 
   <!-- Loading State-->
-  <Loading v-else-if="loading" type="page"></Loading>
+  <LoadingInterface v-else-if="loading" type="page" />
   <!-- Error State-->
-  <Error
+  <ErrorInterface
     v-else-if="error"
     :message="'Flashcard deck not found'"
     :link="true"
     type="page"
-  ></Error>
+  />
 </template>
 
 <style scoped>

@@ -7,7 +7,8 @@
  */ -->
 <script setup>
 import { RouterView } from "vue-router";
-import Attribution from "./components/global/Attribution.vue";
+
+import Attribution from "./components/global/DeveloperAttribution.vue";
 </script>
 
 <template>

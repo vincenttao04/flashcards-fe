@@ -1,5 +1,5 @@
 <script setup>
-import { useRouter, useRoute } from "vue-router";
+import { useRoute,useRouter } from "vue-router";
 
 defineProps({
   message: {

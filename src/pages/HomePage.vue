@@ -1,6 +1,6 @@
 <!-- /**
- * HomePage Component
- * Main landing page displaying all decks with search and creation functionality
+ * Home Page
+ * Main page displaying all decks with search and creation functionality
  * 
  * @component
  * @uses PageHeader
@@ -8,15 +8,14 @@
  * @uses DeckChip
  */ -->
 <script setup>
-import { ref, computed, onMounted } from "vue";
-import PageHeader from "@/components/global/PageHeader.vue";
-import SearchBar from "@/components/home/SearchBar.vue";
-import DeckChip from "@/components/home/DeckChip.vue";
-import Error from "@/components/global/Error.vue";
-import Loading from "@/components/global/Loading.vue";
+import { computed, onMounted, ref } from "vue";
 
 import { deckApi } from "@/api/deckApi";
-
+import ErrorInterface from "@/components/global/ErrorInterface.vue";
+import LoadingInterface from "@/components/global/LoadingInterface.vue";
+import PageHeader from "@/components/global/PageHeader.vue";
+import DeckChip from "@/components/home/DeckChip.vue";
+import SearchBar from "@/components/home/SearchBar.vue";
 import { useAsyncState } from "@/composables/useAsyncState";
 
 // State for page loading
@@ -53,7 +52,7 @@ async function handleDelete(deckId, deckTitle) {
       await deckApi.delete(deckId);
       decks.value = decks.value.filter((deck) => deck.id !== deckId);
     });
-  } catch (err) {
+  } catch {
     alert(deleteError.value || "Failed to delete flashcards");
   }
 }
@@ -91,9 +90,14 @@ const noSearchResults = computed(() => {
 <template>
   <div class="home-page-container">
     <!-- Loading State-->
-    <Loading v-if="loading" type="page" />
+    <LoadingInterface v-if="loading" type="page" />
     <!-- Error State-->
-    <Error v-else-if="error" :message="error" :link="true" type="page" />
+    <ErrorInterface
+      v-else-if="error"
+      :message="error"
+      :link="true"
+      type="page"
+    />
 
     <!-- Main Content -->
     <template v-else>
@@ -123,6 +127,7 @@ const noSearchResults = computed(() => {
           v-for="deck in filteredDecks"
           :key="deck.id"
           :deck="deck"
+          :deleting="deleting"
           @delete="handleDelete"
         />
       </div>

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --ext .js,.vue --fix"
   },
   "dependencies": {
     "bootstrap": "^5.3.8",
@@ -15,8 +16,15 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@iconify-json/simple-icons": "^1.2.71",
     "@vitejs/plugin-vue": "^5.2.3",
+    "eslint": "^10.0.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-vue": "^10.8.0",
+    "globals": "^17.3.0",
+    "prettier": "^3.8.1",
     "unplugin-icons": "^23.0.1",
     "unplugin-vue-components": "^31.0.0",
     "vite": "^6.3.1"
