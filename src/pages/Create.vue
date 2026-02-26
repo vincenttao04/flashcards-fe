@@ -10,7 +10,6 @@
  * @uses FormActions
  */ -->
 <script setup>
-import { ref } from "vue";
 import { useRouter } from "vue-router";
 import PageHeader from "../components/global/PageHeader.vue";
 import HeaderInput from "../components/create-edit/HeaderInput.vue";
@@ -21,6 +20,7 @@ import FormActions from "../components/create-edit/FormActions.vue";
 import { deckApi } from "../api/deckApi.ts";
 
 import { useDeckForm } from "../composables/useDeckForm";
+import { useAsyncState } from "../composables/useAsyncState";
 
 const {
   title,
@@ -32,20 +32,18 @@ const {
   addCard,
   removeCard,
   updateCards,
+  resetForm,
 } = useDeckForm();
 
 const router = useRouter();
 
-const isSaving = ref(false);
-const saveError = ref(null);
+// State for saving
+const { loading: saving, error: saveError, run: runSave } = useAsyncState();
 
 async function saveDeck() {
-  if (!isFormValid.value || isSaving.value) return;
+  if (!isFormValid.value) return;
 
-  isSaving.value = true;
-  saveError.value = null;
-
-  try {
+  await runSave(async () => {
     await deckApi.create({
       title: title.value.trim(),
       description: description.value.trim(),
@@ -54,22 +52,10 @@ async function saveDeck() {
         answer: card.answer.trim(),
       })),
     });
+
     resetForm();
     router.push({ name: "home" });
-  } catch (err) {
-    alert(err.message);
-    saveError.value = err?.message || "Failed to save flashcards";
-  } finally {
-    isSaving.value = false;
-  }
-}
-
-// Function to reset the form fields after saving
-function resetForm() {
-  title.value = "";
-  description.value = "";
-  cards.value = [{ question: "", answer: "" }];
-  previewIndex.value = 0;
+  });
 }
 </script>
 
@@ -105,9 +91,9 @@ function resetForm() {
       />
 
       <FormActions
-        :isValid="isFormValid"
+        :is-valid="isFormValid"
         :backTo="{ name: 'home' }"
-        :is-saving="isSaving"
+        :is-saving="saving"
         :save-error="saveError"
         @save="saveDeck"
       />

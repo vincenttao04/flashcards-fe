@@ -17,26 +17,48 @@ import Loading from "../components/global/Loading.vue";
 
 import { deckApi } from "../api/deckApi";
 
+import { useAsyncState } from "../composables/useAsyncState";
+
+// State for page loading
+const { loading, error, run } = useAsyncState();
+// State for deleting
+const {
+  loading: deleting,
+  error: deleteError,
+  run: runDelete,
+} = useAsyncState();
+
 const searchQuery = ref("");
 const decks = ref([]);
-const loading = ref(true);
-const error = ref(null);
 
-onMounted(async () => {
-  loading.value = true;
-  error.value = null;
+onMounted(() => {
+  run(async () => {
+    const data = await deckApi.getAll();
 
-  try {
-    decks.value = await deckApi.getAll();
-  } catch (err) {
-    alert(err);
-    error.value = err.message || "Failed to load flashcards";
-  } finally {
-    loading.value = false;
-  }
+    if (!data) {
+      throw new Error("Failed to load flashcards");
+    }
+
+    decks.value = data;
+  });
 });
 
-// Computed property to filter deck sets based on the search query
+async function handleDelete(deckId, deckTitle) {
+  if (!confirm(`Delete "${deckTitle}"? This cannot be undone.`)) {
+    return;
+  }
+
+  try {
+    await runDelete(async () => {
+      await deckApi.delete(deckId);
+      decks.value = decks.value.filter((deck) => deck.id !== deckId);
+    });
+  } catch (err) {
+    alert(deleteError.value || "Failed to delete flashcards");
+  }
+}
+
+// Filter decks based on search query matching title, description, or any card's question/answer
 const filteredDecks = computed(() => {
   const query = searchQuery.value.toLowerCase().trim();
   if (!query) return decks.value;
@@ -62,20 +84,6 @@ const noSearchResults = computed(() => {
     filteredDecks.value.length === 0
   );
 });
-
-async function handleDelete(deckId, deckTitle) {
-  if (!confirm(`Delete "${deckTitle}"? This cannot be undone.`)) {
-    return;
-  }
-
-  try {
-    await deckApi.delete(deckId);
-    decks.value = decks.value.filter((deck) => deck.id !== deckId);
-  } catch (err) {
-    alert(err.message);
-    error.value = err.message || "Failed to delete flashcards";
-  }
-}
 </script>
 
 <template>

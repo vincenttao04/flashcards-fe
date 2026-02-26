@@ -52,6 +52,13 @@ export function useDeckForm(initialData?: Partial<DeckFormInput>) {
     cards.value = newCards;
   }
 
+  function resetForm() {
+    title.value = "";
+    description.value = "";
+    cards.value = [{ question: "", answer: "" }];
+    previewIndex.value = 0;
+  }
+
   return {
     title,
     description,
@@ -62,5 +69,6 @@ export function useDeckForm(initialData?: Partial<DeckFormInput>) {
     addCard,
     removeCard,
     updateCards,
+    resetForm,
   };
 }
