@@ -77,7 +77,7 @@ label {
 .form-input {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #e9ecef;
+  border: 1px solid #dee2e6;
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.2s;
