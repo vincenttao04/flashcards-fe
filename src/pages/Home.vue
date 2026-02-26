@@ -15,7 +15,7 @@ import DeckChip from "../components/home/DeckChip.vue";
 import Error from "../components/global/Error.vue";
 import Loading from "../components/global/Loading.vue";
 
-import { getDecks, deleteDeck } from "../api";
+import { deckApi } from "../api/deckApi";
 
 const searchQuery = ref("");
 const decks = ref([]);
@@ -27,7 +27,7 @@ onMounted(async () => {
   error.value = null;
 
   try {
-    decks.value = await getDecks();
+    decks.value = await deckApi.getAll();
   } catch (err) {
     alert(err);
     error.value = err.message || "Failed to load flashcards";
@@ -69,7 +69,7 @@ async function handleDelete(deckId, deckTitle) {
   }
 
   try {
-    await deleteDeck(deckId);
+    await deckApi.delete(deckId);
     decks.value = decks.value.filter((deck) => deck.id !== deckId);
   } catch (err) {
     alert(err.message);
