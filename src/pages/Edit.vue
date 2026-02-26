@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import PageHeader from "../components/global/PageHeader.vue";
 import HeaderInput from "../components/create-edit/HeaderInput.vue";
@@ -12,6 +12,8 @@ import Error from "../components/global/Error.vue";
 import Loading from "../components/global/Loading.vue";
 
 import { useDeckForm } from "../composables/useDeckForm";
+
+import { useAsyncState } from "../composables/useAsyncState";
 
 const {
   title,
@@ -30,17 +32,15 @@ const { deckId } = defineProps({
 });
 
 const router = useRouter();
-const loading = ref(true);
-const error = ref(null);
-const isSaving = ref(false);
-const saveError = ref("");
+// State for page loading
+const { loading, error, run } = useAsyncState();
+// State for saving
+const { loading: isSaving, error: saveError, run: runSave } = useAsyncState();
 
-onMounted(async () => {
-  try {
-    loading.value = true;
-    error.value = null;
-
+onMounted(() => {
+  run(async () => {
     const deck = await deckApi.get(Number(deckId));
+
     if (!deck) {
       error.value = "Flashcards not found";
       return;
@@ -52,36 +52,24 @@ onMounted(async () => {
       question,
       answer,
     }));
-  } catch (err) {
-    alert(err.message);
-    error.value = err.message || "Failed to load flashcards";
-  } finally {
-    loading.value = false;
-  }
+  });
 });
 
 async function saveDeck() {
   if (!isFormValid.value) return;
 
-  isSaving.value = true;
-  saveError.value = "";
-
-  try {
+  await runSave(async () => {
     await deckApi.update(Number(deckId), {
       title: title.value,
       description: description.value,
       cards: cards.value,
     });
+
     router.push({
       name: "deck",
       params: { deckId },
     });
-  } catch (err) {
-    alert(err.message);
-    saveError.value = err.message || "Failed to save flashcards";
-  } finally {
-    isSaving.value = false;
-  }
+  });
 }
 </script>
 

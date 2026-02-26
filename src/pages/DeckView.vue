@@ -18,6 +18,10 @@ import CardNavigator from "../components/deck/CardNavigator.vue";
 import { deckApi } from "../api/deckApi";
 import Error from "../components/global/Error.vue";
 import Loading from "../components/global/Loading.vue";
+import { useAsyncState } from "../composables/useAsyncState";
+
+// State for page loading
+const { loading, error, run } = useAsyncState();
 
 const { deckId } = defineProps({
   deckId: String,
@@ -26,20 +30,18 @@ const { deckId } = defineProps({
 const deck = ref(null);
 const currentIndex = ref(0);
 const isFlipped = ref(false);
-const loading = ref(true);
-const error = ref(null);
 
-onMounted(async () => {
-  try {
-    loading.value = true;
-    error.value = null;
-    deck.value = await deckApi.get(Number(deckId));
-  } catch (err) {
-    alert(err.message);
-    error.value = err.message || "Failed to load flashcards";
-  } finally {
-    loading.value = false;
-  }
+onMounted(() => {
+  run(async () => {
+    const data = await deckApi.get(Number(deckId));
+
+    if (!data) {
+      error.value = "Flashcards not found";
+      return;
+    }
+
+    deck.value = data;
+  });
 });
 
 const currentCard = computed(() => deck.value?.cards?.[currentIndex.value]);
