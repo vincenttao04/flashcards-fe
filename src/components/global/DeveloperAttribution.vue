@@ -1,6 +1,7 @@
 <template>
   <div class="attribution-container">
-    Vincent Tao ·&nbsp;
+    <span>Vincent Tao</span>
+    <span>&nbsp;·&nbsp;</span>
     <div class="icon-container">
       <i-simple-icons-vuedotjs />
       <i-simple-icons-typescript />
@@ -13,8 +14,8 @@
 <style>
 .attribution-container {
   display: flex;
-  align-items: flex-end;
-  padding-top: 3.5rem;
+  align-items: center;
+  padding-top: 3.6rem;
   color: #6c757d;
   width: 100%;
   justify-content: center;
@@ -25,5 +26,9 @@
   flex-direction: row;
   gap: 0.35rem;
   margin-bottom: 0.12rem;
+}
+
+.attribution-container span {
+  text-align: center;
 }
 </style>
