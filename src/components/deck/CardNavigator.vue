@@ -17,7 +17,7 @@
       aria-label="Previous Card"
     >
       <i class="bi bi-chevron-left"></i>
-      Previous
+      <span class="control-text">Previous</span>
     </button>
 
     <div class="progress-index">{{ currentIndex + 1 }} / {{ total }}</div>
@@ -28,7 +28,7 @@
       :disabled="currentIndex === total - 1"
       aria-label="Next Card"
     >
-      Next
+      <span class="control-text">Next</span>
       <i class="bi bi-chevron-right"></i>
     </button>
   </div>
@@ -55,6 +55,7 @@ defineEmits(["prev", "next"]);
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: 2rem;
 }
 
 .control-btn {
@@ -82,6 +83,20 @@ defineEmits(["prev", "next"]);
 
 .progress-index {
   font-size: 0.9rem;
-  color: #6c757d;
+  color: #495057;
+  width: 100%;
+  text-align: center;
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 420px) {
+  .controls {
+    gap: 1rem;
+  }
+  .control-text {
+    display: none;
+  }
 }
 </style>
