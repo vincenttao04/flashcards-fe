@@ -24,15 +24,15 @@ const router = createRouter({
       component: () => import("@/pages/CreateDeck.vue"),
     },
     {
-      path: "/:deckId/edit",
-      name: "edit",
-      component: () => import("@/pages/EditDeck.vue"),
-      props: true,
-    },
-    {
       path: "/:deckId",
       name: "deck",
       component: () => import("@/pages/ViewDeck.vue"),
+      props: true,
+    },
+    {
+      path: "/:deckId/edit",
+      name: "edit",
+      component: () => import("@/pages/EditDeck.vue"),
       props: true,
     },
   ],

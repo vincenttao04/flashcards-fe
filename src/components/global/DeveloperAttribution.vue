@@ -16,6 +16,8 @@
   align-items: flex-end;
   padding-top: 3.5rem;
   color: #6c757d;
+  width: 100%;
+  justify-content: center;
 }
 
 .icon-container {
