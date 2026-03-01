@@ -91,8 +91,8 @@ label {
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.2s;
-  resize: none;
-  overflow-y: scroll;
+  resize: vertical;
+  overflow-y: auto;
   scrollbar-width: none;
 }
 
@@ -115,6 +115,7 @@ label {
   }
 
   .form-input {
+    resize: none;
     scrollbar-width: thin;
   }
 
