@@ -1,12 +1,17 @@
-<!-- /**
- * FormActions Component
- * Provides Save and Cancel actions for the deck create and edit pages
- * 
- * @component
- * @props {Boolean} isValid - Determines if the save action is enabled
- * @props {String | Object} backTo - Route to navigate when cancelling
- * @emits {save} - Emits when save button is clicked
- */ -->
+<!--
+  FormActions Component
+  ---------------------
+  Provides Save and Cancel actions for deck create/edit pages.
+
+  Props:
+  - isValid (Boolean)
+  - backTo (String | Object)
+  - isSaving (Boolean)
+  - saveError (String)
+
+  Emits:
+  - save
+-->
 <script setup>
 defineProps({
   isValid: {
@@ -31,7 +36,7 @@ defineEmits(["save"]);
 </script>
 
 <template>
-  <div class="actions-container" aria-label="Form Actions">
+  <section class="actions-container">
     <div class="btn-group">
       <router-link :to="backTo" class="cancel-btn"> Cancel </router-link>
 
@@ -40,6 +45,7 @@ defineEmits(["save"]);
         class="save-btn"
         @click="$emit('save')"
         :disabled="!isValid || isSaving"
+        :aria-busy="isSaving"
       >
         <div v-if="isSaving">
           <span
@@ -53,13 +59,13 @@ defineEmits(["save"]);
       </button>
     </div>
 
-    <p v-if="!isValid" class="helper-text text-muted">
+    <p v-if="!isValid" class="helper-text text-muted" role="alert">
       <em>All fields required</em>
     </p>
-    <p v-else-if="saveError" class="helper-text">
+    <p v-else-if="saveError" class="helper-text" role="alert">
       <em>{{ saveError }}</em>
     </p>
-  </div>
+  </section>
 </template>
 
 <style scoped>
@@ -89,7 +95,7 @@ defineEmits(["save"]);
   cursor: pointer;
   font-weight: 500;
   font-size: 1rem;
-  transition: all 0.2s;
+  transition: background-color 0.2s ease;
   text-decoration: none;
 }
 
@@ -106,7 +112,7 @@ defineEmits(["save"]);
   cursor: pointer;
   font-weight: 500;
   font-size: 1rem;
-  transition: all 0.2s;
+  transition: background-color 0.2s ease;
 }
 
 .save-btn:hover:not(:disabled) {
@@ -125,7 +131,6 @@ defineEmits(["save"]);
 
 @media (max-width: 640px) {
   .actions-container {
-    flex-direction: column;
     gap: 0.75rem;
     margin-top: 1.5rem;
     padding-top: 1.5rem;
