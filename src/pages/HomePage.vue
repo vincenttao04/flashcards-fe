@@ -144,7 +144,6 @@ const noSearchResults = computed(() => {
 
 .actions-container {
   display: flex;
-  flex-wrap: wrap;
   height: 48px;
   align-items: stretch;
   gap: 2rem;
@@ -180,12 +179,10 @@ const noSearchResults = computed(() => {
 .search-bar {
   margin-left: auto;
   max-width: 500px;
-  min-width: 0;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
-  flex: 1;
 }
 
 .decks-container {
@@ -196,23 +193,26 @@ const noSearchResults = computed(() => {
 
 @media (max-width: 640px) {
   .home-page-container {
-    padding: 1rem;
+    padding: 2rem 1rem 1rem;
   }
-
   .actions-container {
     height: auto;
+    flex-direction: column;
+    display: flex;
+    gap: 1rem;
   }
 
   .create-btn {
     width: 100%;
-    min-width: 100%;
-    max-width: 100%;
   }
 
   .search-bar {
-    margin-left: 0;
-    max-width: 100%;
     width: 100%;
+    max-width: none;
+  }
+
+  .decks-container {
+    grid-template-columns: 1fr;
   }
 }
 </style>

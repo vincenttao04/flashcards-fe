@@ -152,7 +152,7 @@ function prevCard() {
   cursor: pointer;
   color: #666;
   transition: color 0.2s;
-  margin-bottom: 2.5rem; /* Align with the bottom of the header */
+  margin-bottom: 2.15rem; /* Align with the bottom of the header */
 }
 
 .edit-icon:hover {

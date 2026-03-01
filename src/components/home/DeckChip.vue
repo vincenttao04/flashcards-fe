@@ -47,28 +47,28 @@ function formatDate(dateString) {
       <p class="chip-description">{{ deck.description }}</p>
 
       <div class="chip-footer">
-        <span class="created-date"
-          >Created: {{ formatDate(deck.createdAt) }}</span
-        >
+        <p class="created-date">
+          <span class="created-label">Created:</span>
+          {{ formatDate(deck.createdAt) }}
+        </p>
+        <!-- Action Buttons -->
+        <div class="chip-actions">
+          <router-link
+            :to="{ name: 'edit', params: { deckId: props.deck.id } }"
+            class="edit-btn"
+          >
+            <i class="bi bi-pen"></i>
+          </router-link>
+          <button
+            class="delete-btn"
+            :disabled="deleting"
+            @click="$emit('delete', deck.id, deck.title)"
+          >
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
       </div>
     </router-link>
-
-    <!-- Action Buttons -->
-    <div class="chip-actions">
-      <router-link
-        :to="{ name: 'edit', params: { deckId: props.deck.id } }"
-        class="edit-btn"
-      >
-        <i class="bi bi-pen"></i>
-      </router-link>
-      <button
-        class="delete-btn"
-        :disabled="deleting"
-        @click="$emit('delete', deck.id, deck.title)"
-      >
-        <i class="bi bi-trash"></i>
-      </button>
-    </div>
   </div>
 </template>
 
@@ -153,6 +153,10 @@ function formatDate(dateString) {
 }
 
 .chip-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: last baseline;
+  gap: 0.75rem;
   margin-top: auto;
   padding-top: 1.25rem;
   border-top: 1px solid #e9ecef;
@@ -161,15 +165,12 @@ function formatDate(dateString) {
 .created-date {
   color: #6c757d;
   font-size: 0.85rem;
+  margin-bottom: 0;
 }
 
 .chip-actions {
-  position: absolute;
-  bottom: 1.5rem;
-  right: 1.5rem;
   display: flex;
   gap: 0.6rem;
-  z-index: 1;
 }
 
 .edit-btn,
@@ -210,9 +211,9 @@ function formatDate(dateString) {
   border-radius: 4px;
 }
 
-@media (max-width: 480px) {
-  .chip-footer {
-    padding-bottom: 2rem;
+@media (max-width: 360px) {
+  .created-label {
+    display: none;
   }
 }
 </style>
