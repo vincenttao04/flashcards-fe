@@ -47,7 +47,6 @@ function updateField(field, value) {
           updateField('question', $event.target.value);
           handleInput($event);
         "
-        placeholder="What is the capital of Australia?"
         class="form-input"
         rows="1"
       ></textarea>
@@ -62,7 +61,6 @@ function updateField(field, value) {
           updateField('answer', $event.target.value);
           handleInput($event);
         "
-        placeholder="Canberra"
         class="form-input"
         rows="2"
       ></textarea>
@@ -100,9 +98,6 @@ label {
   display: none;
 }
 
-.form-input::placeholder {
-  font-style: italic;
-}
 
 .form-input:focus {
   outline: none;
@@ -110,10 +105,6 @@ label {
 }
 
 @media (max-width: 640px) {
-  .form-input::placeholder {
-    opacity: 0;
-  }
-
   .form-input {
     resize: none;
     scrollbar-width: thin;
