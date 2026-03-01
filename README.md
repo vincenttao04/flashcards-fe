@@ -77,6 +77,8 @@ The flashcard application will typically be running at: http://localhost:5173/
 4. readme
 5. add deckData, delete deckData
 6. marquee carousel
+7. look into page header spacing
+8.  text area height? 
 
 ## Simple Icons Setup (Vue 3 + Vite)
 

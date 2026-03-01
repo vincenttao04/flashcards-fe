@@ -92,4 +92,10 @@ label {
   outline: none;
   border-color: #adb5bd;
 }
+
+@media (max-width: 640px) {
+  .form-input::placeholder {
+    opacity: 0;
+  }
+}
 </style>

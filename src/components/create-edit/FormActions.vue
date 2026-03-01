@@ -49,7 +49,7 @@ defineEmits(["save"]);
           ></span>
         </div>
 
-        <div v-else>Save Flashcards</div>
+        <div v-else>Save <span class="save-text">Flashcards</span></div>
       </button>
     </div>
 
@@ -74,8 +74,10 @@ defineEmits(["save"]);
 }
 
 .btn-group {
-  display: inline-flex;
+  display: flex;
   gap: 1rem;
+  text-align: center;
+  align-items: center;
 }
 
 .cancel-btn {
@@ -125,10 +127,23 @@ defineEmits(["save"]);
   .actions-container {
     flex-direction: column;
     gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
   }
 
   .cancel-btn,
   .save-btn {
+    width: 100%;
+  }
+
+  .save-text {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .btn-group {
+    flex-direction: column;
     width: 100%;
   }
 }
