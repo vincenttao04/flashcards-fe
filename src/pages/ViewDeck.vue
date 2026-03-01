@@ -17,8 +17,8 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 
-// import CardIndicators from "@/components/deck/CardIndicators.vue"; // Uncomment if you want to implement card indicators
 import { deckApi } from "@/api/deckApi";
+// import CardIndicators from "@/components/deck/CardIndicators.vue"; // Uncomment if you want to implement card indicators
 import CardInterface from "@/components/deck/CardInterface.vue";
 import CardNavigator from "@/components/deck/CardNavigator.vue";
 import ErrorInterface from "@/components/global/ErrorInterface.vue";
@@ -130,13 +130,13 @@ function prevCard() {
         @next="nextCard"
       />
 
-      <!-- Not current used, but can be uncommented for card indicators -->
+      <!-- Not currently used, but can be uncommented for card indicators -->
       <!-- <CardIndicators
-      v-if="deck.cards.length"
-      :current-index="currentIndex"
-      :total="deck.cards.length"
-      @select="goToCard"
-    /> -->
+        v-if="deck.cards.length"
+        :current-index="currentIndex"
+        :total="deck.cards.length"
+        @select="goToCard"
+      /> -->
     </template>
   </main>
 </template>
