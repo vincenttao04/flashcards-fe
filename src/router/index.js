@@ -1,15 +1,21 @@
-import { createRouter, createWebHistory } from "vue-router";
-
 /**
  * Vue Router Configuration
- * Defines the routing structure for the Flash Card application
+ * -------------------------
+ * Defines the routing structure for the Flashcard SPA.
  *
  * Routes:
- * - / (home): Displays all decks
- * - /deck/:deckId: Shows a specific deck of cards
- * - /create: Create a new deck of cards
- * - /edit/:deckId: Edit an existing deck of cards
+ * - /                     → HomePage
+ * - /create               → CreateDeck
+ * - /deck/:deckId         → ViewDeck
+ * - /deck/:deckId/edit    → EditDeck
+ *
+ * Notes:
+ * - Route components are lazy-loaded for code splitting.
+ * - deckId is passed as a prop to page components.
+ * - Explicit /deck prefix prevents path collisions.
  */
+import { createRouter, createWebHistory } from "vue-router";
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -24,13 +30,13 @@ const router = createRouter({
       component: () => import("@/pages/CreateDeck.vue"),
     },
     {
-      path: "/:deckId",
+      path: "/deck/:deckId",
       name: "deck",
       component: () => import("@/pages/ViewDeck.vue"),
       props: true,
     },
     {
-      path: "/:deckId/edit",
+      path: "/deck/:deckId/edit",
       name: "edit",
       component: () => import("@/pages/EditDeck.vue"),
       props: true,

@@ -1,13 +1,19 @@
-<!-- /**
- * DeckView Page
- * Main page for displaying and interacting with a specific deck of cards
- * 
- * @component
- * @uses PageHeader
- * @uses CardInterface
- * @uses CardNavigator
- * @uses CardIndicators (currently commented out)
- */ -->
+<!--
+  DeckView Page
+  -------------
+  Displays and manages interaction with a specific flashcard deck.
+
+  Responsibilities:
+  - Fetch deck data by deckId.
+  - Handle loading and error states.
+  - Manage card navigation and flip state.
+  - Provide edit navigation.
+
+  Accessibility:
+  - Uses semantic <main>.
+  - Handles loading and error via global interfaces.
+  - Edit link includes accessible label.
+-->
 <script setup>
 import { computed, onMounted, ref } from "vue";
 
@@ -79,55 +85,60 @@ function prevCard() {
 </script>
 
 <template>
-  <div class="flash-card-app" v-if="!loading && !error && deck">
-    <div class="header-container">
-      <PageHeader
-        :title="deck.title"
-        :showBackLink="true"
-        :backTo="{ name: 'home' }"
-        alignment="left"
+  <main class="flash-card-app">
+    <LoadingInterface v-if="loading" type="page" />
+
+    <ErrorInterface
+      v-else-if="error"
+      :message="error"
+      :link="true"
+      type="page"
+    />
+
+    <template v-else-if="deck">
+      <div class="header-container">
+        <PageHeader
+          :title="deck.title"
+          :showBackLink="true"
+          :backTo="{ name: 'home' }"
+          alignment="left"
+        />
+
+        <router-link
+          :to="{ name: 'edit', params: { deckId } }"
+          class="edit-icon"
+          aria-label="Edit deck"
+        >
+          <i class="bi bi-pen" aria-hidden="true"></i>
+        </router-link>
+      </div>
+
+      <CardInterface
+        :key="currentIndex"
+        class="flash-card"
+        v-if="currentCard"
+        :card="currentCard"
+        :is-flipped="isFlipped"
+        @flip="handleFlip"
       />
 
-      <router-link :to="{ name: 'edit', params: { deckId } }" class="edit-icon">
-        <i class="bi bi-pen"></i>
-      </router-link>
-    </div>
+      <CardNavigator
+        v-if="deck.cards?.length"
+        :current-index="currentIndex"
+        :total="deck.cards.length"
+        @prev="prevCard"
+        @next="nextCard"
+      />
 
-    <CardInterface
-      :key="currentIndex"
-      class="flash-card"
-      v-if="currentCard"
-      :card="currentCard"
-      :is-flipped="isFlipped"
-      @flip="handleFlip"
-    />
-
-    <CardNavigator
-      v-if="deck.cards?.length"
-      :current-index="currentIndex"
-      :total="deck.cards.length"
-      @prev="prevCard"
-      @next="nextCard"
-    />
-
-    <!-- Not current used, but can be uncommented for card indicators -->
-    <!-- <CardIndicators
+      <!-- Not current used, but can be uncommented for card indicators -->
+      <!-- <CardIndicators
       v-if="deck.cards.length"
       :current-index="currentIndex"
       :total="deck.cards.length"
       @select="goToCard"
     /> -->
-  </div>
-
-  <!-- Loading State-->
-  <LoadingInterface v-else-if="loading" type="page" />
-  <!-- Error State-->
-  <ErrorInterface
-    v-else-if="error"
-    :message="'Flashcard deck not found'"
-    :link="true"
-    type="page"
-  />
+    </template>
+  </main>
 </template>
 
 <style scoped>

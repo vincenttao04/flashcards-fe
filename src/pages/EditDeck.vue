@@ -1,3 +1,40 @@
+<!--
+  Edit Page
+  ---------
+  Page for editing an existing flashcard deck.
+
+  Responsibilities:
+  - Fetches deck data on mount using the provided deckId.
+  - Populates form state via useDeckForm composable.
+  - Handles async loading and error states.
+  - Submits updates to the backend via deckApi.
+  - Redirects back to the deck view after successful save.
+
+  Props:
+  - deckId (String)
+      Route parameter representing the deck identifier.
+      Converted internally to a Number for API usage.
+
+  State Management:
+  - Form state handled by useDeckForm.
+  - Page loading state handled by useAsyncState.
+  - Save operation state handled separately by useAsyncState.
+
+  Accessibility:
+  - Uses semantic <main> landmark.
+  - Displays LoadingInterface during fetch.
+  - Displays ErrorInterface when fetch fails.
+  - Delegates form actions to accessible child components.
+
+  Error Handling:
+  - Invalid deckId throws error handled by useAsyncState.
+  - Missing deck returns user-facing error message.
+  - Save errors surfaced via FormActions component.
+
+  Notes:
+  - Async state composables isolate loading and error logic.
+  - Navigation occurs only after successful save.
+-->
 <script setup>
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
@@ -86,7 +123,7 @@ async function saveDeck() {
 </script>
 
 <template>
-  <div class="edit-page-container">
+  <main class="edit-page-container">
     <PageHeader
       title="Edit Flashcards"
       :showBackLink="true"
@@ -112,7 +149,7 @@ async function saveDeck() {
         @update:description="description = $event"
       />
 
-      <div class="card-container">
+      <section class="card-container">
         <CardList
           :cards="cards"
           @add="addCard"
@@ -134,9 +171,9 @@ async function saveDeck() {
           :save-error="saveError"
           @save="saveDeck"
         />
-      </div>
+      </section>
     </div>
-  </div>
+  </main>
 </template>
 
 <style scoped>

@@ -1,12 +1,18 @@
-<!-- /**
- * Home Page
- * Main page displaying all decks with search and creation functionality
- * 
- * @component
- * @uses PageHeader
- * @uses SearchBar
- * @uses DeckChip
- */ -->
+<!--
+  Home Page
+  ---------
+  Main page displaying all decks with search and creation functionality.
+
+  Responsibilities:
+  - Fetches all decks on mount.
+  - Provides client-side search filtering.
+  - Handles deck deletion.
+  - Displays loading and error states.
+
+  State:
+  - Page loading handled by useAsyncState.
+  - Deletion handled separately by useAsyncState.
+-->
 <script setup>
 import { computed, onMounted, ref } from "vue";
 
@@ -88,7 +94,7 @@ const noSearchResults = computed(() => {
 </script>
 
 <template>
-  <div class="home-page-container">
+  <main class="home-page-container">
     <!-- Loading State-->
     <LoadingInterface v-if="loading" type="page" />
     <!-- Error State-->
@@ -119,10 +125,13 @@ const noSearchResults = computed(() => {
       </div>
 
       <p v-if="noSearchResults" class="text-muted">
-        <em>No search results for: {{ searchQuery }}</em>
+        <em>
+          No search results for:
+          {{ searchQuery }}
+        </em>
       </p>
 
-      <div v-else class="decks-container">
+      <section v-else class="decks-container">
         <DeckChip
           v-for="deck in filteredDecks"
           :key="deck.id"
@@ -130,9 +139,9 @@ const noSearchResults = computed(() => {
           :deleting="deleting"
           @delete="handleDelete"
         />
-      </div>
+      </section>
     </template>
-  </div>
+  </main>
 </template>
 
 <style scoped>
