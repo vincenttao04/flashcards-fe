@@ -1,33 +1,13 @@
 <!--
-  CardInterface Component
-  -----------------------
-  Interactive flashcard component with 3D flip animation.
-
-  Accessibility:
-  - Uses a native <button> for proper keyboard and screen reader support.
-  - Implements aria-pressed to communicate flip (toggle) state.
-  - Hides the non-visible card face using aria-hidden.
-  - Fully keyboard accessible (Enter/Space handled natively by <button>).
-
+  CardInterface
+  Purpose: Clickable flashcard UI with flip animation (question ↔ answer).
   Props:
   - card (Object)
-      {
-        question: String,
-        answer: String
-      }
-
   - isFlipped (Boolean)
-      Controls whether the card displays the answer (true) 
-      or the question (false).
-
   Emits:
   - flip
-      Emitted when the card is clicked to toggle state.
-
-  Notes:
-  - This component is presentation-focused and does not manage flip state.
-  - Flip state should be controlled by the parent component.
 -->
+
 <script setup>
 defineProps({
   card: {

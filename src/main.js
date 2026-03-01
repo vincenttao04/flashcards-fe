@@ -1,13 +1,8 @@
 /**
- * Application Entry Point
- * ------------------------
- * Bootstraps the Vue 3 application.
- *
- * Responsibilities:
- * - Mounts root App component.
- * - Registers Vue Router.
- * - Imports global styles and icon library.
+ * main
+ * Purpose: Vue app entry point (create app, register router, import global styles).
  */
+
 import { createApp } from "vue";
 
 import App from "./App.vue";

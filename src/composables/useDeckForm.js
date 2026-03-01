@@ -1,10 +1,8 @@
 /**
- * useAutoResizeTextArea
- * ---------------------
- * Automatically resizes a textarea element up to a maximum number of rows.
- *
- * @param {number} maxRows - Maximum visible rows (default: 5)
+ * useDeckForm
+ * Purpose: Composable that manages deck form state, validation, and preview index.
  */
+
 import { computed, ref } from "vue";
 
 export function useDeckForm(initialData) {

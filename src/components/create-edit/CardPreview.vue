@@ -1,15 +1,13 @@
 <!--
-  CardPreview Component
-  ---------------------
-  Displays a preview of a deck's cards with navigation controls.
-
+  CardPreview
+  Purpose: Live preview of cards with flip + next/previous navigation.
   Props:
   - cards (Array)
   - previewIndex (Number)
-
   Emits:
   - update:index(newIndex)
 -->
+
 <script setup>
 import { ref } from "vue";
 

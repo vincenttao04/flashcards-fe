@@ -1,15 +1,13 @@
 <!--
-  CardIndicators Component
-  ------------------------
-  Displays interactive pagination dots for navigating through a deck.
-
+  CardIndicators
+  Purpose: Pagination dots for selecting a card within a deck.
   Props:
   - currentIndex (Number)
   - total (Number)
-
   Emits:
-  - select(selectedIndex)
+  - select(index)
 -->
+
 <script setup>
 defineProps({
   currentIndex: {
@@ -26,10 +24,7 @@ defineEmits(["select"]);
 </script>
 
 <template>
-  <nav
-    class="card-indicators"
-    aria-label="Flashcard navigation"
-  >
+  <nav class="card-indicators" aria-label="Flashcard navigation">
     <button
       v-for="index in total"
       :key="index - 1"

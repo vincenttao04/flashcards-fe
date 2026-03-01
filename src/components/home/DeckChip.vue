@@ -1,15 +1,14 @@
 <!--
-  DeckChip Component
-  -----------------
-  Displays a flashcard deck preview with title, description,
-  metadata, and edit/delete actions.
-
-  Accessibility:
-  - Uses semantic <article>.
-  - Avoids nested interactive elements.
-  - Action buttons include aria-labels.
-  - Decorative icons marked aria-hidden.
+  PageHeader
+  Purpose: Reusable header with title/subtitle and optional back navigation.
+  Props:
+  - title (String)
+  - subtitle (String | null)
+  - showBackLink (Boolean)
+  - backTo (String | Object)
+  - alignment ("left" | "center" | "right")
 -->
+
 <script setup>
 const props = defineProps({
   deck: {
@@ -165,7 +164,7 @@ function formatDate(dateString) {
   align-items: last baseline;
   gap: 0.75rem;
   margin-top: auto;
-  padding-top: 1.25rem;
+  padding-top: 0.75rem;
   border-top: 1px solid #e9ecef;
 }
 

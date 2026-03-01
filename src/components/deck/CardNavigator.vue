@@ -1,22 +1,14 @@
 <!--
-  CardNavigator Component
-  -----------------------
-  Navigation controls for moving between cards in a deck.
-
-  Accessibility:
-  - Wrapped in <nav> to indicate navigation landmark.
-  - Uses native <button> elements for keyboard support.
-  - Decorative icons marked with aria-hidden.
-  - Progress text announced politely when index changes.
-
+  CardNavigator
+  Purpose: Previous/next controls and progress display for deck navigation.
   Props:
-  - currentIndex (Number) : zero-based index of active card
-  - total (Number) : total number of cards
-
+  - currentIndex (Number)
+  - total (Number)
   Emits:
   - prev
   - next
 -->
+
 <script setup>
 defineProps({
   currentIndex: {

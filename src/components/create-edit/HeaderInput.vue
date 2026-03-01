@@ -1,16 +1,14 @@
 <!--
-  HeaderInput Component
-  ---------------------
-  Input fields for deck title and description.
-
+  HeaderInput
+  Purpose: Deck title + description inputs.
   Props:
   - title (String)
   - description (String)
-
   Emits:
   - update:title(newTitle)
   - update:description(newDescription)
 -->
+
 <script setup>
 defineProps({
   title: {

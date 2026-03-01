@@ -1,17 +1,15 @@
 <!--
-  FormActions Component
-  ---------------------
-  Provides Save and Cancel actions for deck create/edit pages.
-
+  FormActions
+  Purpose: Save/Cancel actions for deck create/edit pages.
   Props:
   - isValid (Boolean)
   - backTo (String | Object)
   - isSaving (Boolean)
-  - saveError (String)
-
+  - saveError (String | null)
   Emits:
   - save
 -->
+
 <script setup>
 defineProps({
   isValid: {

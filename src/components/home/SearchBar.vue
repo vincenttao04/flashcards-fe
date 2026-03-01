@@ -1,19 +1,12 @@
 <!--
-  Search Component
-  ----------------
-  Search input with clear functionality.
-
+  SearchBar
+  Purpose: Search input with v-model and a clear button.
   Props:
-  - modelValue (String) : v-model binding value
-
+  - modelValue (String)
   Emits:
-  - update:modelValue(newValue)
-
-  Accessibility:
-  - Clear control implemented as native <button>.
-  - Decorative search icon marked aria-hidden.
-  - Clear button has descriptive aria-label.
+  - update:modelValue(value)
 -->
+
 <script setup>
 const props = defineProps({
   modelValue: {
