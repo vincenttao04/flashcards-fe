@@ -1,27 +1,11 @@
-<!-- /**
- * Search Component
- * A search input field with clear functionality
- * 
- * @component
- * @props {String} modelValue - v-model value for the search input
- * @emits {update:modelValue} - Emits when input value changes or is cleared
- */ -->
-<template>
-  <div class="search-container">
-    <input
-      type="text"
-      :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
-      placeholder="Search..."
-      class="search-input"
-    />
-    <i
-      class="bi"
-      :class="[modelValue ? 'bi-x-lg clear-icon' : 'bi-search search-icon']"
-      @click="handleIconClick"
-    ></i>
-  </div>
-</template>
+<!--
+  SearchBar
+  Purpose: Search input with v-model and a clear button.
+  Props:
+  - modelValue (String)
+  Emits:
+  - update:modelValue(value)
+-->
 
 <script setup>
 const props = defineProps({
@@ -33,12 +17,42 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-function handleIconClick() {
+function clearSearch() {
   if (props.modelValue) {
     emit("update:modelValue", "");
   }
 }
 </script>
+
+<template>
+  <div class="search-container">
+    <input
+      type="text"
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
+      placeholder="Search..."
+      class="search-input"
+      aria-label="Search"
+    />
+
+    <!-- Search Icon -->
+    <i
+      v-if="!modelValue"
+      class="bi bi-search search-icon"
+      aria-hidden="true"
+    ></i>
+
+    <!-- Clear Button -->
+    <i
+      v-else
+      type="button"
+      class="bi bi-x-lg clear-btn"
+      @click="clearSearch"
+      aria-label="Clear search"
+      aria-hidden="true"
+    ></i>
+  </div>
+</template>
 
 <style scoped>
 .search-container {
@@ -57,7 +71,9 @@ function handleIconClick() {
   border: 2px solid #e9ecef;
   border-radius: 6px;
   background-color: white;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 .search-input:focus {
@@ -92,7 +108,7 @@ function handleIconClick() {
 
 @media (max-width: 640px) {
   .search-input {
-    padding: 0.75rem;
+    padding: 0.75rem 2.5rem 0.75rem 0.75rem;
   }
 }
 </style>

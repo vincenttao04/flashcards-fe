@@ -1,19 +1,34 @@
-<!-- /**
- * App Root Component
- * Main application component that serves as the application shell
- * 
- * @component
- * @uses RouterView
- */ -->
-<template>
-  <RouterView />
-</template>
+<!--
+  App
+  Purpose: Root application shell (router outlet + footer).
+-->
 
 <script setup>
 import { RouterView } from "vue-router";
+
+import Attribution from "./components/global/DeveloperAttribution.vue";
 </script>
 
+<template>
+  <div class="app-container">
+    <div class="page-content">
+      <RouterView />
+    </div>
+    <Attribution />
+  </div>
+</template>
+
 <style>
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+#app {
+  min-height: 100vh;
+}
+
 :root {
   font-family: "Inter", sans-serif;
 }
@@ -32,9 +47,15 @@ textarea {
   font-family: inherit;
 }
 
-#app {
-  height: 100vh;
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background-color: #f5f5f5;
-  overflow-y: auto;
+  padding: 1.6rem 2rem;
+}
+
+.page-content {
+  flex: 1;
 }
 </style>

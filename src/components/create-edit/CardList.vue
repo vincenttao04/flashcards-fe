@@ -1,47 +1,16 @@
-<!-- /**
- * CardsList Component
- * Manages a list of flashcards with add/remove functionality
- * 
- * @component
- * @props {Array} cards - Array of flashcard objects
- * @emits {add} - Emits when adding a new card
- * @emits {remove} - Emits when removing a card (payload: index)
- * @emits {update:cards} - Emits when updating cards (payload: newCardsArray)
- */ -->
-<template>
-  <div class="cards-list">
-    <h2>Cards</h2>
-    <div v-for="(card, index) in cards" :key="index" class="card-form">
-      <div class="card-header">
-        <h3>Card {{ index + 1 }}</h3>
-        <button
-          type="button"
-          class="remove-btn"
-          :aria-label="`Remove card ${index + 1}`"
-          @click="$emit('remove', index)"
-          :disabled="cards.length <= 1"
-        >
-          <i class="bi bi-trash"></i>
-        </button>
-      </div>
-
-      <CardForm :card="card" :index="index" @update="updateCard" />
-    </div>
-
-    <button
-      type="button"
-      class="add-card-btn"
-      aria-label="Add Another Card"
-      @click="$emit('add')"
-    >
-      <i class="bi bi-plus-lg"></i>
-      Add Another Card
-    </button>
-  </div>
-</template>
+<!--
+  CardList
+  Purpose: Renders and manages a list of CardInput items (add/remove/update).
+  Props:
+  - cards (Array)
+  Emits:
+  - add
+  - remove(index)
+  - update:cards(newCards)
+-->
 
 <script setup>
-import CardForm from "./CardInput.vue";
+import CardInput from "./CardInput.vue";
 
 const props = defineProps({
   cards: {
@@ -52,7 +21,7 @@ const props = defineProps({
 
 const emit = defineEmits(["add", "remove", "update:cards"]);
 
-// Function to update a specific card in the list
+// Updates a specific card in the list
 function updateCard(index, updatedCard) {
   const newCards = [...props.cards];
   newCards[index] = updatedCard;
@@ -60,20 +29,45 @@ function updateCard(index, updatedCard) {
 }
 </script>
 
-<style scoped>
-.cards-list {
-  margin-top: 2rem;
-}
+<template>
+  <section aria-labelledby="cards-heading">
+    <h2 id="cards-heading" class="section-title">Cards</h2>
 
-h2 {
+    <div v-for="(card, index) in cards" :key="index" class="card-form">
+      <div class="card-header">
+        <h3>Card {{ index + 1 }}</h3>
+
+        <button
+          type="button"
+          class="remove-btn"
+          :aria-label="`Remove card ${index + 1}`"
+          @click="$emit('remove', index)"
+          :disabled="cards.length <= 1"
+        >
+          <i class="bi bi-trash" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <CardInput :card="card" :index="index" @update="updateCard" />
+    </div>
+
+    <button type="button" class="add-btn" @click="$emit('add')">
+      <i class="bi bi-plus-lg" aria-hidden="true"></i>
+      Add Card
+    </button>
+  </section>
+</template>
+
+<style scoped>
+.section-title {
   color: #2c3e50;
-  margin: 1.5rem 0 1rem;
+  margin-bottom: 1rem;
   font-weight: 600;
   font-size: 1.25rem;
 }
 
 .card-form {
-  background-color: #f8f9fa;
+  background-color: #e9ecef;
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -85,7 +79,7 @@ h2 {
   align-items: center;
   padding-bottom: 0.5rem;
   margin-bottom: 0.5rem;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid #dee2e6;
 }
 
 .card-header h3 {
@@ -115,22 +109,23 @@ h2 {
   cursor: not-allowed;
 }
 
-.add-card-btn {
+.add-btn {
   background-color: #e9ecef;
   border: 1px dashed #adb5bd;
   color: #495057;
   padding: 0.75rem;
   width: 100%;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
-  transition: all 0.2s;
+  transition: background-color 0.2s ease;
   display: flex;
-  place-content: center;
+  justify-content: center;
+  align-items: center;
   gap: 0.35rem;
 }
 
-.add-card-btn:hover {
+.add-btn:hover {
   background-color: #dee2e6;
 }
 </style>

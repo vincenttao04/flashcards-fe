@@ -1,10 +1,13 @@
 /**
- * Main Application Entry Point
- * Initialises Vue application with router and global styles
+ * main
+ * Purpose: Vue app entry point (create app, register router, import global styles).
  */
+
 import { createApp } from "vue";
+
 import App from "./App.vue";
 import router from "./router";
+
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
