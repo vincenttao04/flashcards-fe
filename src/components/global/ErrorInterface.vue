@@ -1,5 +1,20 @@
+<!--
+  Error Component
+  ---------------
+  Displays either a full-page error or inline component-level error.
+
+  Props:
+  - message (String) : Error message to display
+  - link (Boolean) : Whether to show a "Home" navigation link
+  - type ("page" | "component") : Determines layout style
+
+  Accessibility:
+  - Uses role="alert" to announce errors.
+  - Uses semantic <main> for full-page errors.
+  - Navigation handled via router.
+-->
 <script setup>
-import { useRoute,useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 defineProps({
   message: {
@@ -20,10 +35,9 @@ defineProps({
 const router = useRouter();
 const route = useRoute();
 
-function goHome(e) {
-  e.preventDefault();
-
+function goHome() {
   if (route.path === "/") {
+    // Force refresh only if already on home
     window.location.reload();
   } else {
     router.push({ name: "home" });
@@ -32,14 +46,17 @@ function goHome(e) {
 </script>
 
 <template>
-  <div v-if="type === 'page'" class="error-page-container">
+  <!-- Full Page Error -->
+  <main v-if="type === 'page'" class="error-page-container" role="alert">
     <h3>{{ message }}</h3>
-    <a v-if="link === true" href="/" class="back-link" @click="goHome">
-      Home
-    </a>
-  </div>
 
-  <div v-else class="error-component-container">
+    <button v-if="link" type="button" class="back-link" @click="goHome">
+      Home
+    </button>
+  </main>
+
+  <!-- Inline Error -->
+  <div v-else class="error-component-container" role="alert">
     <em>{{ message }}</em>
   </div>
 </template>
@@ -56,5 +73,15 @@ function goHome(e) {
 
 .error-component-container {
   color: #dc3545;
+}
+
+.back-link {
+  background: none;
+  border: none;
+  color: #228be6;
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: underline;
+  padding: 0;
 }
 </style>
