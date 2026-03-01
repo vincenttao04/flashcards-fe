@@ -1,13 +1,20 @@
-<!-- /**
- * PageHeader Component
- * A reusable header component that displays a title, optional subtitle, and back navigation
- * 
- * @component
- * @props {String} title - The main header text
- * @props {String} subtitle - Optional secondary text below the title
- * @props {Boolean} showBackLink - Whether to show the "Back" navigation link
- * @props {String} alignment - Text alignment ('left', 'center', or 'right')
- */ -->
+<!--
+  PageHeader Component
+  --------------------
+  Reusable page header with optional back navigation and subtitle.
+
+  Props:
+  - title (String) : Main heading text
+  - subtitle (String) : Optional secondary description text
+  - showBackLink (Boolean) : Whether to display back navigation
+  - backTo (String | Object) : Route location for back navigation
+  - alignment ("left" | "center" | "right") : Text alignment
+
+  Accessibility:
+  - Uses semantic <header>.
+  - Back navigation uses <router-link>.
+  - Decorative icon marked aria-hidden.
+-->
 <script setup>
 defineProps({
   title: {
@@ -37,11 +44,15 @@ defineProps({
 <template>
   <header :class="['page-header', alignment]">
     <router-link v-if="showBackLink" :to="backTo" class="back-link">
-      <i class="bi bi-arrow-left"></i>
+      <i class="bi bi-arrow-left" aria-hidden="true"></i>
       <span>Back</span>
     </router-link>
+
     <h1>{{ title }}</h1>
-    <h3 v-if="subtitle">{{ subtitle }}</h3>
+
+    <p v-if="subtitle" class="subtitle">
+      {{ subtitle }}
+    </p>
   </header>
 </template>
 
@@ -64,11 +75,11 @@ defineProps({
 
 .back-link {
   display: inline-flex;
-  gap: 0.5rem; /* Gap between the icon and text */
+  gap: 0.5rem;
   margin-bottom: 1rem;
   color: #666;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s ease;
 }
 
 .back-link:hover {
@@ -85,7 +96,7 @@ h1 {
   line-height: 1.2;
 }
 
-h3 {
+.subtitle {
   font-size: 1.1rem;
   font-weight: 500;
   color: #495057;

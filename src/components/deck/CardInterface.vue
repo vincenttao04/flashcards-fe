@@ -1,12 +1,33 @@
-<!-- /**
- * CardInterface Component
- * Interactive card with flip animation showing question and answer
- * 
- * @component
- * @props {Object} card - Card data containing question and answer
- * @props {Boolean} isFlipped - Controls card flip state
- * @emits {flip} - Emits when card is clicked to flip
- */ -->
+<!--
+  CardInterface Component
+  -----------------------
+  Interactive flashcard component with 3D flip animation.
+
+  Accessibility:
+  - Uses a native <button> for proper keyboard and screen reader support.
+  - Implements aria-pressed to communicate flip (toggle) state.
+  - Hides the non-visible card face using aria-hidden.
+  - Fully keyboard accessible (Enter/Space handled natively by <button>).
+
+  Props:
+  - card (Object)
+      {
+        question: String,
+        answer: String
+      }
+
+  - isFlipped (Boolean)
+      Controls whether the card displays the answer (true) 
+      or the question (false).
+
+  Emits:
+  - flip
+      Emitted when the card is clicked to toggle state.
+
+  Notes:
+  - This component is presentation-focused and does not manage flip state.
+  - Flip state should be controlled by the parent component.
+-->
 <script setup>
 defineProps({
   card: {
@@ -21,30 +42,33 @@ defineProps({
 
 defineEmits(["flip"]);
 </script>
+
 <template>
   <div class="card-container">
-    <div
+    <button
+      type="button"
       class="card"
       :class="{ flipped: isFlipped }"
-      role="button"
-      tabindex="0"
       @click="$emit('flip')"
-      @keydown.enter="$emit('flip')"
-      @keydown.space.prevent="$emit('flip')"
+      :aria-pressed="isFlipped"
+      aria-label="Flip flashcard"
     >
-      <div class="card-face card-front">
+      <!-- Front -->
+      <div class="card-face card-front" :aria-hidden="isFlipped">
         <h3 class="label">Question</h3>
         <div class="content">
           <p>{{ card.question }}</p>
         </div>
       </div>
-      <div class="card-face card-back">
+
+      <!-- Back -->
+      <div class="card-face card-back" :aria-hidden="!isFlipped">
         <h3 class="label">Answer</h3>
         <div class="content">
           <p>{{ card.answer }}</p>
         </div>
       </div>
-    </div>
+    </button>
   </div>
 </template>
 

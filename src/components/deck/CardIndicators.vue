@@ -1,12 +1,15 @@
-<!-- /**
- * CardIndicators Component
- * Displays interactive pagination dots for navigating through a deck of cards
- * 
- * @component
- * @props {Number} currentIndex - The index of the currently active card
- * @props {Number} total - Total number of cards
- * @emits {select} - Emits when an indicator is clicked (payload: selectedIndex)
- */ -->
+<!--
+  CardIndicators Component
+  ------------------------
+  Displays interactive pagination dots for navigating through a deck.
+
+  Props:
+  - currentIndex (Number)
+  - total (Number)
+
+  Emits:
+  - select(selectedIndex)
+-->
 <script setup>
 defineProps({
   currentIndex: {
@@ -23,17 +26,21 @@ defineEmits(["select"]);
 </script>
 
 <template>
-  <div class="card-indicators" aria-label="Flashcard Indicators">
-    <span
+  <nav
+    class="card-indicators"
+    aria-label="Flashcard navigation"
+  >
+    <button
       v-for="index in total"
       :key="index - 1"
+      type="button"
       class="indicator"
       :class="{ active: index - 1 === currentIndex }"
       @click="$emit('select', index - 1)"
-      :aria-selected="index - 1 === currentIndex"
-      :aria-label="`Card ${index} of ${total}`"
-    ></span>
-  </div>
+      :aria-label="`Go to card ${index} of ${total}`"
+      :aria-current="index - 1 === currentIndex ? 'true' : undefined"
+    ></button>
+  </nav>
 </template>
 
 <style scoped>
@@ -49,10 +56,17 @@ defineEmits(["select"]);
   border-radius: 50%;
   background-color: #dee2e6;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease;
+  border: none;
+  padding: 0;
 }
 
 .indicator.active {
   background-color: #495057;
+}
+
+.indicator:focus-visible {
+  outline: 2px solid #228be6;
+  outline-offset: 2px;
 }
 </style>

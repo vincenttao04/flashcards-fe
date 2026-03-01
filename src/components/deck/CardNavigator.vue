@@ -1,39 +1,22 @@
-<!-- /**
- * CardNavigator Component
- * Navigation controls for moving between a deck of cards
- * 
- * @component
- * @props {Number} currentIndex - Current card position (zero-based)
- * @props {Number} total - Total number of cards
- * @emits {prev} - Emits when previous button is clicked
- * @emits {next} - Emits when next button is clicked
- */ -->
-<template>
-  <div class="controls" aria-label="Flashcard Navigation Controls">
-    <button
-      class="control-btn"
-      @click="$emit('prev')"
-      :disabled="currentIndex === 0"
-      aria-label="Previous Card"
-    >
-      <i class="bi bi-chevron-left"></i>
-      <span class="control-text">Previous</span>
-    </button>
+<!--
+  CardNavigator Component
+  -----------------------
+  Navigation controls for moving between cards in a deck.
 
-    <div class="progress-index">{{ currentIndex + 1 }} / {{ total }}</div>
+  Accessibility:
+  - Wrapped in <nav> to indicate navigation landmark.
+  - Uses native <button> elements for keyboard support.
+  - Decorative icons marked with aria-hidden.
+  - Progress text announced politely when index changes.
 
-    <button
-      class="control-btn"
-      @click="$emit('next')"
-      :disabled="currentIndex === total - 1"
-      aria-label="Next Card"
-    >
-      <span class="control-text">Next</span>
-      <i class="bi bi-chevron-right"></i>
-    </button>
-  </div>
-</template>
+  Props:
+  - currentIndex (Number) : zero-based index of active card
+  - total (Number) : total number of cards
 
+  Emits:
+  - prev
+  - next
+-->
 <script setup>
 defineProps({
   currentIndex: {
@@ -48,6 +31,38 @@ defineProps({
 
 defineEmits(["prev", "next"]);
 </script>
+
+<template>
+  <nav class="controls" aria-label="Flashcard navigation">
+    <button
+      type="button"
+      class="control-btn"
+      @click="$emit('prev')"
+      :disabled="currentIndex === 0"
+    >
+      <i class="bi bi-chevron-left" aria-hidden="true"></i>
+      <span class="control-text">Previous</span>
+    </button>
+
+    <div
+      class="progress-index"
+      aria-live="polite"
+      :aria-label="`Card ${currentIndex + 1} of ${total}`"
+    >
+      {{ currentIndex + 1 }} / {{ total }}
+    </div>
+
+    <button
+      type="button"
+      class="control-btn"
+      @click="$emit('next')"
+      :disabled="currentIndex === total - 1"
+    >
+      <span class="control-text">Next</span>
+      <i class="bi bi-chevron-right" aria-hidden="true"></i>
+    </button>
+  </nav>
+</template>
 
 <style scoped>
 .controls {
@@ -68,8 +83,8 @@ defineEmits(["prev", "next"]);
   font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* Gap between the icon and text */
-  transition: all 0.2s;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease;
 }
 
 .control-btn:hover:not(:disabled) {
