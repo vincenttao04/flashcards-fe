@@ -1,11 +1,19 @@
-<!-- /**
- * Search Component
- * A search input field with clear functionality
- * 
- * @component
- * @props {String} modelValue - v-model value for the search input
- * @emits {update:modelValue} - Emits when input value changes or is cleared
- */ -->
+<!--
+  Search Component
+  ----------------
+  Search input with clear functionality.
+
+  Props:
+  - modelValue (String) : v-model binding value
+
+  Emits:
+  - update:modelValue(newValue)
+
+  Accessibility:
+  - Clear control implemented as native <button>.
+  - Decorative search icon marked aria-hidden.
+  - Clear button has descriptive aria-label.
+-->
 <script setup>
 const props = defineProps({
   modelValue: {
@@ -16,7 +24,7 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-function handleIconClick() {
+function clearSearch() {
   if (props.modelValue) {
     emit("update:modelValue", "");
   }
@@ -31,11 +39,24 @@ function handleIconClick() {
       @input="$emit('update:modelValue', $event.target.value)"
       placeholder="Search..."
       class="search-input"
+      aria-label="Search"
     />
+
+    <!-- Search Icon -->
     <i
-      class="bi"
-      :class="[modelValue ? 'bi-x-lg clear-icon' : 'bi-search search-icon']"
-      @click="handleIconClick"
+      v-if="!modelValue"
+      class="bi bi-search search-icon"
+      aria-hidden="true"
+    ></i>
+
+    <!-- Clear Button -->
+    <i
+      v-else
+      type="button"
+      class="bi bi-x-lg clear-btn"
+      @click="clearSearch"
+      aria-label="Clear search"
+      aria-hidden="true"
     ></i>
   </div>
 </template>

@@ -1,3 +1,10 @@
+/**
+ * useAutoResizeTextArea
+ * ---------------------
+ * Automatically resizes a textarea element up to a maximum number of rows.
+ *
+ * @param {number} maxRows - Maximum visible rows (default: 5)
+ */
 import { nextTick } from "vue";
 
 export function useAutoResizeTextArea(maxRows = 5) {
