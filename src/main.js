@@ -1,6 +1,12 @@
 /**
- * Main Application Entry Point
- * Initialises Vue application with router and global styles
+ * Application Entry Point
+ * ------------------------
+ * Bootstraps the Vue 3 application.
+ *
+ * Responsibilities:
+ * - Mounts root App component.
+ * - Registers Vue Router.
+ * - Imports global styles and icon library.
  */
 import { createApp } from "vue";
 

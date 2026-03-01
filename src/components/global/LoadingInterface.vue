@@ -8,7 +8,7 @@
       Determines whether loading occupies full viewport
       or renders inline within a component.
 
-  Behavior:
+  Behaviour:
   - Introduces a 300ms delay before showing spinner
     to prevent flicker during fast requests.
   - Clears timeout on unmount to avoid memory leaks.

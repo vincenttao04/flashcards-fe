@@ -1,10 +1,13 @@
-<!-- /**
- * App Root Component
- * Main application component that serves as the application shell
- * 
- * @component
- * @uses RouterView
- */ -->
+<!--
+  App Root Component
+  ------------------
+  Application shell wrapping routed page views.
+
+  Responsibilities:
+  - Provides global layout structure.
+  - Renders current route via <RouterView>.
+  - Displays developer attribution footer.
+-->
 <script setup>
 import { RouterView } from "vue-router";
 
@@ -13,9 +16,9 @@ import Attribution from "./components/global/DeveloperAttribution.vue";
 
 <template>
   <div class="app-container">
-    <main class="page-content">
+    <div class="page-content">
       <RouterView />
-    </main>
+    </div>
     <Attribution />
   </div>
 </template>
@@ -59,9 +62,5 @@ textarea {
 
 .page-content {
   flex: 1;
-}
-
-p {
-  margin: 0;
 }
 </style>

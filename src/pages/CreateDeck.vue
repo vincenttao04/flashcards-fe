@@ -1,14 +1,17 @@
-<!-- /**
- * Create Page
- * Page for creating new decks with preview functionality
- * 
- * @component
- * @uses PageHeader
- * @uses HeaderInput
- * @uses CardList
- * @uses CardPreview
- * @uses FormActions
- */ -->
+<!--
+  Create Page
+  -----------
+  Page for creating new flashcard decks with live preview functionality.
+
+  Accessibility:
+  - Uses semantic <main> landmark.
+  - Delegates form actions to FormActions component.
+  - Prevents submission when invalid or saving.
+
+  State:
+  - Form state managed via useDeckForm.
+  - Async state managed via useAsyncState.
+-->
 <script setup>
 import { useRouter } from "vue-router";
 
@@ -59,7 +62,7 @@ async function saveDeck() {
 </script>
 
 <template>
-  <div class="create-page-container">
+  <main class="create-page-container">
     <PageHeader
       title="Create Flash Cards"
       :showBackLink="true"
@@ -74,7 +77,7 @@ async function saveDeck() {
       @update:description="description = $event"
     />
 
-    <div class="card-container">
+    <section class="card-container">
       <CardList
         :cards="cards"
         @add="addCard"
@@ -96,8 +99,8 @@ async function saveDeck() {
         :save-error="saveError"
         @save="saveDeck"
       />
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <style scoped>
