@@ -65,7 +65,7 @@ defineProps({
 .back-link {
   display: inline-flex;
   gap: 0.5rem; /* Gap between the icon and text */
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   color: #666;
   text-decoration: none;
   transition: color 0.2s;
@@ -75,10 +75,14 @@ defineProps({
   color: #333;
 }
 
+.back-link i {
+  margin-top: 0.07rem;
+}
+
 h1 {
   color: #2c3e50;
   font-weight: 600;
-  line-height: 0.8;
+  line-height: 1.2;
 }
 
 h3 {

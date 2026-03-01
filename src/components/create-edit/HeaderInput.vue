@@ -86,4 +86,14 @@ label {
   outline: none;
   border-color: #adb5bd;
 }
+
+@media (max-width: 640px) {
+  .form-container {
+    padding: 1.5rem;
+  }
+
+  .form-input::placeholder {
+    opacity: 0;
+  }
+}
 </style>
