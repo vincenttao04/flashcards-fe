@@ -1,13 +1,16 @@
-<!-- /**
- * CardInput Component
- * A form component for creating a deck's questions and answers (cards)
- * 
- * @components
- * @props {Object} card - The card object containing question and answer
- * @props {Number} index - The index of the card in the set
- * @emits {update} - Emits when either question or answer is modified
- *                   Payload: (index, updatedCard)
- */ -->
+<!--
+  CardInput Component
+  -------------------
+  Form component for creating and editing deck content.
+
+  Props:
+  - card (Object): Contains question and answer fields
+  - index (Number): Position of the card in the list
+
+  Emits:
+  - update(index, updatedCard)
+    Triggered when question or answer changes
+-->
 <script setup>
 import { useAutoResizeTextArea } from "@/composables/useAutoResizeTextArea";
 
@@ -26,11 +29,18 @@ const props = defineProps({
 
 const emit = defineEmits(["update"]);
 
+/**
+ * Handles textarea updates
+ * @param {'question'|'answer'} field
+ * @param {Event} event
+ */
 function updateField(field, value) {
   emit("update", props.index, {
     ...props.card,
     [field]: value,
   });
+
+  handleInput(event);
 }
 </script>
 
@@ -40,7 +50,6 @@ function updateField(field, value) {
       <label :for="`question-${index}`">Question</label>
       <textarea
         :id="`question-${index}`"
-        :aria-label="`Question ${index + 1}`"
         :value="card.question"
         @input="
           updateField('question', $event.target.value);
@@ -56,7 +65,6 @@ function updateField(field, value) {
       <label :for="`answer-${index}`">Answer</label>
       <textarea
         :id="`answer-${index}`"
-        :aria-label="`Answer ${index + 1}`"
         :value="card.answer"
         @input="
           updateField('answer', $event.target.value);

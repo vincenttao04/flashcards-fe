@@ -1,13 +1,16 @@
-<!-- /**
- * CardList Component
- * Manages a deck's list of cards with add/remove functionality
- * 
- * @component
- * @props {Array} cards - Array of card objects
- * @emits {add} - Emits when adding a new card
- * @emits {remove} - Emits when removing a card (payload: index)
- * @emits {update:cards} - Emits when updating cards (payload: newCardsArray)
- */ -->
+<!--
+  CardList Component
+  ------------------
+  Manages a deck's list of cards with add/remove functionality.
+
+  Props:
+  - cards (Array): Array of card objects
+
+  Emits:
+  - add
+  - remove(index)
+  - update:cards(newCardsArray)
+-->
 <script setup>
 import CardInput from "./CardInput.vue";
 
@@ -20,7 +23,11 @@ const props = defineProps({
 
 const emit = defineEmits(["add", "remove", "update:cards"]);
 
-// Function to update a specific card in the list
+/**
+ * Updates a specific card in the list
+ * @param {number} index
+ * @param {Object} updatedCard
+ */
 function updateCard(index, updatedCard) {
   const newCards = [...props.cards];
   newCards[index] = updatedCard;
@@ -29,37 +36,36 @@ function updateCard(index, updatedCard) {
 </script>
 
 <template>
-  <h2>Cards</h2>
-  <div v-for="(card, index) in cards" :key="index" class="card-form">
-    <div class="card-header">
-      <h3>Card {{ index + 1 }}</h3>
-      <button
-        type="button"
-        class="remove-btn"
-        :aria-label="`Remove card ${index + 1}`"
-        @click="$emit('remove', index)"
-        :disabled="cards.length <= 1"
-      >
-        <i class="bi bi-trash"></i>
-      </button>
+  <section aria-labelledby="cards-heading">
+    <h2 id="cards-heading" class="section-title">Cards</h2>
+
+    <div v-for="(card, index) in cards" :key="index" class="card-form">
+      <div class="card-header">
+        <h3>Card {{ index + 1 }}</h3>
+
+        <button
+          type="button"
+          class="remove-btn"
+          :aria-label="`Remove card ${index + 1}`"
+          @click="$emit('remove', index)"
+          :disabled="cards.length <= 1"
+        >
+          <i class="bi bi-trash" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <CardInput :card="card" :index="index" @update="updateCard" />
     </div>
 
-    <CardInput :card="card" :index="index" @update="updateCard" />
-  </div>
-
-  <button
-    type="button"
-    class="add-btn"
-    aria-label="Add Card"
-    @click="$emit('add')"
-  >
-    <i class="bi bi-plus-lg"></i>
-    Add Card
-  </button>
+    <button type="button" class="add-btn" @click="$emit('add')">
+      <i class="bi bi-plus-lg" aria-hidden="true"></i>
+      Add Card
+    </button>
+  </section>
 </template>
 
 <style scoped>
-h2 {
+.section-title {
   color: #2c3e50;
   margin-bottom: 1rem;
   font-weight: 600;
@@ -118,9 +124,10 @@ h2 {
   border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
-  transition: all 0.2s;
+  transition: background-color 0.2s ease;
   display: flex;
-  place-content: center;
+  justify-content: center;
+  align-items: center;
   gap: 0.35rem;
 }
 
