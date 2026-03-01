@@ -1,4 +1,11 @@
-import { computed,ref } from "vue";
+/**
+ * useAutoResizeTextArea
+ * ---------------------
+ * Automatically resizes a textarea element up to a maximum number of rows.
+ *
+ * @param {number} maxRows - Maximum visible rows (default: 5)
+ */
+import { computed, ref } from "vue";
 
 export function useDeckForm(initialData) {
   const title = ref(initialData?.title ?? "");

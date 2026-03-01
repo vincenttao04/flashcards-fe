@@ -1,12 +1,15 @@
-<!-- /**
- * CardSet Component
- * Displays a flashcard set preview with title, description, and metadata
- * 
- * @component
- * @props {Object} set - Flashcard set data containing id, title, description, cards, and createdAt
- * @emits {edit} - Emits when edit button is clicked (payload: setId, setTitle)
- * @emits {delete} - Emits when delete button is clicked (payload: setId, setTitle)
- */ -->
+<!--
+  DeckChip Component
+  -----------------
+  Displays a flashcard deck preview with title, description,
+  metadata, and edit/delete actions.
+
+  Accessibility:
+  - Uses semantic <article>.
+  - Avoids nested interactive elements.
+  - Action buttons include aria-labels.
+  - Decorative icons marked aria-hidden.
+-->
 <script setup>
 const props = defineProps({
   deck: {
@@ -39,8 +42,10 @@ function formatDate(dateString) {
     >
       <div class="chip-header">
         <h2 class="chip-title">{{ deck.title }}</h2>
-        <span class="card-count"
-          >{{ deck.cards.length }}<i class="bi bi-card-text"></i>
+
+        <span class="card-count">
+          {{ deck.cards.length }}
+          <i class="bi bi-card-text" aria-hidden="true"></i>
         </span>
       </div>
 
@@ -54,17 +59,19 @@ function formatDate(dateString) {
         <!-- Action Buttons -->
         <div class="chip-actions">
           <router-link
-            :to="{ name: 'edit', params: { deckId: props.deck.id } }"
+            :to="{ name: 'edit', params: { deckId: deck.id } }"
             class="edit-btn"
+            :aria-label="`Edit ${deck.title}`"
           >
-            <i class="bi bi-pen"></i>
+            <i class="bi bi-pen" aria-hidden="true"></i>
           </router-link>
           <button
             class="delete-btn"
             :disabled="deleting"
             @click="$emit('delete', deck.id, deck.title)"
+            :aria-label="`Delete ${deck.title}`"
           >
-            <i class="bi bi-trash"></i>
+            <i class="bi bi-trash" aria-hidden="true"></i>
           </button>
         </div>
       </div>
@@ -78,7 +85,6 @@ function formatDate(dateString) {
   background-color: white;
   border-radius: 6px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  padding: 1.5rem;
   transition:
     transform 0.2s,
     box-shadow 0.2s;
@@ -94,6 +100,7 @@ function formatDate(dateString) {
   color: inherit;
   display: flex;
   flex-direction: column;
+  padding: 1.5rem;
 }
 
 .chip-header {
