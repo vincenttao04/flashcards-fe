@@ -192,6 +192,9 @@ const noSearchResults = computed(() => {
 }
 
 @media (max-width: 640px) {
+  .home-page-container {
+    padding: 2rem 1rem 1rem;
+  }
   .actions-container {
     height: auto;
     flex-direction: column;
