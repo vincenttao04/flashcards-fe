@@ -1,18 +1,8 @@
 <!--
-  Home Page
-  ---------
-  Main page displaying all decks with search and creation functionality.
-
-  Responsibilities:
-  - Fetches all decks on mount.
-  - Provides client-side search filtering.
-  - Handles deck deletion.
-  - Displays loading and error states.
-
-  State:
-  - Page loading handled by useAsyncState.
-  - Deletion handled separately by useAsyncState.
+  HomePage
+  Purpose: Lists decks, supports search, and handles deck deletion.
 -->
+
 <script setup>
 import { computed, onMounted, ref } from "vue";
 

@@ -1,16 +1,13 @@
 <!--
-  CardInput Component
-  -------------------
-  Form component for creating and editing deck content.
-
+  CardInput
+  Purpose: Question/answer inputs for a single card (used in deck create/edit forms).
   Props:
-  - card (Object): Contains question and answer fields
-  - index (Number): Position of the card in the list
-
+  - card (Object)
+  - index (Number)
   Emits:
   - update(index, updatedCard)
-    Triggered when question or answer changes
 -->
+
 <script setup>
 import { useAutoResizeTextArea } from "@/composables/useAutoResizeTextArea";
 
@@ -29,18 +26,13 @@ const props = defineProps({
 
 const emit = defineEmits(["update"]);
 
-/**
- * Handles textarea updates
- * @param {'question'|'answer'} field
- * @param {Event} event
- */
 function updateField(field, value) {
   emit("update", props.index, {
     ...props.card,
     [field]: value,
   });
 
-  handleInput(event);
+  handleInput();
 }
 </script>
 

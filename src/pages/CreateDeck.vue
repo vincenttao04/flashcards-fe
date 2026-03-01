@@ -1,17 +1,8 @@
 <!--
-  Create Page
-  -----------
-  Page for creating new flashcard decks with live preview functionality.
-
-  Accessibility:
-  - Uses semantic <main> landmark.
-  - Delegates form actions to FormActions component.
-  - Prevents submission when invalid or saving.
-
-  State:
-  - Form state managed via useDeckForm.
-  - Async state managed via useAsyncState.
+  CreateDeck
+  Purpose: Page for creating a new deck (form + live preview).
 -->
+
 <script setup>
 import { useRouter } from "vue-router";
 

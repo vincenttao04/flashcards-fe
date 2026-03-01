@@ -1,16 +1,14 @@
 <!--
-  CardList Component
-  ------------------
-  Manages a deck's list of cards with add/remove functionality.
-
+  CardList
+  Purpose: Renders and manages a list of CardInput items (add/remove/update).
   Props:
-  - cards (Array): Array of card objects
-
+  - cards (Array)
   Emits:
   - add
   - remove(index)
-  - update:cards(newCardsArray)
+  - update:cards(newCards)
 -->
+
 <script setup>
 import CardInput from "./CardInput.vue";
 
@@ -23,11 +21,7 @@ const props = defineProps({
 
 const emit = defineEmits(["add", "remove", "update:cards"]);
 
-/**
- * Updates a specific card in the list
- * @param {number} index
- * @param {Object} updatedCard
- */
+// Updates a specific card in the list
 function updateCard(index, updatedCard) {
   const newCards = [...props.cards];
   newCards[index] = updatedCard;

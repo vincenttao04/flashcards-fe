@@ -1,19 +1,10 @@
 <!--
-  DeckView Page
-  -------------
-  Displays and manages interaction with a specific flashcard deck.
-
-  Responsibilities:
-  - Fetch deck data by deckId.
-  - Handle loading and error states.
-  - Manage card navigation and flip state.
-  - Provide edit navigation.
-
-  Accessibility:
-  - Uses semantic <main>.
-  - Handles loading and error via global interfaces.
-  - Edit link includes accessible label.
+  ViewDeck
+  Purpose: Displays a single deck and provides card navigation + flip.
+  Props:
+  - deckId (String)
 -->
+
 <script setup>
 import { computed, onMounted, ref } from "vue";
 

@@ -1,18 +1,12 @@
 <!--
-  Error Component
-  ---------------
-  Displays either a full-page error or inline component-level error.
-
+  ErrorInterface
+  Purpose: Error UI for full-page and inline component errors.
   Props:
-  - message (String) : Error message to display
-  - link (Boolean) : Whether to show a "Home" navigation link
-  - type ("page" | "component") : Determines layout style
-
-  Accessibility:
-  - Uses role="alert" to announce errors.
-  - Uses semantic <main> for full-page errors.
-  - Navigation handled via router.
+  - message (String)
+  - link (Boolean)
+  - type ("page" | "component")
 -->
+
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 

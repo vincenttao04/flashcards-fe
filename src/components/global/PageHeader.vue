@@ -1,20 +1,14 @@
 <!--
-  PageHeader Component
-  --------------------
-  Reusable page header with optional back navigation and subtitle.
-
+  PageHeader
+  Purpose: Reusable header with title/subtitle and optional back navigation.
   Props:
-  - title (String) : Main heading text
-  - subtitle (String) : Optional secondary description text
-  - showBackLink (Boolean) : Whether to display back navigation
-  - backTo (String | Object) : Route location for back navigation
-  - alignment ("left" | "center" | "right") : Text alignment
-
-  Accessibility:
-  - Uses semantic <header>.
-  - Back navigation uses <router-link>.
-  - Decorative icon marked aria-hidden.
+  - title (String)
+  - subtitle (String | null)
+  - showBackLink (Boolean)
+  - backTo (String | Object)
+  - alignment ("left" | "center" | "right")
 -->
+
 <script setup>
 defineProps({
   title: {

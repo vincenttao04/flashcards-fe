@@ -1,24 +1,10 @@
 <!--
-  Loading Component
-  -----------------
-  Displays a loading spinner with optional full-page layout.
-
+  LoadingInterface
+  Purpose: Loading spinner for full-page and inline component loading.
   Props:
   - type ("page" | "component")
-      Determines whether loading occupies full viewport
-      or renders inline within a component.
-
-  Behaviour:
-  - Introduces a 300ms delay before showing spinner
-    to prevent flicker during fast requests.
-  - Clears timeout on unmount to avoid memory leaks.
-
-  Accessibility:
-  - Uses role="status" with aria-live="polite"
-    to announce loading state.
-  - Uses aria-busy for full-page loading.
-  - Spinner icon is decorative (aria-hidden).
 -->
+
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from "vue";
 

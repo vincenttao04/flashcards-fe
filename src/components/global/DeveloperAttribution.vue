@@ -1,12 +1,6 @@
 <!--
-  Attribution Component
-  ---------------------
-  Displays author attribution and primary technologies used.
-
-  Accessibility:
-  - Uses <footer> for semantic meaning.
-  - Provides aria-label describing technology stack.
-  - Icons are marked decorative (aria-hidden).
+  DeveloperAttribution
+  Purpose: Footer attribution (author + tech icons).
 -->
 
 <template>

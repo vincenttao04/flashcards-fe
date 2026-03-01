@@ -1,16 +1,6 @@
 /**
  * deckApi
- * ----------
- * Centralised API layer for deck-related requests.
- *
- * Responsibilities:
- * - Handles all HTTP communication with the backend
- * - Normalises error handling
- * - Keeps fetch logic out of Vue components
- *
- * Environment:
- * - Uses VITE_API_BASE_URL if defined
- * - Falls back to local development server
+ * Purpose: Backend API wrapper for deck CRUD requests (fetch + consistent error handling).
  */
 
 const API_BASE =

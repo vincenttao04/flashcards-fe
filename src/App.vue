@@ -1,13 +1,8 @@
 <!--
-  App Root Component
-  ------------------
-  Application shell wrapping routed page views.
-
-  Responsibilities:
-  - Provides global layout structure.
-  - Renders current route via <RouterView>.
-  - Displays developer attribution footer.
+  App
+  Purpose: Root application shell (router outlet + footer).
 -->
+
 <script setup>
 import { RouterView } from "vue-router";
 

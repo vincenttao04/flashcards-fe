@@ -1,19 +1,8 @@
 /**
- * Vue Router Configuration
- * -------------------------
- * Defines the routing structure for the Flashcard SPA.
- *
- * Routes:
- * - /                     → HomePage
- * - /create               → CreateDeck
- * - /deck/:deckId         → ViewDeck
- * - /deck/:deckId/edit    → EditDeck
- *
- * Notes:
- * - Route components are lazy-loaded for code splitting.
- * - deckId is passed as a prop to page components.
- * - Explicit /deck prefix prevents path collisions.
+ * router
+ * Purpose: Vue Router routes for Home, Create, View Deck, and Edit Deck pages.
  */
+
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({

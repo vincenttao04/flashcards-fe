@@ -1,17 +1,8 @@
 /**
  * useAsyncState
- * -------------
- * Manages loading and error state for async operations.
- *
- * Usage:
- * const { loading, error, run } = useAsyncState();
- * await run(() => apiCall());
- *
- * Behaviour:
- * - Sets loading=true during execution
- * - Captures error message
- * - Rethrows error for caller handling
+ * Purpose: Composable for tracking loading + error state around async operations.
  */
+
 import { ref } from "vue";
 
 export function useAsyncState() {
