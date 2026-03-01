@@ -9,6 +9,10 @@
  *                   Payload: (index, updatedCard)
  */ -->
 <script setup>
+import { useAutoResizeTextArea } from "@/composables/useAutoResizeTextArea";
+
+const { handleInput } = useAutoResizeTextArea(4);
+
 const props = defineProps({
   card: {
     type: Object,
@@ -38,7 +42,10 @@ function updateField(field, value) {
         :id="`question-${index}`"
         :aria-label="`Question ${index + 1}`"
         :value="card.question"
-        @input="updateField('question', $event.target.value)"
+        @input="
+          updateField('question', $event.target.value);
+          handleInput($event);
+        "
         placeholder="What is the capital of Australia?"
         class="form-input"
         rows="1"
@@ -51,7 +58,10 @@ function updateField(field, value) {
         :id="`answer-${index}`"
         :aria-label="`Answer ${index + 1}`"
         :value="card.answer"
-        @input="updateField('answer', $event.target.value)"
+        @input="
+          updateField('answer', $event.target.value);
+          handleInput($event);
+        "
         placeholder="Canberra"
         class="form-input"
         rows="2"
@@ -82,6 +92,12 @@ label {
   font-size: 1rem;
   transition: border-color 0.2s;
   resize: vertical;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.form-input::-webkit-scrollbar {
+  display: none;
 }
 
 .form-input::placeholder {
@@ -91,5 +107,21 @@ label {
 .form-input:focus {
   outline: none;
   border-color: #adb5bd;
+}
+
+@media (max-width: 640px) {
+  .form-input::placeholder {
+    opacity: 0;
+  }
+
+  .form-input {
+    resize: none;
+    scrollbar-width: thin;
+  }
+
+  .form-input::-webkit-scrollbar {
+    display: block;
+    width: 6px;
+  }
 }
 </style>

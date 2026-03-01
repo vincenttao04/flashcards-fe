@@ -94,7 +94,7 @@ function handleIconClick() {
 
 @media (max-width: 640px) {
   .search-input {
-    padding: 0.75rem;
+    padding: 0.75rem 2.5rem 0.75rem 0.75rem;
   }
 }
 </style>
