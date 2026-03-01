@@ -1,13 +1,14 @@
-<!-- /**
- * PageHeader Component
- * A reusable header component that displays a title, optional subtitle, and back navigation
- * 
- * @component
- * @props {String} title - The main header text
- * @props {String} subtitle - Optional secondary text below the title
- * @props {Boolean} showBackLink - Whether to show the "Back to Sets" navigation link
- * @props {String} alignment - Text alignment ('left', 'center', or 'right')
- */ -->
+<!--
+  PageHeader
+  Purpose: Reusable header with title/subtitle and optional back navigation.
+  Props:
+  - title (String)
+  - subtitle (String | null)
+  - showBackLink (Boolean)
+  - backTo (String | Object)
+  - alignment ("left" | "center" | "right")
+-->
+
 <script setup>
 defineProps({
   title: {
@@ -37,17 +38,21 @@ defineProps({
 <template>
   <header :class="['page-header', alignment]">
     <router-link v-if="showBackLink" :to="backTo" class="back-link">
-      <i class="bi bi-arrow-left"></i>
+      <i class="bi bi-arrow-left" aria-hidden="true"></i>
       <span>Back</span>
     </router-link>
+
     <h1>{{ title }}</h1>
-    <h3 v-if="subtitle">{{ subtitle }}</h3>
+
+    <p v-if="subtitle" class="subtitle">
+      {{ subtitle }}
+    </p>
   </header>
 </template>
 
 <style scoped>
 .page-header {
-  margin: 2.5rem 0 2rem 0;
+  margin-bottom: 2rem;
 }
 
 .page-header.center {
@@ -64,28 +69,32 @@ defineProps({
 
 .back-link {
   display: inline-flex;
-  gap: 0.5rem; /* Gap between the icon and text */
-  margin-bottom: 1.5rem;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
   color: #666;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s ease;
 }
 
 .back-link:hover {
   color: #333;
 }
 
-h1 {
-  color: #2c3e50;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  line-height: 0.8;
+.back-link i {
+  margin-top: 0.07rem;
 }
 
-h3 {
+h1 {
+  color: #2c3e50;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.subtitle {
   font-size: 1.1rem;
   font-weight: 500;
   color: #495057;
+  margin-top: 1rem;
 }
 
 @media (max-width: 640px) {

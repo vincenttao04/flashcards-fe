@@ -1,17 +1,23 @@
-<!-- /**
- * CardSet Component
- * Displays a flashcard set preview with title, description, and metadata
- * 
- * @component
- * @props {Object} set - Flashcard set data containing id, title, description, cards, and createdAt
- * @emits {edit} - Emits when edit button is clicked (payload: setId, setTitle)
- * @emits {delete} - Emits when delete button is clicked (payload: setId, setTitle)
- */ -->
+<!--
+  PageHeader
+  Purpose: Reusable header with title/subtitle and optional back navigation.
+  Props:
+  - title (String)
+  - subtitle (String | null)
+  - showBackLink (Boolean)
+  - backTo (String | Object)
+  - alignment ("left" | "center" | "right")
+-->
+
 <script setup>
 const props = defineProps({
-  set: {
+  deck: {
     type: Object,
     required: true,
+  },
+  deleting: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -27,69 +33,76 @@ function formatDate(dateString) {
 </script>
 
 <template>
-  <div class="card-set">
-    <!-- Main clickable area -->
+  <div class="chip-container">
+    <!-- Main Clickable Area -->
     <router-link
-      :to="{ name: 'flashcard', params: { setId: props.set.id } }"
-      class="card-set-link"
+      :to="{ name: 'deck', params: { deckId: props.deck.id } }"
+      class="chip-link"
     >
-      <div class="set-header">
-        <h2 class="set-title">{{ set.title }}</h2>
-        <span class="card-count"
-          >{{ set.cards.length }}<i class="bi bi-card-text"></i>
+      <div class="chip-header">
+        <h2 class="chip-title">{{ deck.title }}</h2>
+
+        <span class="card-count">
+          {{ deck.cards.length }}
+          <i class="bi bi-card-text" aria-hidden="true"></i>
         </span>
       </div>
 
-      <p class="set-description">{{ set.description }}</p>
+      <p class="chip-description">{{ deck.description }}</p>
 
-      <div class="set-footer">
-        <span class="created-date"
-          >Created: {{ formatDate(set.createdAt) }}</span
-        >
+      <div class="chip-footer">
+        <p class="created-date">
+          <span class="created-label">Created:</span>
+          {{ formatDate(deck.createdAt) }}
+        </p>
+        <!-- Action Buttons -->
+        <div class="chip-actions">
+          <router-link
+            :to="{ name: 'edit', params: { deckId: deck.id } }"
+            class="edit-btn"
+            :aria-label="`Edit ${deck.title}`"
+          >
+            <i class="bi bi-pen" aria-hidden="true"></i>
+          </router-link>
+          <button
+            class="delete-btn"
+            :disabled="deleting"
+            @click="$emit('delete', deck.id, deck.title)"
+            :aria-label="`Delete ${deck.title}`"
+          >
+            <i class="bi bi-trash" aria-hidden="true"></i>
+          </button>
+        </div>
       </div>
     </router-link>
-
-    <!-- Action buttons -->
-    <!-- TODO: Implement delete functionality -->
-    <div class="action-buttons">
-      <router-link
-        :to="{ name: 'edit', params: { setId: props.set.id } }"
-        class="edit-button"
-      >
-        <i class="bi bi-pen"></i>
-      </router-link>
-      <button class="delete-button" @click="$emit('delete', set.id, set.title)">
-        <i class="bi bi-trash"></i>
-      </button>
-    </div>
   </div>
 </template>
 
 <style scoped>
-.card-set {
+.chip-container {
   position: relative;
   background-color: white;
   border-radius: 6px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  padding: 1.5rem;
   transition:
     transform 0.2s,
     box-shadow 0.2s;
 }
 
-.card-set:hover {
+.chip-container:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
 }
 
-.card-set-link {
+.chip-link {
   text-decoration: none;
   color: inherit;
   display: flex;
   flex-direction: column;
+  padding: 1.5rem;
 }
 
-.set-header {
+.chip-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -97,7 +110,7 @@ function formatDate(dateString) {
   gap: 0.75rem;
 }
 
-.set-title {
+.chip-title {
   font-size: 1.25rem;
   font-weight: 600;
   color: #2c3e50;
@@ -128,7 +141,7 @@ function formatDate(dateString) {
   margin-top: 0.015rem;
 }
 
-.set-description {
+.chip-description {
   color: #6c757d;
   margin-bottom: 1.25rem;
   font-size: 0.95rem;
@@ -145,67 +158,68 @@ function formatDate(dateString) {
   min-height: 4.4rem; */
 }
 
-.set-footer {
+.chip-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: last baseline;
+  gap: 0.75rem;
   margin-top: auto;
-  padding-top: 1.25rem;
+  padding-top: 0.75rem;
   border-top: 1px solid #e9ecef;
 }
 
 .created-date {
   color: #6c757d;
   font-size: 0.85rem;
+  margin-bottom: 0;
 }
 
-.action-buttons {
-  position: absolute;
-  bottom: 1.5rem;
-  right: 1.5rem;
+.chip-actions {
   display: flex;
   gap: 0.6rem;
-  z-index: 1;
 }
 
-.edit-button,
-.delete-button {
+.edit-btn,
+.delete-btn {
   background: none;
   border: none;
   cursor: pointer;
   transition: color 0.2s;
 }
 
-.edit-button {
+.edit-btn {
   color: #666;
   font-size: 1.14rem;
 }
 
-.edit-button:hover {
+.edit-btn:hover {
   color: #000;
 }
 
-.edit-button:focus-visible {
+.edit-btn:focus-visible {
   outline: 2px solid #666;
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-.delete-button {
+.delete-btn {
   color: #dc3545;
   font-size: 1.2rem;
 }
 
-.delete-button:hover {
+.delete-btn:hover {
   color: #bb2d3b;
 }
 
-.delete-button:focus-visible {
+.delete-btn:focus-visible {
   outline: 2px solid #dc3545;
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-@media (max-width: 480px) {
-  .set-footer {
-    padding-bottom: 2rem;
+@media (max-width: 360px) {
+  .created-label {
+    display: none;
   }
 }
 </style>

@@ -1,38 +1,18 @@
-<!-- /**
- * CardPreview Component
- * Displays a preview of flashcards with navigation controls
- * 
- * @component
- * @props {Array} cards - Array of flashcard objects to preview
- * @props {Number} previewIndex - Current card index being displayed
- * @emits {update:index} - Emits when navigation changes the current card
- *                         Payload: (newIndex)
- */ -->
-<template>
-  <div class="preview-section">
-    <h2>Preview</h2>
-    <div class="preview-card">
-      <FlashCard
-        :card="cards[previewIndex]"
-        :is-flipped="isFlipped"
-        @flip="isFlipped = !isFlipped"
-      />
-
-      <CardNavigator
-        :current-index="previewIndex"
-        :total="cards.length"
-        @prev="prevCard"
-        @next="nextCard"
-        class="preview-navigator"
-      />
-    </div>
-  </div>
-</template>
+<!--
+  CardPreview
+  Purpose: Live preview of cards with flip + next/previous navigation.
+  Props:
+  - cards (Array)
+  - previewIndex (Number)
+  Emits:
+  - update:index(newIndex)
+-->
 
 <script setup>
 import { ref } from "vue";
-import FlashCard from "../flashcard/CardInterface.vue";
-import CardNavigator from "../flashcard/CardNavigator.vue";
+
+import CardInterface from "@/components/deck/CardInterface.vue";
+import CardNavigator from "@/components/deck/CardNavigator.vue";
 
 const props = defineProps({
   cards: {
@@ -48,7 +28,9 @@ const props = defineProps({
 const emit = defineEmits(["update:index"]);
 const isFlipped = ref(false);
 
-// Function to display the next card
+/**
+ * Move to next card
+ */
 function nextCard() {
   if (props.previewIndex < props.cards.length - 1) {
     emit("update:index", props.previewIndex + 1);
@@ -56,7 +38,9 @@ function nextCard() {
   }
 }
 
-// Function to display the previous card
+/**
+ * Move to previous card
+ */
 function prevCard() {
   if (props.previewIndex > 0) {
     emit("update:index", props.previewIndex - 1);
@@ -65,8 +49,30 @@ function prevCard() {
 }
 </script>
 
+<template>
+  <section class="preview-container" aria-labelledby="preview-heading">
+    <h2 id="preview-heading">Preview</h2>
+
+    <div class="preview-card">
+      <CardInterface
+        :card="cards[previewIndex]"
+        :is-flipped="isFlipped"
+        @flip="isFlipped = !isFlipped"
+      />
+
+      <CardNavigator
+        :current-index="previewIndex"
+        :total="cards.length"
+        @prev="prevCard"
+        @next="nextCard"
+        class="preview-navigator"
+      />
+    </div>
+  </section>
+</template>
+
 <style scoped>
-.preview-section {
+.preview-container {
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid #e9ecef;
@@ -75,8 +81,7 @@ function prevCard() {
 .preview-card {
   width: 100%;
   max-width: 500px;
-  margin: 0 auto;
-  margin-top: 2rem;
+  margin: 2rem auto 0;
 }
 
 .preview-navigator {
