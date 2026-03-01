@@ -91,12 +91,19 @@ defineEmits(["prev", "next"]);
   text-overflow: ellipsis;
 }
 
-@media (max-width: 420px) {
+@media (max-width: 480px) {
   .controls {
     gap: 1rem;
   }
+
   .control-text {
     display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .controls {
+    gap: 0.5rem;
   }
 }
 </style>
