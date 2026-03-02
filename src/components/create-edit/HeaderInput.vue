@@ -10,10 +10,6 @@
 -->
 
 <script setup>
-import { useAutoResizeTextArea } from "@/composables/useAutoResizeTextArea";
-
-const { handleInput } = useAutoResizeTextArea(3);
-
 defineProps({
   title: {
     type: String,
@@ -28,12 +24,10 @@ defineProps({
 const emit = defineEmits(["update:title", "update:description"]);
 
 function handleTitleInput(event) {
-  handleInput(event);
   emit("update:title", event.target.value);
 }
 
 function handleDescriptionInput(event) {
-  handleInput(event);
   emit("update:description", event.target.value);
 }
 </script>
@@ -60,7 +54,7 @@ function handleDescriptionInput(event) {
         :value="description"
         @input="handleDescriptionInput"
         class="form-input textarea-input"
-        rows="1"
+        rows="2"
         required
         aria-required="true"
       ></textarea>
@@ -93,11 +87,6 @@ function handleDescriptionInput(event) {
 .textarea-input {
   resize: vertical;
   overflow-y: auto;
-  scrollbar-width: none;
-}
-
-.textarea-input::-webkit-scrollbar {
-  display: none;
 }
 
 .title {
@@ -128,16 +117,6 @@ label {
 @media (max-width: 640px) {
   .form-container {
     padding: 1.5rem;
-  }
-
-  .textarea-input {
-    resize: none;
-    scrollbar-width: thin;
-  }
-
-  .textarea-input::-webkit-scrollbar {
-    display: block;
-    width: 6px;
   }
 }
 </style>

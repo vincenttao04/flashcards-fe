@@ -9,10 +9,6 @@
 -->
 
 <script setup>
-import { useAutoResizeTextArea } from "@/composables/useAutoResizeTextArea";
-
-const { handleInput } = useAutoResizeTextArea(4);
-
 const props = defineProps({
   card: {
     type: Object,
@@ -31,8 +27,6 @@ function updateField(field, value) {
     ...props.card,
     [field]: value,
   });
-
-  handleInput();
 }
 </script>
 
@@ -43,12 +37,9 @@ function updateField(field, value) {
       <textarea
         :id="`question-${index}`"
         :value="card.question"
-        @input="
-          updateField('question', $event.target.value);
-          handleInput($event);
-        "
+        @input="updateField('question', $event.target.value)"
         class="form-input"
-        rows="1"
+        rows="2"
       ></textarea>
     </div>
 
@@ -57,10 +48,7 @@ function updateField(field, value) {
       <textarea
         :id="`answer-${index}`"
         :value="card.answer"
-        @input="
-          updateField('answer', $event.target.value);
-          handleInput($event);
-        "
+        @input="updateField('answer', $event.target.value)"
         class="form-input"
         rows="2"
       ></textarea>
@@ -91,28 +79,10 @@ label {
   transition: border-color 0.2s;
   resize: vertical;
   overflow-y: auto;
-  scrollbar-width: none;
 }
-
-.form-input::-webkit-scrollbar {
-  display: none;
-}
-
 
 .form-input:focus {
   outline: none;
   border-color: #adb5bd;
-}
-
-@media (max-width: 640px) {
-  .form-input {
-    resize: none;
-    scrollbar-width: thin;
-  }
-
-  .form-input::-webkit-scrollbar {
-    display: block;
-    width: 6px;
-  }
 }
 </style>

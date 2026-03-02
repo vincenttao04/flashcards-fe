@@ -190,15 +190,16 @@ h3 {
 
 @media (max-width: 640px) {
   .card-container {
-    height: 250px;
+    padding-top: 1rem;
+    height: 450px;
   }
 
   .card-front .content p {
-    font-size: 1.1rem;
+    font-size: 1.35rem;
   }
 
   .card-back .content p {
-    font-size: 0.88rem;
+    font-size: 1rem;
   }
 
   .content {

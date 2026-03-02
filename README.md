@@ -29,7 +29,7 @@ The frontend communicates with a RESTful backend API for all data persistence. T
 
 ## Demo
 
-[Watch App Demo](assets/demo.mp4)
+[Watch App Demo](https://youtu.be/TyffglO9AcE)
 
 ## Features
 
@@ -40,9 +40,9 @@ The frontend communicates with a RESTful backend API for all data persistence. T
 - Delete decks with a confirmation prompt
 - View cards one at a time with a flip animation (question ↔ answer)
 - Navigate between cards with previous/next controls and a progress indicator
-- Auto-resizing textareas in all form inputs
 - Consistent loading and error states for both full-page and inline contexts
 - Keyboard and screen-reader accessibility throughout
+- Fully responsive design across desktop and mobile devices
 
 ## Tech Stack
 
@@ -137,7 +137,6 @@ flashcards-fe/
 │   │
 │   ├── composables/
 │   │   ├── useAsyncState.js              # loading + error state wrapper for async operations
-│   │   ├── useAutoResizeTextArea.js      # Auto-resizes textareas up to a configurable row limit
 │   │   └── useDeckForm.js                # Form state, validation, and card management
 │   │
 │   ├── pages/
@@ -174,9 +173,9 @@ Pages are route-level views responsible for fetching their own data and composin
 
 **`create-edit/`** - Used exclusively by `CreateDeck` and `EditDeck`.
 
-- **`HeaderInput`** - Paired textareas for deck title and description. Uses `useAutoResizeTextArea` (max 3 rows).
+- **`HeaderInput`** - Paired textareas for deck title and description.
 - **`CardList`** - Renders a `CardInput` per card with Add/Remove controls. Remove is disabled when only one card remains.
-- **`CardInput`** - Question and answer textareas for a single card. Uses `useAutoResizeTextArea` (max 4 rows).
+- **`CardInput`** - Question and answer textareas for a single card.
 - **`CardPreview`** - Live read-only preview reusing `CardInterface` and `CardNavigator`. Only shown when at least one card has content.
 - **`FormActions`** - Save and Cancel buttons. Save is disabled when the form is invalid or a request is in progress. Shows a validation hint or API error below the buttons.
 
@@ -201,8 +200,6 @@ Pages are route-level views responsible for fetching their own data and composin
 ### Composables
 
 **`useAsyncState`** - Wraps an async function with `loading` and `error` reactive refs. `run(asyncFn)` sets `loading`, clears any prior error, and always resets `loading` on completion. Pages that need separate loading and saving states (e.g. `EditDeck`, `HomePage`) create two independent instances.
-
-**`useAutoResizeTextArea`** - Accepts a `maxRows` argument (default `5`). On each input event, resets height to `auto` then clamps `scrollHeight` to `lineHeight × maxRows`. Falls back to a visible scrollbar on mobile (≤ 640 px).
 
 **`useDeckForm`** - Manages all reactive form state for deck creation and editing. Accepts optional `initialData` to pre-populate fields. Exposes:
 
