@@ -6,9 +6,9 @@ The frontend communicates with a RESTful backend API for all data persistence. T
 
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
-- [Tech Stack](#tech-stack)
+- [Demo](#demo)
 - [Features](#features)
+- [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
