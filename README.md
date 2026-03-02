@@ -27,6 +27,23 @@ The frontend communicates with a RESTful backend API for all data persistence. T
 - [License](#license)
 - [Author](#author)
 
+## Demo
+
+<video src="assets/demo.mp4" controls width="100%"></video>
+
+## Features
+
+- View all flashcard decks in a responsive grid layout
+- Search decks by title, description, or card content
+- Create new decks with any number of cards and a live preview
+- Edit existing decks with pre-populated form data
+- Delete decks with a confirmation prompt
+- View cards one at a time with a flip animation (question ↔ answer)
+- Navigate between cards with previous/next controls and a progress indicator
+- Auto-resizing textareas in all form inputs
+- Consistent loading and error states for both full-page and inline contexts
+- Keyboard and screen-reader accessibility throughout
+
 ## Tech Stack
 
 **Core**
@@ -46,21 +63,6 @@ The frontend communicates with a RESTful backend API for all data persistence. T
 - [eslint-plugin-simple-import-sort](https://github.com/lydell/eslint-plugin-simple-import-sort)
 - [Prettier](https://prettier.io/)
 - [unplugin-icons](https://github.com/antfu/unplugin-icons) + [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components) - Auto-imported icon components via `<i-simple-icons-*>` syntax
-
----
-
-## Features
-
-- View all flashcard decks in a responsive grid layout
-- Search decks by title, description, or card content
-- Create new decks with any number of cards and a live preview
-- Edit existing decks with pre-populated form data
-- Delete decks with a confirmation prompt
-- View cards one at a time with a flip animation (question ↔ answer)
-- Navigate between cards with previous/next controls and a progress indicator
-- Auto-resizing textareas in all form inputs
-- Consistent loading and error states for both full-page and inline contexts
-- Keyboard and screen-reader accessibility throughout
 
 ## Getting Started
 
@@ -103,6 +105,9 @@ The app is typically available at [http://localhost:5173](http://localhost:5173)
 
 ```
 flashcards-fe/
+├── assets/
+|   └── demo.mp4
+|
 ├── src/
 │   ├── api/
 │   │   └── deckApi.js                    # Centralised backend API wrapper
