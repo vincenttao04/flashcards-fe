@@ -29,7 +29,10 @@ The frontend communicates with a RESTful backend API for all data persistence. T
 
 ## Demo
 
-[Watch App Demo](https://youtu.be/TyffglO9AcE)
+**Watch App Demo**
+
+- [YouTube](https://youtu.be/L5bPalytsLU)
+- [Video File](assets/demo.mp4)
 
 ## Features
 
