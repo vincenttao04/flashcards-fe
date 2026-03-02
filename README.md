@@ -29,7 +29,7 @@ The frontend communicates with a RESTful backend API for all data persistence. T
 
 ## Demo
 
-<video src="assets/demo.mp4" controls width="100%"></video>
+[Watch App Demo](assets/demo.mp4)
 
 ## Features
 
