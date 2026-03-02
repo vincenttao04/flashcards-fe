@@ -1,120 +1,262 @@
-# FlashCard App (Vue)
+# Flashcards (Frontend)
 
-This is a simple frontend flashcard application built with Vue 3 and Vite. It demonstrates core Vue concepts like component structure, routing, and state management using basic functionalities.
+A flashcard web application built with **Vue 3** and **Vite**, developed for the COMPSCI 732 Individual Assignment at the University of Auckland (Semester 1, 2025).
+
+The frontend communicates with a RESTful backend API for all data persistence. The backend repository can be found at [flashcards-be](https://github.com/vincenttao04/flashcards-be).
+
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Tech Stack](#tech-stack)
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running the App](#running-the-app)
+  - [Troubleshooting](#troubleshooting)
+- [Project Structure](#project-structure)
+- [Architecture](#architecture)
+  - [Pages](#pages)
+  - [Components](#components)
+  - [Composables](#composables)
+  - [API Layer](#api-layer)
+  - [Router](#router)
+- [Environment Variables](#environment-variables)
+- [Available Scripts](#available-scripts)
+- [Future Work](#future-work)
+- [License](#license)
+- [Author](#author)
+
+## Tech Stack
+
+**Core**
+
+- [Vue 3](https://vuejs.org/) - Composition API
+- [Vue Router 4](https://router.vuejs.org/) - Client-side routing with lazy-loaded routes
+- [Vite 6](https://vite.dev/) - Development server and build tool
+
+**Styling**
+
+- [Bootstrap 5](https://getbootstrap.com/) - UI utilities and components
+- [Bootstrap Icons](https://icons.getbootstrap.com/)
+
+**Tooling**
+
+- [ESLint](https://eslint.org/) + [eslint-plugin-vue](https://eslint.vuejs.org/)
+- [eslint-plugin-simple-import-sort](https://github.com/lydell/eslint-plugin-simple-import-sort)
+- [Prettier](https://prettier.io/)
+- [unplugin-icons](https://github.com/antfu/unplugin-icons) + [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components) - Auto-imported icon components via `<i-simple-icons-*>` syntax
 
 ---
 
-## 🚀 Getting Started
+## Features
 
-Follow these steps to clone and run the project locally.
+- View all flashcard decks in a responsive grid layout
+- Search decks by title, description, or card content
+- Create new decks with any number of cards and a live preview
+- Edit existing decks with pre-populated form data
+- Delete decks with a confirmation prompt
+- View cards one at a time with a flip animation (question ↔ answer)
+- Navigate between cards with previous/next controls and a progress indicator
+- Auto-resizing textareas in all form inputs
+- Consistent loading and error states for both full-page and inline contexts
+- Keyboard and screen-reader accessibility throughout
 
-### Prerequisites (Important)
+## Getting Started
 
-Before starting, make sure you have the following installed on your computer:
+### Prerequisites
 
-**Node.js (v14.0.0 or higher)**
+| Tool                                 | Minimum Version | Check            |
+| ------------------------------------ | --------------- | ---------------- |
+| [Node.js](https://nodejs.org/)       | v14.0.0         | `node --version` |
+| npm                                  | v6.0.0          | `npm --version`  |
+| [Git](https://git-scm.com/downloads) | Any             | `git --version`  |
 
-- Download from: https://nodejs.org/
-- To check if installed, run: "node --version" in your terminal
+A code editor such as [VS Code](https://code.visualstudio.com/) is recommended.
 
-**npm (v6.0.0 or higher)**
-
-- Comes with Node.js
-- To check if installed, run: "npm --version" in your terminal
-
-**Git**
-
-- Download from: https://git-scm.com/downloads
-- To check if installed, run: git --version in your terminal
-
-**VS Code (recommended editor)**
-
-- Download from: https://code.visualstudio.com/
-
-## Running the App
-
-### 1. Clone the Repository
+### Installation
 
 ```bash
-git clone (HTTPS CLONING LINK)
-cd your-repo-name
-```
-
-### 2. Install Dependencies
-
-Open the project repo in VS Code (or run "code ."), open the terminal and run:
-
-```bash
+git clone https://github.com/vincenttao04/flashcards-fe.git
+cd flashcards-fe
 npm install
 ```
 
-### 3. Start the Development Server
+### Running the App
 
 ```bash
 npm run dev
 ```
 
-### 4. Access the Application
+The app is typically available at [http://localhost:5173](http://localhost:5173). If the port is in use, Vite will select the next available one - check the terminal output.
 
-The flashcard application will typically be running at: http://localhost:5173/
+> **Note:** The backend must also be running for data to load. See [flashcards-be](https://github.com/vincenttao04/flashcards-be) for setup instructions.
 
-### 5. Troubleshooting
+### Troubleshooting
 
-- If port 5173 is already in use, Vite will automatically try the next available port. Be sure to read text in the terminal to see which port Vite has selected.
+- **Port conflict:** Vite auto-selects the next free port - check the terminal for the correct URL.
+- **Installation errors:** Delete `node_modules`, then re-run `npm install` and `npm run dev`.
+- **Missing dependencies:** Confirm you are in the correct directory and re-run `npm install`.
+- **Windows permission errors:** Try running your terminal or VS Code as Administrator.
 
-- If you encounter any installation issues, try deleting the node_modules folder and running 'npm install' and 'npm run dev' again.
+## Project Structure
 
-- If you see any errors about missing dependencies, make sure you're in the correct folder and ry running 'npm install' and 'npm run dev' again.
+```
+flashcards-fe/
+├── src/
+│   ├── api/
+│   │   └── deckApi.js                    # Centralised backend API wrapper
+│   │
+│   ├── components/
+│   │   ├── create-edit/
+│   │   │   ├── CardInput.vue             # Question/answer textarea inputs for one card
+│   │   │   ├── CardList.vue              # Renders and manages the list of CardInput items
+│   │   │   ├── CardPreview.vue           # Live card preview with flip + navigation
+│   │   │   ├── FormActions.vue           # Save / Cancel buttons with validation state
+│   │   │   └── HeaderInput.vue           # Deck title + description inputs
+│   │   │
+│   │   ├── deck/
+│   │   │   ├── CardIndicators.vue        # Pagination dots (implemented, currently unused)
+│   │   │   ├── CardInterface.vue         # Clickable card with 3D flip animation
+│   │   │   └── CardNavigator.vue         # Previous / Next controls + progress counter
+│   │   │
+│   │   ├── global/
+│   │   │   ├── DeveloperAttribution.vue  # Footer with author name and tech icons
+│   │   │   ├── ErrorInterface.vue        # Full-page and inline error display
+│   │   │   ├── LoadingInterface.vue      # Full-page and inline loading spinner
+│   │   │   └── PageHeader.vue            # Reusable heading with optional back link
+│   │   │
+│   │   └── home/
+│   │       ├── DeckChip.vue              # Deck card with title, description, date, and actions
+│   │       └── SearchBar.vue             # Search input with v-model and a clear button
+│   │
+│   ├── composables/
+│   │   ├── useAsyncState.js              # loading + error state wrapper for async operations
+│   │   ├── useAutoResizeTextArea.js      # Auto-resizes textareas up to a configurable row limit
+│   │   └── useDeckForm.js                # Form state, validation, and card management
+│   │
+│   ├── pages/
+│   │   ├── HomePage.vue                  # Deck library with search and delete
+│   │   ├── CreateDeck.vue                # New deck form with live preview
+│   │   ├── EditDeck.vue                  # Pre-populated edit form loaded by deck ID
+│   │   └── ViewDeck.vue                  # Single deck viewer with flip and navigation
+│   │
+│   ├── router/
+│   │   └── index.js                      # Vue Router config with lazy-loaded routes
+│   │
+│   ├── App.vue                           # Root shell: RouterView + footer
+│   └── main.js                           # Entry point: registers router, imports global styles
+│
+├── vite.config.js                        # Vite config: Vue plugin, icon auto-import, @ alias
+├── package.json
+└── README.md
+```
 
-- For Windows users: If you get permission errors, try running your terminal and/or VS Code as administrator.
+## Architecture
+
+### Pages
+
+Pages are route-level views responsible for fetching their own data and composing components.
+
+| Page             | Route                | Description                                                                                                                                |
+| ---------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `HomePage.vue`   | `/`                  | Fetches all decks on mount. Filters in real time across title, description, and card content. Handles deletion with a confirmation dialog. |
+| `CreateDeck.vue` | `/create`            | Blank deck form. On save, POSTs to the API, resets the form, and redirects home. Shows a live preview while any card content exists.       |
+| `EditDeck.vue`   | `/deck/:deckId/edit` | Loads and pre-populates the deck form on mount. On save, PUTs to the API and redirects to the deck view.                                   |
+| `ViewDeck.vue`   | `/deck/:deckId`      | Loads a single deck by ID. Manages card index and flip state locally, with previous/next navigation and an edit shortcut in the header.    |
+
+### Components
+
+**`create-edit/`** - Used exclusively by `CreateDeck` and `EditDeck`.
+
+- **`HeaderInput`** - Paired textareas for deck title and description. Uses `useAutoResizeTextArea` (max 3 rows).
+- **`CardList`** - Renders a `CardInput` per card with Add/Remove controls. Remove is disabled when only one card remains.
+- **`CardInput`** - Question and answer textareas for a single card. Uses `useAutoResizeTextArea` (max 4 rows).
+- **`CardPreview`** - Live read-only preview reusing `CardInterface` and `CardNavigator`. Only shown when at least one card has content.
+- **`FormActions`** - Save and Cancel buttons. Save is disabled when the form is invalid or a request is in progress. Shows a validation hint or API error below the buttons.
+
+**`deck/`** - Used by `ViewDeck` and reused by `CardPreview`.
+
+- **`CardInterface`** - The core flashcard UI. A full-height button with a CSS 3D `rotateY` flip transition and proper `aria-hidden` management on each face.
+- **`CardNavigator`** - Previous/Next buttons with boundary-aware disabled states and an `aria-live` progress counter. Button labels are hidden on small screens (≤ 480 px).
+- **`CardIndicators`** - Dot-style per-card pagination. Fully implemented but currently commented out in `ViewDeck` - ready to enable.
+
+**`global/`** - Shared across the entire application.
+
+- **`PageHeader`** - `<h1>` with an optional subtitle and back link. Accepts an `alignment` prop (`left` | `center` | `right`).
+- **`LoadingInterface`** - Bootstrap spinner with a 300 ms mount delay to prevent flicker on fast requests. Supports `page` and `component` modes.
+- **`ErrorInterface`** - Error display in either full-viewport (`page`) or inline (`component`) mode. In `page` mode, optionally shows a Home button.
+- **`DeveloperAttribution`** - Footer with the author name and Simple Icons for Vue, TypeScript, Node.js, and Prisma.
+
+**`home/`** - Used only by `HomePage`.
+
+- **`DeckChip`** - Card-style deck summary showing title, description (2-line clamp), card count, creation date, and edit/delete actions. Delete emits to the parent rather than calling the API directly.
+- **`SearchBar`** - Controlled `v-model` input. Toggles between a search icon (empty) and a clear button (with query).
+
+### Composables
+
+**`useAsyncState`** - Wraps an async function with `loading` and `error` reactive refs. `run(asyncFn)` sets `loading`, clears any prior error, and always resets `loading` on completion. Pages that need separate loading and saving states (e.g. `EditDeck`, `HomePage`) create two independent instances.
+
+**`useAutoResizeTextArea`** - Accepts a `maxRows` argument (default `5`). On each input event, resets height to `auto` then clamps `scrollHeight` to `lineHeight × maxRows`. Falls back to a visible scrollbar on mobile (≤ 640 px).
+
+**`useDeckForm`** - Manages all reactive form state for deck creation and editing. Accepts optional `initialData` to pre-populate fields. Exposes:
+
+- `title`, `description`, `cards`, `previewIndex` - reactive form values
+- `isFormValid` - `true` only when all fields are non-empty
+- `hasContent` - `true` when any card has at least one non-empty field
+- `addCard()`, `removeCard(index)`, `updateCards(newCards)`, `resetForm()`
+
+### API Layer
+
+All backend communication is centralised in `src/api/deckApi.js`. The base URL is read from `VITE_API_BASE_URL`, defaulting to `http://localhost:3000`. An internal `handleResponse` function throws a descriptive error on non-OK responses and safely parses JSON on success.
+
+| Method                 | HTTP     | Endpoint         |
+| ---------------------- | -------- | ---------------- |
+| `getAll()`             | `GET`    | `/decks`         |
+| `get(deckId)`          | `GET`    | `/decks/:deckId` |
+| `create(data)`         | `POST`   | `/decks`         |
+| `update(deckId, data)` | `PUT`    | `/decks/:deckId` |
+| `delete(deckId)`       | `DELETE` | `/decks/:deckId` |
+
+### Router
+
+Defined in `src/router/index.js` using `createWebHistory`. All pages are lazy-loaded and route params are passed as props to `ViewDeck` and `EditDeck`.
+
+| Route                | Name     | Component    | Props    |
+| -------------------- | -------- | ------------ | -------- |
+| `/`                  | `home`   | `HomePage`   | -        |
+| `/create`            | `create` | `CreateDeck` | -        |
+| `/deck/:deckId`      | `deck`   | `ViewDeck`   | `deckId` |
+| `/deck/:deckId/edit` | `edit`   | `EditDeck`   | `deckId` |
+
+## Environment Variables
+
+Create a `.env` file in the project root to override defaults:
+
+```env
+VITE_API_BASE_URL=http://localhost:3000
+```
+
+## Available Scripts
+
+| Script    | Command                         | Description                            |
+| --------- | ------------------------------- | -------------------------------------- |
+| `dev`     | `vite`                          | Start the development server with HMR  |
+| `build`   | `vite build`                    | Compile and bundle for production      |
+| `preview` | `vite preview`                  | Preview the production build locally   |
+| `lint`    | `eslint . --ext .js,.vue --fix` | Lint and auto-fix all JS and Vue files |
 
 ## Future Work
 
-1. add a marquee carousel at the bottom for flashcard navigation
-2. maybe deploy (see costing)
+- Implement a marquee-style carousel for smoother and more intuitive card navigation within the deck view.
+- Introduce user authentication with per-user deck storage and data isolation.
+- Deploy the application to a production environment with proper environment configuration
+- Implement proper confirmation dialogs for destructive actions (e.g., delete) instead of relying on native `alert()` prompts
 
-3. mobile responsive, aria labels, code comments at the top of the file.
-4. readme
-5. add deckData, delete deckData
-6. marquee carousel
+## License
 
-## Simple Icons Setup (Vue 3 + Vite)
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-`npm install -D unplugin-icons unplugin-vue-components`
+## Author
 
-vite.config.js:
-
-```
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import Icons from "unplugin-icons/vite";
-import Components from "unplugin-vue-components/vite";
-import IconsResolver from "unplugin-icons/resolver";
-
-export default defineConfig({
-  plugins: [
-    vue(),
-
-    Icons({
-      compiler: "vue3",
-      autoInstall: true,
-    }),
-
-    Components({
-      resolvers: [
-        IconsResolver({
-          prefix: "i", // enables <i-...> usage
-        }),
-      ],
-    }),
-  ],
-});
-```
-
-restart server (re-run npm run dev)
-
-use like so: `<i-simple-icons-vuedotjs width="20" height="20" />`
-
-## Fix Linting Issues
-
-Manual run command - should already run automatically on auto save: `npx eslint . --fix`
+Vincent Tao - @vincenttao04
