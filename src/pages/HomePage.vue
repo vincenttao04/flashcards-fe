@@ -5,6 +5,7 @@
 
 <script setup>
 import { computed, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 
 import { deckApi } from "@/api/deckApi";
 import ErrorInterface from "@/components/global/ErrorInterface.vue";
@@ -14,6 +15,7 @@ import DeckChip from "@/components/home/DeckChip.vue";
 import SearchBar from "@/components/home/SearchBar.vue";
 import { useAsyncState } from "@/composables/useAsyncState";
 
+const router = useRouter();
 const searchQuery = ref("");
 const decks = ref([]);
 
@@ -48,6 +50,8 @@ async function handleDelete(deckId, deckTitle) {
       await deckApi.delete(deckId);
       decks.value = decks.value.filter((deck) => deck.id !== deckId);
     });
+
+    router.push({ name: "home" });
   } catch {
     alert(deleteError.value || "Failed to delete flashcards");
   }
@@ -119,6 +123,10 @@ const noSearchResults = computed(() => {
           No search results for:
           {{ searchQuery }}
         </em>
+      </p>
+
+      <p v-else-if="decks.length === 0" class="text-muted">
+        <em> No flashcards. Click "Create Flashcards" to get started! </em>
       </p>
 
       <section v-else class="decks-container">
